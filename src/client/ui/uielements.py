@@ -22,6 +22,51 @@ class photo():
 
         surface.blit(self.photo, (self.x, self.y))
 
+class photoButton(photo):
+
+    def __init__(self, inputManager, x, y, w, h, imagePath, hoverImagePath, aciton):
+
+        super().__init__(x, y, w, h, imagePath)
+
+        self.hoverphoto = pygame.image.load(c.ASSETS_PATH + hoverImagePath).convert()
+        self.hoverphoto = pygame.transform.smoothscale(self.photo, (w, h))
+
+        self.inputm = inputManager
+        self.hovered = False
+        self.focused = True
+        self.active = True
+
+    def appendAction(self, onClick=None):
+
+        self.onClick = onClick
+
+    def render(self, surface):
+
+        if (self.hovered):
+
+            surface.blit(self.photo, (self.x, self.y))
+
+        else:
+
+            surface.blit(self.photo, (self.x, self.y))
+
+    def process(self):
+
+        mousePos = pygame.mouse.get_pos()
+        clicked = self.inputm.MOUSE_DOWN
+
+        if self.focused and self.active and self.x <= mousePos[0] <= self.x + self.w and self.y <= mousePos[1] <= self.y + self.h:
+
+            self.hovered = True
+
+            if clicked and self.onClick:
+
+                self.onClick()
+
+        else:
+
+            self.hovered = False
+
 class primativeElement():
 
     def __init__(self, x, y, w, h, colour = c.Colours.WHITE, alpha=False):
@@ -60,7 +105,7 @@ class primativeElement():
 
 class label(primativeElement):
 
-    def __init__(self, x, y, w, h, colour = c.Colours.INVISIBLE, textColour = c.Colours.BLACK, text='', fontSize = 32):
+    def __init__(self, x, y, w, h, textColour = c.Colours.BLACK, text='', fontSize = 32):
 
         self.active = True
 
@@ -69,8 +114,6 @@ class label(primativeElement):
 
         self.w = w
         self.h = h
-        
-        self.colour = colour
 
         self.text = text
         self.fontSize = fontSize
@@ -78,7 +121,6 @@ class label(primativeElement):
 
     def render(self, surface):
 
-        pygame.draw.rect(surface, self.colour, (self.x, self.y, self.w, self.h))
         font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
         textSurf = font.render(self.text, False, self.textColour)
 
@@ -96,7 +138,8 @@ class button(label):
     
     def __init__(self, inputManager, x, y, w, h, colour=c.Colours.WHITE, hoverColour=c.Colours.GREY, textColour=c.Colours.BLACK, text='', fontSize = 32, onClick=None):
 
-        super().__init__(x, y, w, h, colour, textColour, text, fontSize)
+        super().__init__(x, y, w, h, textColour, text, fontSize)
+        self.colour = colour
         self.onClick = onClick
         self.hoverColour = hoverColour
         self.inputm = inputManager
@@ -159,6 +202,7 @@ class popupMenu():
 
                 primativeElement.process()
                 primativeElement.render(surface)
+
 
     def disable(self):
 

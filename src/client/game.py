@@ -75,4 +75,4 @@ class Game():
 
             self.inputManager.resetInput()
 
-            self.clock.tick(c.FRAME_RATE)    
+            self.clock.tick(c.FRAME_RATE)   

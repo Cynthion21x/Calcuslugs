@@ -10,35 +10,47 @@ class mainMenu():
         self.game = game
         self.display = game.display
 
+        # >>>>>>>>>>>>>>>>>>>>>>
+
         self.background = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\sprites\\UI\\BG.png")
 
-        self.HostButton = ui.button(game.inputManager, 186, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
-        self.JoinButton = ui.button(game.inputManager, 570, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
+        self.HostButton = ui.button(game.inputManager, 186, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
+        self.JoinButton = ui.button(game.inputManager, 570, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
-        self.backButton = ui.button(game.inputManager, 570, 370, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
+        self.backButton = ui.button(game.inputManager, 640, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
         popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
 
-        Menubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
+        CMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
+        JMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
+
+        createLabel = ui.label(0, 10, 1040, 300, c.Colours.WHITE, "Create a Game", 50)
+        JoinLabel = ui.label(0, 10, 1040, 300, c.Colours.WHITE, "Join a Game", 50)
+
+        # >>>>>>>>>>>>>>>>>>>>>>
 
         self.joinMenu = ui.popupMenu([
             
             popUpshadow,
-            Menubg,
-            self.backButton
+            JMenubg,
+            self.backButton,
+            JoinLabel
             
         ])
 
         self.hostMenu = ui.popupMenu([
             
             popUpshadow,
-            Menubg,
-            self.backButton
+            CMenubg,
+            self.backButton,
+            createLabel
             
         ])
 
         self.hostMenu.disable()
         self.joinMenu.disable()
+
+        # >>>>>>>>>>>>>>>>>>>>>>
 
         def backButton():
             self.hostMenu.disable()
@@ -56,6 +68,7 @@ class mainMenu():
             self.hostMenu.enable()
             self.JoinButton.focused = False
             self.HostButton.focused = False
+            
 
         self.JoinButton.appendAction(joinbutton)
         self.HostButton.appendAction(hostbutton)
