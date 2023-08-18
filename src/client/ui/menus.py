@@ -15,6 +15,8 @@ class mainMenu():
         self.HostButton = ui.button(186, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
         self.JoinButton = ui.button(570, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
+        self.backButton = ui.button(570, 370, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
+
         popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
 
         Menubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
@@ -22,19 +24,28 @@ class mainMenu():
         self.joinMenu = ui.popupMenu([
             
             popUpshadow,
-            Menubg
+            Menubg,
+            self.backButton
             
         ])
 
         self.hostMenu = ui.popupMenu([
             
             popUpshadow,
-            Menubg
+            Menubg,
+            self.backButton
             
         ])
 
         self.hostMenu.disable()
         self.joinMenu.disable()
+
+        def backButton():
+            self.hostMenu.disable()
+            self.joinMenu.disable()
+            self.JoinButton.focused = True
+            self.HostButton.focused = True
+
 
         def joinbutton():
             self.joinMenu.enable()
@@ -48,11 +59,13 @@ class mainMenu():
 
         self.JoinButton.appendAction(joinbutton)
         self.HostButton.appendAction(hostbutton)
+        self.backButton.appendAction(backButton)
 
     def run(self):
 
         self.HostButton.process()
         self.JoinButton.process()
+        self.backButton.process()
 
         # >>>>>>>>>>>>>>>>>>>>>>>
 
