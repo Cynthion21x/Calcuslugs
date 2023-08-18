@@ -24,9 +24,10 @@ class photo():
 
 class primativeElement():
 
-    def __init__(self, x, y, w, h, colour = c.Colours.WHITE):
+    def __init__(self, x, y, w, h, colour = c.Colours.WHITE, alpha=False):
 
         self.active = True
+        self.alpha = alpha
 
         self.x = x
         self.y = y
@@ -42,13 +43,19 @@ class primativeElement():
 
     def render(self, surface):
 
-        s = pygame.Surface((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
+        if self.alpha:
 
-        pygame.draw.rect(s, self.colour, (self.x, self.y, self.w, self.h))
+            s = pygame.Surface((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
 
-        s.set_alpha(self.colour.a)
+            pygame.draw.rect(s, self.colour, (self.x, self.y, self.w, self.h))
 
-        surface.blit(s, (0, 0))
+            s.set_alpha(70)
+
+            surface.blit(s, (0, 0))
+
+        else:
+
+            pygame.draw.rect(surface, self.colour, (self.x, self.y, self.w, self.h))
         
 
 class label(primativeElement):
@@ -84,7 +91,7 @@ class label(primativeElement):
 class inputBox(label):
 
     pass
-    
+
 class button(label):
     
     def __init__(self, x, y, w, h, colour=c.Colours.WHITE, hoverColour=c.Colours.GREY, textColour=c.Colours.BLACK, text='', fontSize = 32, onClick=None):
@@ -94,7 +101,7 @@ class button(label):
         self.hoverColour = hoverColour
 
         self.hovered = False
-
+        self.focused = True
         self.active = True
 
     def process(self):
@@ -102,7 +109,7 @@ class button(label):
         mousePos = pygame.mouse.get_pos()
         clicked = pygame.mouse.get_pressed()[0]
 
-        if self.active and self.x <= mousePos[0] <= self.x + self.w and self.y <= mousePos[1] <= self.y + self.h:
+        if self.focused and self.active and self.x <= mousePos[0] <= self.x + self.w and self.y <= mousePos[1] <= self.y + self.h:
 
             self.hovered = True
 

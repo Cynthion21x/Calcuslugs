@@ -12,28 +12,42 @@ class mainMenu():
 
         self.background = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\sprites\\UI\\BG.png")
 
-        self.HostButton = ui.button(170, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
+        self.HostButton = ui.button(186, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
         self.JoinButton = ui.button(570, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
-        popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW)
+        popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
+
+        Menubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
 
         self.joinMenu = ui.popupMenu([
             
             popUpshadow,
+            Menubg
             
         ])
 
         self.hostMenu = ui.popupMenu([
             
             popUpshadow,
+            Menubg
             
         ])
 
         self.hostMenu.disable()
         self.joinMenu.disable()
 
-        self.JoinButton.appendAction(self.joinMenu.enable)
-        self.HostButton.appendAction(self.hostMenu.enable)
+        def joinbutton():
+            self.joinMenu.enable()
+            self.JoinButton.focused = False
+            self.HostButton.focused = False
+
+        def hostbutton():
+            self.hostMenu.enable()
+            self.JoinButton.focused = False
+            self.HostButton.focused = False
+
+        self.JoinButton.appendAction(joinbutton)
+        self.HostButton.appendAction(hostbutton)
 
     def run(self):
 
