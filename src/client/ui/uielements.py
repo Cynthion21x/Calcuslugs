@@ -94,12 +94,12 @@ class inputBox(label):
 
 class button(label):
     
-    def __init__(self, x, y, w, h, colour=c.Colours.WHITE, hoverColour=c.Colours.GREY, textColour=c.Colours.BLACK, text='', fontSize = 32, onClick=None):
+    def __init__(self, inputManager, x, y, w, h, colour=c.Colours.WHITE, hoverColour=c.Colours.GREY, textColour=c.Colours.BLACK, text='', fontSize = 32, onClick=None):
 
         super().__init__(x, y, w, h, colour, textColour, text, fontSize)
         self.onClick = onClick
         self.hoverColour = hoverColour
-
+        self.inputm = inputManager
         self.hovered = False
         self.focused = True
         self.active = True
@@ -107,7 +107,7 @@ class button(label):
     def process(self):
 
         mousePos = pygame.mouse.get_pos()
-        clicked = pygame.mouse.get_pressed()[0]
+        clicked = self.inputm.MOUSE_DOWN
 
         if self.focused and self.active and self.x <= mousePos[0] <= self.x + self.w and self.y <= mousePos[1] <= self.y + self.h:
 

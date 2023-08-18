@@ -1,6 +1,7 @@
 import pygame
 import Game.src.shared.constants as c
 import Game.src.client.ui.menus as ui
+import Game.src.client.inputManager as inputman
 
 class Game():
 
@@ -17,8 +18,7 @@ class Game():
 
         # >>>>>>>>>>>>>>>>>>>>>
 
-        self.ENTER_KEY = False
-        self.MOUSE_DOWN = False
+        self.inputManager = inputman.inputManager()
 
         # >>>>>>>>>>>>>>>>>>>>>
 
@@ -45,7 +45,7 @@ class Game():
 
             # first pass
 
-            self.checkEvents()
+            self.inputManager.checkEvents()
 
             self.display.fill(c.Colours.NUCLEAR_SNOT_GREEN)
 
@@ -73,31 +73,6 @@ class Game():
 
             pygame.display.update()
 
-            self.resetInput()
+            self.inputManager.resetInput()
 
             self.clock.tick(c.FRAME_RATE)    
-
-    def checkEvents(self):
-
-        for event in pygame.event.get():
-
-            if event.type == pygame.QUIT:
-
-                self.running = False
-                pygame.quit()
-
-            # check inputs
-
-            if event.type == pygame.KEYDOWN:
-
-                if event.key == pygame.K_RETURN:
-
-                    self.ENTER_KEY = True
-
-
-
-    def resetInput(self):
-
-        self.ENTER_KEY = False
-        self.MOUSE_DOWN = False
-

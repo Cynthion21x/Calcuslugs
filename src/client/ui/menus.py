@@ -12,10 +12,10 @@ class mainMenu():
 
         self.background = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\sprites\\UI\\BG.png")
 
-        self.HostButton = ui.button(186, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
-        self.JoinButton = ui.button(570, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
+        self.HostButton = ui.button(game.inputManager, 186, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
+        self.JoinButton = ui.button(game.inputManager, 570, 370, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
-        self.backButton = ui.button(570, 370, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
+        self.backButton = ui.button(game.inputManager, 570, 370, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
         popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
 
