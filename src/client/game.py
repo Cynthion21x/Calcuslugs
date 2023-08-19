@@ -3,6 +3,9 @@ import Game.src.shared.constants as c
 import Game.src.client.ui.menus as ui
 import Game.src.client.inputManager as inputman
 
+import Game.src.client.client as client
+import Game.src.server.server as server
+
 class Game():
 
     def __init__(self, message):
@@ -53,6 +56,10 @@ class Game():
 
             # game pass
 
+            if self.state == c.States.GAME:
+
+                pass
+
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
             # ui pass
@@ -65,7 +72,12 @@ class Game():
 
                 self.lobby.run()
 
+            elif self.state == c.States.GAME:
+
+                self.gameUi.run()
+
             # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            
 
             # final pass
 
@@ -75,4 +87,15 @@ class Game():
 
             self.inputManager.resetInput()
 
-            self.clock.tick(c.FRAME_RATE)   
+            self.clock.tick(c.FRAME_RATE)
+
+    def Join(self, ip):
+
+        self.client = client.Client(ip, self)
+
+
+    def Host(self, port):
+
+        self.server = server.Server(port, self)
+        self.client = client("127.0.0.1:" + port, self)
+

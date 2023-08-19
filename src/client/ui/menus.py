@@ -1,5 +1,4 @@
 import pygame
-import Game.src.shared.networkManager as net
 import Game.src.client.ui.uielements as ui
 import Game.src.shared.constants as c
 
@@ -89,10 +88,10 @@ class mainMenu():
             self.HostButton.focused = False
 
         def joinG():
-            net.join(ipTextBox.text)
+            game.Join(ipTextBox.text)
 
         def hostG():
-            net.join(PortTextBox.text)
+            game.Host(PortTextBox.text)
 
         self.JoinButton.appendAction(joinbutton)
         self.HostButton.appendAction(hostbutton)
