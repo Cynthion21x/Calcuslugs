@@ -17,12 +17,18 @@ class mainMenu():
         self.HostButton = ui.button(game.inputManager, 186, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
         self.JoinButton = ui.button(game.inputManager, 570, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
+        enterIP = ui.label(300, 260, 1, 1, c.Colours.WHITE, "Enter IP", 30)
+        enterPort = ui.label(300, 320, 1, 1, c.Colours.WHITE, "Enter Port", 30)
+
+        ipTextBox = ui.inputBox(game.inputManager, 380, 247, 317, 32, c.Colours.WHITE, c.Colours.GREY, c.Colours.BLACK, 'Enter IP...', 30)
+
         self.backButton = ui.button(game.inputManager, 640, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
-        popUpshadow = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
+        popUpshadow1 = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
+        popUpshadow2 = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
 
-        CMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
-        JMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.GREY)
+        CMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.NAVY_BLUE)
+        JMenubg = ui.primativeElement(180, 96, 680, 389, c.Colours.NAVY_BLUE)
 
         createLabel = ui.label(0, 10, 1040, 300, c.Colours.WHITE, "Create a Game", 50)
         JoinLabel = ui.label(0, 10, 1040, 300, c.Colours.WHITE, "Join a Game", 50)
@@ -31,16 +37,19 @@ class mainMenu():
 
         self.joinMenu = ui.popupMenu([
             
-            popUpshadow,
+            popUpshadow1,
             JMenubg,
             self.backButton,
-            JoinLabel
+            JoinLabel,
+            enterIP,
+            enterPort,
+            ipTextBox
             
         ])
 
         self.hostMenu = ui.popupMenu([
             
-            popUpshadow,
+            popUpshadow2,
             CMenubg,
             self.backButton,
             createLabel

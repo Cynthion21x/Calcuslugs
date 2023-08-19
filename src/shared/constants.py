@@ -8,6 +8,7 @@ class Colours:
     # Standard Colours
     CERISE = pygame.Color(222, 49, 99)
     NUCLEAR_SNOT_GREEN = pygame.Color(74, 255, 8)
+    NAVY_BLUE = pygame.Color(1, 29, 87)
 
     # Basic Colours
     BLACK = pygame.Color(0, 0, 0)

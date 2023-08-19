@@ -1,5 +1,5 @@
-import os
 import pygame
+import pyperclip
 import Game.src.shared.constants as c
 
 pygame.font.init()
@@ -132,7 +132,78 @@ class label(primativeElement):
 
 class inputBox(label):
 
-    pass
+    def __init__(self, inputManager, x, y, w, h, colour=c.Colours.WHITE, defaultTextColour=c.Colours.GREY, textColour=c.Colours.BLACK, defaultText='enterData', fontSize = 32):
+
+        super().__init__(x, y, w, h, textColour, '', fontSize)
+
+        self.colour = colour
+        self.inputm = inputManager
+
+        self.defaultTextColour = defaultTextColour
+        self.textColour = textColour
+
+        self.defautText = defaultText
+
+        self.focused = True
+        self.active = True
+        self.Typing = False
+
+    def process(self):
+        
+        mousePos = pygame.mouse.get_pos()
+        clicked = self.inputm.MOUSE_DOWN
+
+        if self.focused and self.active and self.x <= mousePos[0] <= self.x + self.w and self.y <= mousePos[1] <= self.y + self.h:
+
+            #TODO change cursor type
+
+            if clicked:
+
+                self.Typing = True
+
+        else:
+
+            self.Typing = False
+
+            #TODO Restore cursor type
+
+        if self.Typing:
+
+            for event in pygame.event.get():
+
+                if event.type == pygame.KEYDOWN:
+
+                    if event.key == self.inputm.ENTER_KEY:
+
+                        print(self.text)
+
+                    elif event.key == pygame.K_BACKSPACE:
+
+                        self.text = self.text[:-1]
+
+                    else:
+
+                        self.text += event.unicode
+    
+    def render(self, surface):
+        
+        pygame.draw.rect(surface, self.colour, (self.x, self.y, self.w, self.h))
+
+        font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
+
+        if self.text == '':
+
+            textSurf = font.render(self.defautText, True, self.defaultTextColour)
+
+        else:
+
+            textSurf = font.render(self.text, True, self.textColour)
+
+        textX = self.x + (self.w - textSurf.get_width()) // 2
+        textY = self.y + (self.h - textSurf.get_height()) // 2
+
+        surface.blit(textSurf, (textX, textY))
+            
 
 class button(label):
     

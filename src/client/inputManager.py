@@ -1,3 +1,4 @@
+import sys
 import pygame
 
 class inputManager:
@@ -36,6 +37,7 @@ class inputManager:
 
                 self.running = False
                 pygame.quit()
+                sys.exit(0)
 
             # check inputs
 
