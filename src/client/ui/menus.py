@@ -1,5 +1,5 @@
 import pygame
-
+import Game.src.shared.networkManager as net
 import Game.src.client.ui.uielements as ui
 import Game.src.shared.constants as c
 
@@ -28,6 +28,9 @@ class mainMenu():
 
         self.backButton = ui.button(game.inputManager, 640, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
+        self.host = ui.button(game.inputManager, 280, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
+        self.join = ui.button(game.inputManager, 280, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
+
         popUpshadow1 = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
         popUpshadow2 = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
 
@@ -46,7 +49,8 @@ class mainMenu():
             self.backButton,
             JoinLabel,
             enterIP,
-            ipTextBox
+            ipTextBox,
+            self.join
             
         ])
 
@@ -57,7 +61,8 @@ class mainMenu():
             self.backButton,
             createLabel,
             enterPort,
-            PortTextBox
+            PortTextBox,
+            self.host
             
         ])
 
@@ -82,11 +87,19 @@ class mainMenu():
             self.hostMenu.enable()
             self.JoinButton.focused = False
             self.HostButton.focused = False
-            
+
+        def joinG():
+            net.join(ipTextBox.text)
+
+        def hostG():
+            net.join(PortTextBox.text)
 
         self.JoinButton.appendAction(joinbutton)
         self.HostButton.appendAction(hostbutton)
         self.backButton.appendAction(backButton)
+
+        self.join.appendAction(joinG)
+        self.host.appendAction(hostG)
 
     def run(self):
 
