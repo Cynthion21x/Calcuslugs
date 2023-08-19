@@ -12,7 +12,7 @@ class mainMenu():
 
         # >>>>>>>>>>>>>>>>>>>>>>
 
-        self.background = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\sprites\\UI\\BG.png")
+        self.background = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\images\\UI\\BG.png")
 
         self.HostButton = ui.button(game.inputManager, 186, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
         self.JoinButton = ui.button(game.inputManager, 570, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
