@@ -45,5 +45,10 @@ class States:
 LOCALHOST = "127.0.0.1"
 DEFAULT_PORT = "1700"
 
+class Teams():
+    
+    STANDARD = 1
+    OPPS = 2
+
 # Assets Path
 ASSETS_PATH = os.path.join(os.path.dirname(__file__) , '..', '..', 'assets')

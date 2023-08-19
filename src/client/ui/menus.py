@@ -89,9 +89,11 @@ class mainMenu():
 
         def joinG():
             game.Join(ipTextBox.text)
+            self.host.focused = False
 
         def hostG():
             game.Host(PortTextBox.text)
+            self.host.focused = False
 
         self.JoinButton.appendAction(joinbutton)
         self.HostButton.appendAction(hostbutton)
@@ -122,8 +124,16 @@ class lobby():
 
         pass
 
+    def run(self):
+
+        pass
+
 class gameUi():
     
     def __init__(self, game):
+
+        pass
+
+    def run(self):
 
         pass

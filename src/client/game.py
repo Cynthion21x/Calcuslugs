@@ -97,5 +97,5 @@ class Game():
     def Host(self, port):
 
         self.server = server.Server(port, self)
-        self.client = client("127.0.0.1:" + port, self)
+        self.client = client.Client("127.0.0.1:" + port, self)
 

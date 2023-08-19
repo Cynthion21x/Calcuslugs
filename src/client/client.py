@@ -1,4 +1,5 @@
-import Game.src.shared.networkManager as n
+import Game.src.shared.constants as c
+import Game.src.shared.network as n
 
 class Client:
 
@@ -8,7 +9,12 @@ class Client:
 
         ip, port = adress.split(":")
 
-        self.network.connect_to_server(ip, port)
+        self.network.connectToServer(ip, int(port))
 
+        game.state = c.States.LOBBY
+
+    def update(self):
+
+        pass
         
     
