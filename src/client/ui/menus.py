@@ -17,10 +17,9 @@ class mainMenu():
         self.HostButton = ui.button(game.inputManager, 186, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Host")
         self.JoinButton = ui.button(game.inputManager, 570, 390, 240, 80, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "Join")
 
-        enterIP = ui.label(300, 260, 1, 1, c.Colours.WHITE, "Enter IP", 30)
-        enterPort = ui.label(300, 320, 1, 1, c.Colours.WHITE, "Enter Port", 30)
+        enterIP = ui.label(300, 260+30, 1, 1, c.Colours.WHITE, "Enter IP", 30)
 
-        ipTextBox = ui.inputBox(game.inputManager, 380, 247, 317, 32, c.Colours.WHITE, c.Colours.GREY, c.Colours.BLACK, 'Enter IP...', 30)
+        ipTextBox = ui.inputBox(game.inputManager, 380, 247+30, 317, 32, c.Colours.WHITE, c.Colours.GREY, c.Colours.BLACK, 'Enter IP...', 30)
 
         self.backButton = ui.button(game.inputManager, 640, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
@@ -42,7 +41,6 @@ class mainMenu():
             self.backButton,
             JoinLabel,
             enterIP,
-            enterPort,
             ipTextBox
             
         ])

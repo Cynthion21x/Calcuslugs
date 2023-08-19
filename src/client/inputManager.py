@@ -13,6 +13,8 @@ class inputManager:
 
     def checkEvents(self):
 
+        pygame.event.pump()
+
         mouseButtons = pygame.mouse.get_pressed()
 
         if mouseButtons[0]:
