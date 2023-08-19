@@ -21,6 +21,11 @@ class mainMenu():
 
         ipTextBox = ui.inputBox(game.inputManager, 380, 247+30, 317, 32, c.Colours.WHITE, c.Colours.GREY, c.Colours.BLACK, 'Enter IP...', 30)
 
+        enterPort = ui.label(300, 260+30, 1, 1, c.Colours.WHITE, "Enter Port", 30)
+
+        PortTextBox = ui.inputBox(game.inputManager, 380, 247+30, 317, 32, c.Colours.WHITE, c.Colours.GREY, c.Colours.BLACK, '1700', 30)
+
+
         self.backButton = ui.button(game.inputManager, 640, 400, 100, 60, c.Colours.BUTTON_NORMAL, c.Colours.BUTTON_HOVER, c.Colours.WHITE, "back")
 
         popUpshadow1 = ui.primativeElement(0, 0, 1040, 585, c.Colours.SHADOW, True)
@@ -50,7 +55,9 @@ class mainMenu():
             popUpshadow2,
             CMenubg,
             self.backButton,
-            createLabel
+            createLabel,
+            enterPort,
+            PortTextBox
             
         ])
 

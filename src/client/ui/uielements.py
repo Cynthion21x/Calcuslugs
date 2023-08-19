@@ -204,6 +204,7 @@ class inputBox(label):
                         char = event.unicode
                         self.text = self.text[:self.cursorPos] + char + self.text[self.cursorPos:]
                         self.cursorPos += 1
+                        self.cursorPos = max(0, min(self.cursorPos, len(self.text)))
     
     def render(self, surface):
         
@@ -213,7 +214,7 @@ class inputBox(label):
 
         textToRender = self.text
 
-        max_text_width = self.w - 10
+        max_text_width = self.w - 90
         cursor_offset = 0
 
         text_start = max(0, self.cursorPos - max_text_width // font.size(' ')[0])
@@ -221,13 +222,7 @@ class inputBox(label):
 
         if font.size(textToRender)[0] > max_text_width:
             cursor_offset = max(0, len(textToRender) - self.cursorPos - max_text_width // font.size(' ')[0])
-            textToRender = textToRender[cursor_offset:]
-
-        text_width = font.size(textToRender)[0]
-
-        while text_width > max_text_width:
-            textToRender = textToRender[1:]
-            text_width = font.size(textToRender)[0]
+            textToRender = textToRender[text_start:text_end]
 
         if self.text == '':
 
@@ -243,7 +238,7 @@ class inputBox(label):
 
         surface.blit(textSurf, (textX, textY))
 
-        cursor_x = textX + font.size(self.text[:self.cursorPos - cursor_offset])[0]
+        cursor_x = textX + font.size(self.text[:self.cursorPos - text_start])[0]
         if self.Typing and pygame.time.get_ticks() % 1000 < 500: 
             pygame.draw.line(surface, self.textColour, (cursor_x, textY), (cursor_x, textY + self.fontSize -2), 2)
                 
