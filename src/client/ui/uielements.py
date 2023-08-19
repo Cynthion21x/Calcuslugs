@@ -139,6 +139,8 @@ class inputBox(label):
         self.colour = colour
         self.inputm = inputManager
 
+        self.cursorPos = len(self.text)
+
         self.defaultTextColour = defaultTextColour
         self.textColour = textColour
 
@@ -163,9 +165,9 @@ class inputBox(label):
 
         else:
 
-            self.Typing = False
+            if clicked or self.active == False:
 
-            #TODO Restore cursor type
+                self.Typing = False
 
         if self.Typing:
 
@@ -173,17 +175,35 @@ class inputBox(label):
 
                 if event.type == pygame.KEYDOWN:
 
-                    if event.key == self.inputm.ENTER_KEY:
+                    # move mouse
+
+                    if event.key == pygame.K_LEFT:
+                        self.cursorPos = max(0, self.cursorPos - 1)
+                    elif event.key == pygame.K_RIGHT:
+                        self.cursorPos = min(len(self.text), self.cursorPos + 1)
+
+                    elif event.key == pygame.K_v and pygame.key.get_mods() & pygame.KMOD_CTRL:
+                        
+                        self.text = self.text[:self.cursorPos] + pyperclip.paste() + self.text[self.cursorPos:]
+                        self.cursorPos += len(pyperclip.paste())
+
+                    # submit
+
+                    elif event.key == self.inputm.ENTER_KEY:
 
                         print(self.text)
 
+                    # typing
                     elif event.key == pygame.K_BACKSPACE:
 
-                        self.text = self.text[:-1]
+                        self.text = self.text[:self.cursorPos - 1] + self.text[self.cursorPos:]
+                        self.cursorPos -= 1
 
                     else:
-
-                        self.text += event.unicode
+                        
+                        char = event.unicode
+                        self.text = self.text[:self.cursorPos] + char + self.text[self.cursorPos:]
+                        self.cursorPos += 1
     
     def render(self, surface):
         
@@ -191,19 +211,42 @@ class inputBox(label):
 
         font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
 
+        textToRender = self.text
+
+        max_text_width = self.w - 10
+        cursor_offset = 0
+
+        text_start = max(0, self.cursorPos - max_text_width // font.size(' ')[0])
+        text_end = min(text_start + max_text_width // font.size(' ')[0], len(self.text))
+
+        if font.size(textToRender)[0] > max_text_width:
+            cursor_offset = max(0, len(textToRender) - self.cursorPos - max_text_width // font.size(' ')[0])
+            textToRender = textToRender[cursor_offset:]
+
+        text_width = font.size(textToRender)[0]
+
+        while text_width > max_text_width:
+            textToRender = textToRender[1:]
+            text_width = font.size(textToRender)[0]
+
         if self.text == '':
 
             textSurf = font.render(self.defautText, True, self.defaultTextColour)
 
         else:
 
-            textSurf = font.render(self.text, True, self.textColour)
+            textSurf = font.render(textToRender, True, self.textColour)
+
 
         textX = self.x + (self.w - textSurf.get_width()) // 2
         textY = self.y + (self.h - textSurf.get_height()) // 2
 
         surface.blit(textSurf, (textX, textY))
-            
+
+        cursor_x = textX + font.size(self.text[:self.cursorPos - cursor_offset])[0]
+        if self.Typing and pygame.time.get_ticks() % 1000 < 500: 
+            pygame.draw.line(surface, self.textColour, (cursor_x, textY), (cursor_x, textY + self.fontSize -2), 2)
+                
 
 class button(label):
     
