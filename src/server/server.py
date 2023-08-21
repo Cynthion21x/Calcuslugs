@@ -1,25 +1,37 @@
 import threading
 import socket
+import pickle
 import Game.src.shared.constants as c
-import Game.src.shared.network as n
 
 class Server:
 
     def __init__(self, port, game):
 
-        self.network = n.Network()
+        self.port = int(port)
 
-        self.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.running = False
 
-        try:
-            self.serverSocket.bind((c.LOCALHOST, int(port)))
-        except socket.error as e:
-            str(e)
+        server_thread = threading.Thread(target=self.serverThread)
+        server_thread.start()
 
-        self.serverSocket.listen(2)
+    def serverThread(self):
 
-        self.gamestate = c.States.LOBBY
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        self.players = []
+        self.server.bind((c.LOCALHOST, self.port))
+        self.server.listen(4)
 
+        print("Server hosted on port " + str(self.port) + " Waiting for players...")
+
+        while self.running:
+            client_socket, client_address = self.server.accept()
+            print("Player connected:", client_address)
+
+        self.server.close()
+
+    def exit(self):
+
+        self.running = False
+
+        print("Shutting off the server")
         

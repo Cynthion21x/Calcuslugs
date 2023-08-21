@@ -1,13 +1,14 @@
-import sys
 import pygame
 
 class inputManager:
 
-    def __init__(self):
+    def __init__(self, game):
 
         self.ENTER_KEY = False
         self.MOUSE_DOWN = False
         self.MOUSE_HOLD = False
+
+        self.game = game
 
     #TODO FIX MOUSE DOWN SO IT ONLY LASTS 1 FRAME
 
@@ -32,14 +33,11 @@ class inputManager:
 
             self.MOUSE_HOLD = False
 
-
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
 
-                self.running = False
-                pygame.quit()
-                sys.exit(0)
+                self.game.close()
 
             # check inputs
 

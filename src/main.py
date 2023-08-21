@@ -23,3 +23,5 @@ f.close()
 main = g.Game(line)
 
 main.coreLoop()
+
+print("dont cringe a ninja")

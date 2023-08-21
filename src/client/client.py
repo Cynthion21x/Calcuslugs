@@ -1,20 +1,22 @@
+import socket
+import threading
 import Game.src.shared.constants as c
-import Game.src.shared.network as n
 
 class Client:
 
     def __init__(self, adress, game):
 
-        self.network = n.Network()
+        self.ip, self.port = adress.split(":")
 
-        ip, port = adress.split(":")
+        self.port = int(self.port)
 
-        self.network.connectToServer(ip, int(port))
+        self.game = game
 
-        game.state = c.States.LOBBY
+    def join(self):
 
-    def update(self):
+        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client.connect((self.ip, self.port))
+        print("Connected to server.")
 
-        pass
-        
+        self.game.state = c.States.LOBBY
     

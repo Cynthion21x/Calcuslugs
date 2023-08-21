@@ -122,11 +122,22 @@ class lobby():
     
     def __init__(self, game):
 
-        pass
+        self.display = game.display
+
+        self.bg = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\images\\UI\\Lobby.png")
+
+        readyButton = ui.photoButton(game.inputManager, 500, 800, 100, 100, "\\images\\UI\\buttons\\ready.png", "\\images\\UI\\buttons\\ready.png", None)
+
+        self.main = ui.popupMenu([
+
+            self.bg,
+            readyButton
+
+        ])
 
     def run(self):
 
-        pass
+        self.bg.render(self.display)
 
 class gameUi():
     

@@ -1,3 +1,4 @@
+import sys
 import pygame
 import Game.src.shared.constants as c
 import Game.src.client.ui.menus as ui
@@ -19,9 +20,12 @@ class Game():
         self.running = True
         self.state = c.States.MAIN_MENU
 
+        self.server = None
+        self.client = None
+
         # >>>>>>>>>>>>>>>>>>>>>
 
-        self.inputManager = inputman.inputManager()
+        self.inputManager = inputman.inputManager(self)
 
         # >>>>>>>>>>>>>>>>>>>>>
 
@@ -89,13 +93,28 @@ class Game():
 
             self.clock.tick(c.FRAME_RATE)
 
+        print("turning off displays")
+        pygame.quit() 
+
     def Join(self, ip):
 
         self.client = client.Client(ip, self)
 
+        self.client.join()
 
     def Host(self, port):
 
         self.server = server.Server(port, self)
-        self.client = client.Client("127.0.0.1:" + port, self)
+        self.client = client.Client(c.LOCALHOST + ":" + port, self)
 
+        self.client.join()
+
+    def close(self):
+
+        print("Shutting down game") 
+
+        if self.server != None:
+
+            self.server.exit()
+
+        self.running = False
