@@ -83,6 +83,7 @@ class photoButton(photo):
 
             if clicked and self.onClick:
 
+                self.inputm.MOUSE_DOWN = False
                 self.onClick()
 
         else:
@@ -289,6 +290,7 @@ class button(label):
 
             if clicked and self.onClick:
 
+                self.inputm.MOUSE_DOWN = False
                 self.onClick()
 
         else:

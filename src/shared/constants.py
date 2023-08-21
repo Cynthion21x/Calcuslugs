@@ -25,7 +25,7 @@ class Colours:
 
 # Display
 
-SCREEN_NAME = "calcuslugz"
+SCREEN_NAME = "calcuslugs"
 SCREEN_WIDTH = 1040
 SCREEN_HEIGHT = 585
 
