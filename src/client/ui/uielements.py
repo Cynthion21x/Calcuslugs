@@ -13,8 +13,8 @@ class photo():
         self.x = x
         self.y = y
 
-        self.photo = pygame.image.load(c.ASSETS_PATH + imagePath).convert()
-        self.photo = pygame.transform.smoothscale(self.photo, (w, h))
+        self.photo = pygame.image.load(c.ASSETS_PATH + imagePath).convert_alpha()
+        self.photo = pygame.transform.scale(self.photo, (w, h))
 
         self.active = True
 
@@ -22,19 +22,33 @@ class photo():
 
         surface.blit(self.photo, (self.x, self.y))
 
+    def process(self):
+
+        pass
+
 class photoButton(photo):
 
-    def __init__(self, inputManager, x, y, w, h, imagePath, hoverImagePath, aciton):
+    def __init__(self, inputManager, x, y, w, h, fontsize, textColour, imagePath="\\images\\UI\\buttons\\standardButton", text="", action=None):
 
-        super().__init__(x, y, w, h, imagePath)
+        super().__init__(x, y, w, h, imagePath + ".png")
 
-        self.hoverphoto = pygame.image.load(c.ASSETS_PATH + hoverImagePath).convert()
-        self.hoverphoto = pygame.transform.smoothscale(self.photo, (w, h))
+        self.hoverphoto = pygame.image.load(c.ASSETS_PATH + imagePath + "-h.png").convert_alpha()
+        self.hoverphoto = pygame.transform.smoothscale(self.hoverphoto, (w, h))
 
         self.inputm = inputManager
         self.hovered = False
         self.focused = True
         self.active = True
+
+        self.onClick = action
+
+        self.fontSize = fontsize
+
+        self.text = text
+        self.textColour = textColour
+
+        self.w = w
+        self.h = h
 
     def appendAction(self, onClick=None):
 
@@ -44,11 +58,19 @@ class photoButton(photo):
 
         if (self.hovered):
 
-            surface.blit(self.photo, (self.x, self.y))
+            surface.blit(self.hoverphoto, (self.x, self.y))
 
         else:
 
             surface.blit(self.photo, (self.x, self.y))
+
+        font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
+        textSurf = font.render(self.text, True, self.textColour)
+
+        textX = self.x + (self.w - textSurf.get_width()) // 2
+        textY = self.y + (self.h - textSurf.get_height()) // 2
+
+        surface.blit(textSurf, (textX, textY))
 
     def process(self):
 
@@ -122,7 +144,7 @@ class label(primativeElement):
     def render(self, surface):
 
         font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
-        textSurf = font.render(self.text, False, self.textColour)
+        textSurf = font.render(self.text, True, self.textColour)
 
         textX = self.x + (self.w - textSurf.get_width()) // 2
         textY = self.y + (self.h - textSurf.get_height()) // 2
@@ -290,7 +312,7 @@ class button(label):
         pygame.draw.rect(surface, col, (self.x, self.y, self.w, self.h))
         
         font = pygame.font.Font(c.ASSETS_PATH + "\\fonts\cynthionStyle.ttf", self.fontSize)
-        textSurf = font.render(self.text, False, self.textColour)
+        textSurf = font.render(self.text, True, self.textColour)
 
         textX = self.x + (self.w - textSurf.get_width()) // 2
         textY = self.y + (self.h - textSurf.get_height()) // 2

@@ -14,6 +14,8 @@ class Server:
         server_thread = threading.Thread(target=self.serverThread)
         server_thread.start()
 
+        self.clients = []
+
     def serverThread(self):
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,8 +26,11 @@ class Server:
         print("Server hosted on port " + str(self.port) + " Waiting for players...")
 
         while self.running:
+            
             client_socket, client_address = self.server.accept()
             print("Player connected:", client_address)
+
+            self.clients.append(client_socket)
 
         self.server.close()
 

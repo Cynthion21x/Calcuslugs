@@ -21,7 +21,7 @@ class Colours:
     # Sepcialised Colours
     PROJECTILE_PATH = pygame.Color(18, 235, 255)
     BUTTON_NORMAL = pygame.Color(3, 136, 136)
-    BUTTON_HOVER = pygame.Color(6, 106, 117)
+    BUTTON_HOVER = pygame.Color(150, 67, 0)
 
 # Display
 
