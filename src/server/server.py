@@ -9,18 +9,51 @@ class Server:
 
         self.port = int(port)
 
-        self.running = False
+        self.running = True
 
         server_thread = threading.Thread(target=self.serverThread)
         server_thread.start()
 
         self.clients = []
 
+    def threadded_client(self, con):
+
+        con.send(str.encode("connected"))
+
+        reply = ""
+        
+        while self.running:
+
+            try:
+
+                data = con.recv(2048)
+                reply = data.decode("utf-8")
+
+                if not data:
+
+                    print("Disconnect")
+                    break;
+
+                else:
+
+                    print("Recieved: ", reply)
+                    print("Sending: ", reply)
+
+                con.sendall(str.encode(reply))
+
+            except:
+    
+                break
+
     def serverThread(self):
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        self.server.bind((c.LOCALHOST, self.port))
+        try:
+            self.server.bind((c.LOCALHOST, self.port))
+        except socket.error as e:
+            print(str(e))
+
         self.server.listen(4)
 
         print("Server hosted on port " + str(self.port) + " Waiting for players...")
@@ -31,8 +64,8 @@ class Server:
             print("Player connected:", client_address)
 
             self.clients.append(client_socket)
+            threading.Thread(target=self.threadded_client, args=client_socket)
 
-        self.server.close()
 
     def exit(self):
 

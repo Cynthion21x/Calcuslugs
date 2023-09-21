@@ -11,6 +11,8 @@ class Game():
 
     def __init__(self, message):
 
+        self.dt = 0
+
         pygame.init()
 
         self.message = message
@@ -28,7 +30,6 @@ class Game():
         self.inputManager = inputman.inputManager(self)
 
         # >>>>>>>>>>>>>>>>>>>>>
-
 
         self.display = pygame.Surface((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
         
@@ -74,7 +75,7 @@ class Game():
 
             elif self.state == c.States.LOBBY:
 
-                self.lobby.run()
+                self.lobby.run(self.dt)
 
             elif self.state == c.States.GAME:
 
@@ -91,7 +92,7 @@ class Game():
 
             self.inputManager.resetInput()
 
-            self.clock.tick(c.FRAME_RATE)
+            self.dt = self.clock.tick(c.FRAME_RATE)
 
         print("turning off displays")
         pygame.quit() 
@@ -107,7 +108,9 @@ class Game():
         self.server = server.Server(port, self)
         self.client = client.Client(c.LOCALHOST + ":" + port, self)
 
-        self.client.join()
+        self.id = self.client.join()
+
+        client.send("hello")
 
     def close(self):
 

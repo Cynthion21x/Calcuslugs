@@ -128,20 +128,36 @@ class lobby():
 
         self.display = game.display
 
+        self.timer = 0
+
         self.bg = ui.photo(0, 0, c.SCREEN_WIDTH, c.SCREEN_HEIGHT, "\\images\\UI\\Lobby.png")
 
-        #readyButton = ui.photoButton(game.inputManager, 500, 800, 100, 100, "\\images\\UI\\buttons\\ready.png", "\\images\\UI\\buttons\\ready.png", None)
+        self.loading = ui.label(0, 0, 1040, 585, c.Colours.WHITE, "Waiting For Friends...", 32)
 
         self.main = ui.popupMenu([
 
-            self.bg
-            #readyButton
+            self.bg,
+            self.loading
 
         ])
 
-    def run(self):
+    def run(self, deltaTime):
 
-        self.bg.render(self.display)
+        self.main.run(self.display)
+
+        if self.timer >= 1:
+
+            if (self.loading.text == "Waiting For Friends..."):
+                
+                self.loading.text = "Waiting For Friends"
+
+            else:
+
+                self.loading.text += "."
+
+            self.timer = 0
+
+        self.timer += deltaTime / 1000
 
 class gameUi():
     
