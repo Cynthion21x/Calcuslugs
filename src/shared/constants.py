@@ -15,6 +15,14 @@ class Colours:
 
     pass
 
+# Log Levels
+
+class Logs:
+
+    NORMAL = 0
+    ERROR = 1
+    WARNING = 2
+
 # Display
 
 SCREEN_NAME = "calcuslugs"

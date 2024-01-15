@@ -1,6 +1,7 @@
 import pygame
 import src.core.inputManager as inputManager
 import src.shared.constants as c
+import src.shared.logger as l
 
 class Game():
 
@@ -42,6 +43,6 @@ class Game():
 
     def close(self):
 
-        print("Stopping game")
+        l.Logger.log("Shutting Down")
 
         self.running = False
