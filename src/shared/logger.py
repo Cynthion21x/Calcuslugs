@@ -4,7 +4,13 @@ import src.shared.constants as c
 class logger:
 
     def __init__(self, path):
+        
+        if os.path.isdir(c.DATA_PATH) == False:
 
+            os.mkdir(c.DATA_PATH)
+            os.mkdir(c.DATA_PATH + "\\Mods")
+            os.mkdir(c.DATA_PATH + "\\Settings")
+        
         self.path = path
         self.logFile = path + "\\logs.txt"
 
