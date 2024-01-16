@@ -13,7 +13,9 @@ DATA_PATH = os.path.join(os.getenv('APPDATA'), '..', 'LocalLow', 'Cynthion21x', 
 
 class Colours:
 
-    pass
+    RED = pygame.Color(255, 0, 0)
+    BLUE = pygame.Color(0, 0, 255)
+    GREEN = pygame.Color(0, 255, 0)
 
 # Log Levels
 
