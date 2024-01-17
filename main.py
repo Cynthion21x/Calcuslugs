@@ -4,11 +4,7 @@ import src.shared.logger as l
 
 import random
 
-# Load Content
-
-loader = content.Content()
-
-lines = open(loader.getText("title")).read().splitlines()
+lines = open(content.fetch().Text("title")).read().splitlines()
 selection = random.choice(lines)
 
 # Main Loop

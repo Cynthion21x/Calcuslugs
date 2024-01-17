@@ -1,5 +1,6 @@
 import os
 import json
+import pygame
 import src.shared.constants as c
 import src.core.content.modLauncher as m
 import src.shared.logger as l
@@ -43,26 +44,56 @@ class Content:
 
         # Sprites
 
+        self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png")
+
+        for i in os.listdir(c.ASSETS_PATH + "\\picture"):
+
+            cDir = c.ASSETS_PATH + "\\picture\\" + i
+
+            identifier = os.path.splitext(i)[0]
+
+            self.spriteBase[identifier] = pygame.image.load(cDir)
+
         self.modLauncher.loadMods()
 
-    def getText(self, name):
+    def Text(self, name):
 
         try:
 
             data = self.textBase[name]
 
+            return data
+
         except:
 
-            l.Logger.log("Resourse failed to load", name, c.Logs.ERROR)
+            l.Logger.log("Text failed to load", name, c.Logs.ERROR)
 
-            return -1
-        
-        return data
+            return c.Logs.ERROR
 
-    def getSprite(self, name):
+    def Sprite(self, name):
 
-        pass
+        try:
+
+            data = self.spriteBase[name]
+
+            return data
+
+        except:
+
+            l.logger.log("Image failed to load", name, c.Logs.ERROR)
+
+            return c.Logs.ERROR
 
     def getSound(self, name):
 
         pass
+
+data = Content()
+
+def fetch():
+
+    if data == None:
+
+        l.Logger.log("Don't acess data beffore its loaded", c.Logs.WARNING)
+
+    return data

@@ -1,5 +1,6 @@
 import pygame
 import src.core.inputManager as inputManager
+import src.core.content.contentManager as content
 import src.shared.constants as c
 import src.shared.logger as l
 
@@ -18,10 +19,9 @@ class Game():
         self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
 
         pygame.display.set_caption(c.SCREEN_NAME + ": " + message)
-        pygame.display.set_icon(pygame.image.load(c.ASSETS_PATH + "\\icon.png"))
+        pygame.display.set_icon(content.fetch().Sprite("icon"))
 
         self.clock = pygame.time.Clock()
-
 
     def coreLoop(self):
 

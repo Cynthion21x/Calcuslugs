@@ -1,5 +1,6 @@
 import os
 import json
+import pygame
 import src.shared.constants as c
 import src.shared.logger as l
 
@@ -77,5 +78,22 @@ class modLauncher:
                         self.content.textBase[name] = json.load(f)
 
                         f.close()
+
+                # Sprites
+                
+                if os.path.exists(x + "\\override\\icon.png"):
+                    self.content.spriteBase["icon"] = pygame.image.load(x + "\\override\\icon.png")
+
+                if (os.path.exists(x + "\\override\\picture")):
+
+                    cdir = x + "\\override\\picture"
+
+                    for i in os.listdir(cdir):
+
+                        cF = cdir + "\\" + i
+
+                        name = os.path.splitext(i)[0]
+
+                        self.content.spriteBase[name] = pygame.image.load(cF)
 
             l.Logger.log("Loaded Mod", self.mods[pathName]["name"])
