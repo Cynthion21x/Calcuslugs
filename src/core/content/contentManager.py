@@ -27,6 +27,8 @@ class Content:
 
         self.soundBase = dict()
 
+        l.Logger.log("Loading Content...")
+
         # text
         self.textBase["title"] = c.ASSETS_PATH + "\\titleText.txt"
 
@@ -38,7 +40,15 @@ class Content:
 
             identifier = os.path.splitext(i)[0]
 
-            self.textBase[identifier] = json.load(f)
+            l.Logger.log("Loading", i)
+
+            try:
+
+                self.textBase[identifier] = json.load(f)
+
+            except:
+
+                l.Logger.log("Failed to load", i, c.Logs.ERROR)
 
             f.close()
 
@@ -52,9 +62,19 @@ class Content:
 
             identifier = os.path.splitext(i)[0]
 
-            self.spriteBase[identifier] = pygame.image.load(cDir)
+            l.Logger.log("Loading", i)
+
+            try:
+
+                self.spriteBase[identifier] = pygame.image.load(cDir)
+
+            except:
+
+                l.Logger.log("Failed to load", i, c.Logs.WARNING)
 
         self.modLauncher.loadMods()
+
+        l.Logger.log("Content loaded!")
 
     def Text(self, name):
 

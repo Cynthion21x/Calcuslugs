@@ -75,7 +75,15 @@ class modLauncher:
 
                         name = os.path.splitext(i)[0]
 
-                        self.content.textBase[name] = json.load(f)
+                        l.Logger.log("Loading", i)
+
+                        try:
+
+                            self.content.textBase[name] = json.load(f)
+
+                        except:
+
+                            l.Logger.log("Failed to load " + i + "in", self.mods[pathName]["name"], c.Logs.ERROR)
 
                         f.close()
 
@@ -94,6 +102,14 @@ class modLauncher:
 
                         name = os.path.splitext(i)[0]
 
-                        self.content.spriteBase[name] = pygame.image.load(cF)
+                        l.Logger.log("Loading", i)
+
+                        try:
+
+                            self.content.spriteBase[name] = pygame.image.load(cF)
+
+                        except:
+
+                            l.Logger.log("Failed to load " + i + "in", self.mods[pathName]["name"], c.Logs.WARNING)
 
             l.Logger.log("Loaded Mod", self.mods[pathName]["name"])
