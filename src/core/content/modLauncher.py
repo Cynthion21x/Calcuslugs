@@ -90,6 +90,7 @@ class modLauncher:
                 # Sprites
                 
                 if os.path.exists(x + "\\override\\icon.png"):
+                    
                     self.content.spriteBase["icon"] = pygame.image.load(x + "\\override\\icon.png")
 
                 if (os.path.exists(x + "\\override\\picture")):

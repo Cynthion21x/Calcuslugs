@@ -54,28 +54,35 @@ class Content:
 
         # Sprites
 
-        self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png")
+        try:
+            self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png")
+        except:
+            l.Logger.log("Failed to load icon")
 
-        for i in os.listdir(c.ASSETS_PATH + "\\picture"):
+        for root, dirs, files in os.walk(c.ASSETS_PATH + "\\picture"):
+            
+            for file in files:
 
-            cDir = c.ASSETS_PATH + "\\picture\\" + i
+                cDir = root + "\\" + file
 
-            identifier = os.path.splitext(i)[0]
+                identifier = root + "\\" + os.path.splitext(file)[0]
 
-            l.Logger.log("Loading", i)
+                identifier = identifier.replace(c.ASSETS_PATH + "\\picture\\", "")
 
-            try:
+                l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
 
-                self.spriteBase[identifier] = pygame.image.load(cDir)
+                try:
 
-            except:
+                    self.spriteBase[identifier] = pygame.image.load(cDir)
 
-                l.Logger.log("Failed to load", i, c.Logs.WARNING)
+                except:
+
+                    l.Logger.log("Failed to load", file, c.Logs.WARNING)
 
         self.modLauncher.loadMods()
 
         l.Logger.log("Content loaded!")
-
+            
     def Text(self, name):
 
         try:
@@ -96,13 +103,13 @@ class Content:
 
             data = self.spriteBase[name]
 
-            return data
-
         except:
 
-            l.logger.log("Image failed to load", name, c.Logs.ERROR)
+            l.Logger.log("Failed to load", name, c.Logs.WARNING)
 
-            return c.Logs.ERROR
+            data = self.spriteBase["error"]
+
+        return data
 
     def getSound(self, name):
 
