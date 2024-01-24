@@ -97,20 +97,24 @@ class modLauncher:
 
                     cdir = x + "\\override\\picture"
 
-                    for i in os.listdir(cdir):
+                    for root, dirs, files in os.walk(cdir):
 
-                        cF = cdir + "\\" + i
+                        for file in files:
 
-                        name = os.path.splitext(i)[0]
+                            cF = root + "\\" + file
 
-                        l.Logger.log("Loading", i)
+                            identifier = root + "\\" + os.path.splitext(file)[0]
 
-                        try:
+                            identifier = identifier.replace(cdir + "\\", "")
 
-                            self.content.spriteBase[name] = pygame.image.load(cF)
+                            l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
 
-                        except:
+                            try:
 
-                            l.Logger.log("Failed to load " + i + "in", self.mods[pathName]["name"], c.Logs.WARNING)
+                                self.content.spriteBase[identifier] = pygame.image.load(cF)
+
+                            except:
+
+                                l.Logger.log("Failed to load " + identifier + "in", self.mods[pathName]["name"], c.Logs.WARNING)
 
             l.Logger.log("Loaded Mod", self.mods[pathName]["name"])
