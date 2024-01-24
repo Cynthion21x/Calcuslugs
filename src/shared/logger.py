@@ -24,7 +24,9 @@ class logger:
 
         self.file = open(self.logFile, 'a')
 
-        self.log("So you had a problemo huh... well this is where you see what happened buckeo")
+        self.file.write("---- THESE ARE THE LOGS BUCKO ----" + "\n")
+
+        self.log("Welcome to calcuslugs :)")
 
     def log(self, message, details = None, logLevel = c.Logs.NORMAL):
 
