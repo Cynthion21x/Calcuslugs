@@ -162,6 +162,22 @@ class Interpteter:
             if i < length - 1:
                 two = string[i: i + 2].lower()
 
+            if i + 1 < length:
+
+                if curr in ["x", ")"]:
+
+                    if string[i + 1] in digits:
+
+                        tokens.append((c.tokens.MULT, "*"))
+
+            if prev != "#":
+
+                if curr in ["x", "("]:
+
+                    if prev in digits or prev == ")":
+
+                        tokens.append((c.tokens.MULT, "*"))
+
             if curr in operators:
 
                 if (prev in operators or i == 0) and curr == '-':
@@ -277,7 +293,7 @@ class Function:
 
 # --- Test ---
 
-testInput = "sqrt(x)"
+testInput = "sqrt(2(x+1)(x))"
 
 funct = Function(testInput)
 
