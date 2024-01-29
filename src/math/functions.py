@@ -130,6 +130,7 @@ class Interpteter:
             ")" : c.tokens.RBRACKET,
             "e" : c.tokens.E,
             "pi" : c.tokens.PI,
+            "ln" : c.tokens.LN,
             "log" : c.tokens.LOG,
             "sin" : c.tokens.SIN,
             "cos" : c.tokens.COS,
@@ -153,7 +154,7 @@ class Interpteter:
             four = ''
 
             if i < length - 3:
-                three = string[i: i + 4].lower()
+                four = string[i: i + 4].lower()
 
             if i < length - 2:
                 three = string[i: i + 3].lower()
@@ -204,7 +205,7 @@ class Function:
     def __init__(self, string):
 
         self.interp = Interpteter(string)
-
+        self.name = string
         self.root = self.interp.ast
 
     # Start recursion
@@ -212,7 +213,19 @@ class Function:
 
         self.x = x     
 
-        return self.solve(self.root)
+        try:
+            ans = self.solve(self.root)
+            return ans
+        
+        except ArithmeticError:
+            
+            l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
+            return None
+        
+        except ValueError:
+            
+            l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
+            return None
    
     # Read nodes and carry out required tasks
     def solve(self, _node):
@@ -242,7 +255,7 @@ class Function:
             return math.log(self.solve(_node.down), math.e)
         
         elif _node.type == c.tokens.LOG:
-            return math.cos(self.solve(_node.down), 10)
+            return math.log(self.solve(_node.down), 10)
         
         elif _node.type == c.tokens.POWER:
             return self.solve(_node.left) ** self.solve(_node.right)
@@ -264,11 +277,12 @@ class Function:
 
 # --- Test ---
 
-testInput = "sin(-3 * pi / 2) + x"
+testInput = "sqrt(x)"
 
 funct = Function(testInput)
 
-x = 5
+l.Logger.log(testInput, logLevel = c.Logs.TEST)
 
-l.Logger.log("X", x, c.Logs.TEST)
-l.Logger.log(testInput, funct.evaluate(x))
+for i in range(-5, 5):
+
+    l.Logger.log(testInput, funct.evaluate(i))
