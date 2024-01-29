@@ -1,7 +1,7 @@
 import os
 import src.shared.constants as c
 
-class logger:
+class _logger:
 
     def __init__(self, path):
         
@@ -46,6 +46,11 @@ class logger:
 
             text = "ERROR: " + text
 
+        elif logLevel == c.Logs.TEST:
+
+            print("--- TEST ---")
+            self.file.write("--- TEST ---" + "\n")         
+
         print(text)
 
         self.file.write(text + "\n")
@@ -55,4 +60,4 @@ class logger:
         self.file.close()
 
 
-Logger = logger(c.DATA_PATH)
+Logger = _logger(c.DATA_PATH)
