@@ -1,5 +1,5 @@
 import pygame
-
+import socket
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -9,7 +9,11 @@ dt = 0
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
-while running:
+s = socket.socket()
+s.connect(('127.0.0.1',54321))
+
+
+"""while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -24,5 +28,5 @@ while running:
 
 
     dt = clock.tick(60) / 1000
-
+    """
 pygame.quit()
