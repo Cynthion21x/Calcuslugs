@@ -24,6 +24,7 @@ class Logs:
     NORMAL = 0
     ERROR = 1
     WARNING = 2
+    TEST = 3
 
 # Display
 
@@ -38,7 +39,39 @@ CLICK_DELAY = 5
 
 class States:
 
-    pass
+    MENU = 0
+    GAME = 1
+
+# Tokens for maths interpreter
+    
+class tokens:
+
+    ADD = 0        # +
+    MULT = 1       # *
+    DIV = 2        # /
+    SUB = 3        # -
+
+    LBRACKET = 5   # (
+    RBRACKET = 6   # )
+
+    POWER = 7      # ^
+
+    VAR = 8        # x
+
+    SQRT = 9       # sqrt()
+    LOG = 10       # log()
+    ABS = 11       # | |
+    SIN = 12       # Sin()
+    COS = 13       # Cos()
+    TAN = 14       # Tan()
+
+    LN = 15        # Ln()
+
+    NUM = 18
+    NEG = 19
+    PI = 16        # pi
+    E = 17         # e
+
 
 # Keys
 
