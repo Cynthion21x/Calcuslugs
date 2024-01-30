@@ -13,7 +13,7 @@ class photo(UiElement):
 
         super().__init__(pos, size)
 
-        self.image = image
+        self.image = pygame.transform.scale(image, size.value())
 
     def render(self, display):
 

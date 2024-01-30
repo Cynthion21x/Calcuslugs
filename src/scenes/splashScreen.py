@@ -9,16 +9,20 @@ class splashScreen:
     def __init__(self, game):
 
         self.game = game
+
+        center = v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT).multC(0.5)
+        size = v.Vector(200, 200)
+
         self.title = elements.photo(
 
-            v.Vector(0, 0), v.Vector(1, 1),
+            center.add(size.multC(-0.5)), v.Vector(200, 200),
             content.fetch().Sprite("Titles\\gameTitle")
 
             )
 
     def run(self):
 
-        self.game.display.fill(c.Colours.BLUE)
+        self.game.display.fill(c.Colours.BACKGROUND)
 
         self.title.render(self.game.display)
 

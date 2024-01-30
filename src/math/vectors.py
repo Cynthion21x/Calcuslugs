@@ -36,10 +36,7 @@ class Vector:
     # Multiply by constant
     def multC(self, constant):
 
-        self.x *= constant
-        self.y *= constant
-
-        return self
+        return Vector(self.x * constant, self.y * constant)
     
     # Vector set to values from 0-1
     def normalize(self):
