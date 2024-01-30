@@ -39,6 +39,7 @@ CLICK_DELAY = 5
 
 class States:
 
+    SPLASH = 2
     MENU = 0
     GAME = 1
 

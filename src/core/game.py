@@ -1,12 +1,14 @@
 import pygame
-import src.core.inputManager as inputManager
 import src.core.content.contentManager as content
+import src.scenes.splashScreen as splash
 import src.shared.constants as c
 import src.shared.logger as l
 
 class Game():
 
     def __init__(self, message):
+
+        self.GameState = c.States.SPLASH
 
         pygame.init()
 
@@ -25,34 +27,45 @@ class Game():
 
         # my stuff
         self.circlePos = pygame.Vector2(c.SCREEN_WIDTH / 2, c.SCREEN_HEIGHT / 2)
-        #deltatime
+
+        #vdeltatime
         self.deltaTime = 0
+
+        # scenes
+        self.splashScreen = splash.splashScreen(self)
+
     def coreLoop(self):
 
         while self.running:
 
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_w]:
-                self.circlePos.y -= 300 * self.deltaTime
-            if keys[pygame.K_s]:
-                self.circlePos.y += 300 * self.deltaTime
-            if keys[pygame.K_a]:
-                self.circlePos.x -= 300 * self.deltaTime
-            if keys[pygame.K_d]:
-                self.circlePos.x += 300 * self.deltaTime
+            if self.GameState == c.States.SPLASH:
 
-            self.display.fill("purple")
+                self.splashScreen.run()
 
-            pygame.draw.circle(self.display, "red", self.circlePos, 40)
+            if self.GameState == c.States.GAME:
+
+                keys = pygame.key.get_pressed()
+                if keys[pygame.K_w]:
+                    self.circlePos.y -= 300 * self.deltaTime
+                if keys[pygame.K_s]:
+                    self.circlePos.y += 300 * self.deltaTime
+                if keys[pygame.K_a]:
+                    self.circlePos.x -= 300 * self.deltaTime
+                if keys[pygame.K_d]:
+                    self.circlePos.x += 300 * self.deltaTime
+
+                self.display.fill("purple")
+
+                pygame.draw.circle(self.display, "red", self.circlePos, 40)
+
+                self.deltaTime = self.clock.tick(c.FRAME_RATE) / 1000
 
             self.window.blit(self.display, (0, 0))
+            pygame.display.flip()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.close()
-            pygame.display.flip()
-
-            self.deltaTime = self.clock.tick(c.FRAME_RATE) / 1000
 
         pygame.quit()
 

@@ -41,14 +41,6 @@ class Vector:
 
         return self
     
-    # Multiply by vector
-    def multV(self, vector):
-        
-        newM = self.distance() * vector.distance()
-        newA = self.angle() * vector.angle()
-
-        return FromBearing(newA, newM)
-    
     # Vector set to values from 0-1
     def normalize(self):
 
