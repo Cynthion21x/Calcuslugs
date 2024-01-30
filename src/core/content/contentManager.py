@@ -19,17 +19,8 @@ class Content:
 
         self.loadContent()
 
-    def loadContent(self):
+    def loadText(self):
 
-        self.textBase = dict()
-
-        self.spriteBase = dict()
-
-        self.soundBase = dict()
-
-        l.Logger.log("Loading Content...")
-
-        # text
         self.textBase["title"] = c.ASSETS_PATH + "\\titleText.txt"
 
         for i in os.listdir(c.ASSETS_PATH + "\\language"):
@@ -52,7 +43,7 @@ class Content:
 
             f.close()
 
-        # Sprites
+    def loadSprites(self):
 
         try:
             self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png")
@@ -78,6 +69,48 @@ class Content:
                 except:
 
                     l.Logger.log("Failed to load", file, c.Logs.WARNING)
+
+    def loadFonts(self):
+
+        pygame.font.init()
+
+        for root, dirs, files in os.walk(c.ASSETS_PATH + "\\fonts"):
+                    
+            for file in files:
+
+                cDir = root + "\\" + file
+
+                identifier = root + "\\" + os.path.splitext(file)[0]
+
+                identifier = identifier.replace(c.ASSETS_PATH + "\\fonts\\", "")
+
+                l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
+
+                try:
+
+                    self.fontBase[identifier] = pygame.font.Font(cDir, 64)
+
+                except:
+
+                    l.Logger.log("Failed to load", file, c.Logs.WARNING)   
+
+    def loadContent(self):
+
+        self.textBase = dict()
+
+        self.spriteBase = dict()
+
+        self.fontBase = dict()
+
+        self.soundBase = dict()
+
+        l.Logger.log("Loading Content...")
+
+        self.loadText()
+
+        self.loadSprites()
+
+        self.loadFonts()
 
         self.modLauncher.loadMods()
 
@@ -105,11 +138,25 @@ class Content:
 
         except:
 
-            l.Logger.log("Failed to load", name, c.Logs.WARNING)
+            l.Logger.log("Failed to load sprite", name, c.Logs.WARNING)
 
             data = self.spriteBase["error"]
 
         return data
+
+    def Font(self, name):
+
+        try:
+
+            data = self.fontBase[name]
+
+        except:
+
+            l.Logger.log("Failed to load font", name, c.Logs.WARNING)
+
+            data = self.fontBase["default"]
+
+        return data  
 
     def getSound(self, name):
 

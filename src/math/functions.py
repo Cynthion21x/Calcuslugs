@@ -290,15 +290,3 @@ class Function:
         
         elif _node.type == c.tokens.VAR:
             return self.x
-
-# --- Test ---
-
-testInput = "x+10=29"
-
-funct = Function(testInput)
-
-l.Logger.log(testInput, logLevel = c.Logs.TEST)
-
-for i in range(-5, 5):
-
-    l.Logger.log(testInput, funct.evaluate(i))

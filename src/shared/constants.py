@@ -13,9 +13,14 @@ DATA_PATH = os.path.join(os.getenv('APPDATA'), '..', 'LocalLow', 'Cynthion21x', 
 
 class Colours:
 
-    RED = pygame.Color(255, 0, 0)
-    BLUE = pygame.Color(0, 0, 255)
-    GREEN = pygame.Color(0, 255, 0)
+    RED = pygame.Color(204, 39, 61)
+    BLUE = pygame.Color(38, 50, 181)
+    GREEN = pygame.Color(49, 161, 91)
+
+    WHITE = pygame.Color(255, 255, 255)
+    BLACK = pygame.Color(0, 0 ,0)
+
+    BACKGROUND = pygame.Color(5, 4, 59)
 
 # Log Levels
 
@@ -39,6 +44,7 @@ CLICK_DELAY = 5
 
 class States:
 
+    SPLASH = 2
     MENU = 0
     GAME = 1
 
