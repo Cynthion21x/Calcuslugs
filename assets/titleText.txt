@@ -1,4 +1,4 @@
-crinjer ninja
+cringer ninja
 powered by python
 finnaly a good use for trigonometry
 well well well
@@ -13,3 +13,4 @@ stop plotting
 didnt ask
 siquiggly squiggle
 heptadecaphobia
+nerd
