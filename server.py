@@ -1,14 +1,13 @@
 import socket
+import selectors
+import types
 
-s = socket.socket()
-port = 12345
-s.bind(('127.0.0.1', port))
-s.listen(5)
-c, addr = s.accept()
+host, port = '127.0.0.1', 54321
+sel = selectors.DefaultSelector()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((host, port))
 
-print("Socket Up and running with a connection from",addr)
-while True:
-    rcvdData = c.recv(1024).decode()
-    print("S:",rcvdData)
-
-c.close()
+s.listen()
+print("Listening")
+s.setblocking(False)
+sel.register(s, selectors.EVENT_READ, None)
