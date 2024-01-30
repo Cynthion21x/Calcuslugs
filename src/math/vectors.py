@@ -24,19 +24,6 @@ class Vector:
         y = self.y
 
         return math.atan(y/x)
-
-    # Vector Addition
-    def add(self, vector):
-        
-        self.x += vector.x
-        self.y += vector.y
-
-        return self
-
-    # Multiply by constant
-    def multC(self, constant):
-
-        return Vector(self.x * constant, self.y * constant)
     
     # Vector set to values from 0-1
     def normalize(self):
@@ -48,6 +35,27 @@ class Vector:
 
         return (self.x, self.y)
     
+# Multiply vector by number
+def mult(vector1, const):
+
+    return Vector(vector1.x * const, vector1.y * const)
+
+# Add two vectors together
+def add(vector1, vector2):
+        
+    x = vector1.x + vector2.x
+    y = vector1.y + vector2.y
+
+    return Vector(x, y)
+
+# Sub two vectors
+def sub(vector1, vector2):
+        
+    x = vector1.x - vector2.x
+    y = vector1.y - vector2.y
+
+    return Vector(x, y)
+
 # Generator Functions
 def FromBearing(angle, magnitude):
 
