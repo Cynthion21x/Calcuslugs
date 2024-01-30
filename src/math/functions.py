@@ -293,7 +293,7 @@ class Function:
 
 # --- Test ---
 
-testInput = "sqrt(2(x+1)(x))"
+testInput = "x+10=29"
 
 funct = Function(testInput)
 
