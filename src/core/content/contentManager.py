@@ -116,51 +116,7 @@ class Content:
 
         l.Logger.log("Content loaded!")
             
-    def Text(self, name):
 
-        try:
-
-            data = self.textBase[name]
-
-            return data
-
-        except:
-
-            l.Logger.log("Text failed to load", name, c.Logs.ERROR)
-
-            return c.Logs.ERROR
-
-    def Sprite(self, name):
-
-        try:
-
-            data = self.spriteBase[name]
-
-        except:
-
-            l.Logger.log("Failed to load sprite", name, c.Logs.WARNING)
-
-            data = self.spriteBase["error"]
-
-        return data
-
-    def Font(self, name):
-
-        try:
-
-            data = self.fontBase[name]
-
-        except:
-
-            l.Logger.log("Failed to load font", name, c.Logs.WARNING)
-
-            data = self.fontBase["default"]
-
-        return data  
-
-    def getSound(self, name):
-
-        pass
 
 data = Content()
 
@@ -171,3 +127,49 @@ def fetch():
         l.Logger.log("Don't acess data beffore its loaded", c.Logs.WARNING)
 
     return data
+
+def Text(name):
+
+    try:
+
+        data = fetch().textBase[name]
+
+        return data
+
+    except:
+
+        l.Logger.log("Text failed to load", name, c.Logs.ERROR)
+
+        return c.Logs.ERROR
+
+def Sprite(name):
+
+    try:
+
+        data = fetch().spriteBase[name]
+
+    except:
+
+        l.Logger.log("Failed to load sprite", name, c.Logs.WARNING)
+
+        data = fetch().spriteBase["error"]
+
+    return data
+
+def Font(name):
+
+    try:
+
+        data = fetch().fontBase[name]
+
+    except:
+
+        l.Logger.log("Failed to load font", name, c.Logs.WARNING)
+
+        data = fetch().fontBase["default"]
+
+    return data  
+
+def Sound(name):
+
+    pass

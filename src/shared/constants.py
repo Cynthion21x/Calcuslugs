@@ -81,4 +81,4 @@ class tokens:
 
 # Keys
 
-NO_KEY = "None"
+NO_KEY = -1

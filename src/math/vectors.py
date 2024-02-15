@@ -64,6 +64,10 @@ def FromBearing(angle, magnitude):
 
     return Vector(horizontalComp, verticalComp)
 
+def FromTuple(tup):
+
+    return Vector(tup[0], tup[1])
+
 # Useful constants
 
 Up = Vector(0, 1)

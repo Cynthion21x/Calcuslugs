@@ -1,8 +1,11 @@
 import pygame
 import src.core.content.contentManager as content
 import src.scenes.splashScreen as splash
+import src.scenes.game as game
+import src.scenes.mainMenu as menu
 import src.shared.constants as c
 import src.shared.logger as l
+import src.core.Input.inputManager as Input
 
 class Game():
 
@@ -21,7 +24,7 @@ class Game():
         self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
 
         pygame.display.set_caption(c.SCREEN_NAME + ": " + message)
-        pygame.display.set_icon(content.fetch().Sprite("icon"))
+        pygame.display.set_icon(content.Sprite("icon"))
 
         self.clock = pygame.time.Clock()
 
@@ -33,44 +36,58 @@ class Game():
 
         # scenes
         self.splashScreen = splash.splashScreen(self)
+        self.game = game.game(self)
+        self.menu = menu.mainMenu(self)
+
+        self.prevState = self.GameState
 
     def coreLoop(self):
 
         while self.running:
 
+            # clear prev frame
+            self.display.fill(c.Colours.BLACK)
+
+            # Get Events
+            Input.fetch().gatherInput()
+
+            # Check state change
+
+            if self.prevState != self.GameState:
+
+                self.prevState = self.GameState
+                l.Logger.log("Changed game state")
+
+                # subscribable event here or something
+
+            # Run appropriate section of code
+
             if self.GameState == c.States.SPLASH:
 
                 self.splashScreen.run()
 
-            if self.GameState == c.States.GAME:
+            elif self.GameState == c.States.MENU:
 
-                keys = pygame.key.get_pressed()
-                if keys[pygame.K_w]:
-                    self.circlePos.y -= 300 * self.deltaTime
-                if keys[pygame.K_s]:
-                    self.circlePos.y += 300 * self.deltaTime
-                if keys[pygame.K_a]:
-                    self.circlePos.x -= 300 * self.deltaTime
-                if keys[pygame.K_d]:
-                    self.circlePos.x += 300 * self.deltaTime
+                self.menu.run()
 
-                self.display.fill("purple")
+            elif self.GameState == c.States.GAME:
 
-                pygame.draw.circle(self.display, "red", self.circlePos, 40)
+                self.game.run()
 
-                self.deltaTime = self.clock.tick(c.FRAME_RATE) / 1000
+            # Update Display
 
             self.window.blit(self.display, (0, 0))
             pygame.display.flip()
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.close()
+            self.deltaTime = self.clock.tick(c.FRAME_RATE) / 1000
 
-        pygame.quit()
+            # Exit
+            if Input.fetch().QUIT:
+                self.close()
 
     def close(self):
 
         l.Logger.log("Shutting Down")
-
+        l.Logger.close()
+        pygame.quit()
         self.running = False
