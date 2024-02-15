@@ -20,8 +20,17 @@ class mainMenu:
 
         buttonX = center.x - (buttonSize.x / 2)
 
-        startButtonNorm = elements.photo(v.Vector(buttonX, 20), buttonSize, content.Sprite("UI\\button"))
-        startButtonHover = elements.photo(v.Vector(buttonX, 20), buttonSize, content.Sprite("UI\\button-hover"))
+        startButtonNorm = elements.photo(
+            v.Vector(buttonX, 20),
+            buttonSize,
+            content.Sprite("UI\\button")
+        )
+
+        startButtonHover = elements.photo(
+            v.Vector(center.x - (buttonSize.x * 1.2 / 2), 20),
+            v.mult(buttonSize, 1.2), 
+            content.Sprite("UI\\button-hover")
+        )
 
         startButton = elements.button(v.Vector(buttonX, 20), buttonSize, startButtonFunc, startButtonNorm, startButtonHover)
 
