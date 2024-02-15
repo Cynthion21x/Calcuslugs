@@ -22,7 +22,8 @@ class inputManager:
         ev = pygame.event.get()
 
         self.MOUSE_CLICK = False
-        self.MOUSE_DOWN = False
+
+        self.MOUSE_UP = False
 
         self.KEY_DOWN = c.NO_KEY
 

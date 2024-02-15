@@ -2,10 +2,11 @@ import src.shared.constants as c
 import src.core.UI.elements as elements
 import src.core.content.contentManager as content
 import src.math.vectors as v
+import src.shared.logger as l
 
 def startButtonFunc():
 
-    pass
+    l.Logger.log("Pressed button")
 
 class mainMenu:
 
