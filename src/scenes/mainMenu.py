@@ -19,15 +19,17 @@ class mainMenu:
         buttonSize = v.Vector(200, 100)
 
         buttonX = center.x - (buttonSize.x / 2)
+        buttonY = 20
 
         startButtonNorm = elements.photo(
-            v.Vector(buttonX, 20),
+            v.Vector(buttonX, buttonY),
             buttonSize,
             content.Sprite("UI\\button")
         )
 
+        hoverScale = 1.2
         startButtonHover = elements.photo(
-            v.Vector(center.x - (buttonSize.x * 1.2 / 2), 20),
+            v.Vector(center.x - (buttonSize.x * 1.2 / 2), buttonY - (buttonSize.y * 1.2 - buttonSize.y) / 2),
             v.mult(buttonSize, 1.2), 
             content.Sprite("UI\\button-hover")
         )

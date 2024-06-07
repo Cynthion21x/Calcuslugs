@@ -3,7 +3,6 @@ import src.core.UI.elements as elements
 import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.Input.inputManager as Input
-import pygame
 
 class splashScreen:
 

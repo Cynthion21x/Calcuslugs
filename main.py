@@ -4,6 +4,8 @@ import src.shared.logger as l
 
 import random
 
+import src.math.functions
+
 lines = open(content.Text("title")).read().splitlines()
 selection = random.choice(lines)
 
