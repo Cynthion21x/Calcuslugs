@@ -1,5 +1,6 @@
 import os
 import src.shared.constants as c
+import time
 
 class _logger:
 
@@ -44,7 +45,9 @@ class _logger:
 
         elif logLevel == c.Logs.ERROR:
 
-            text = "ERROR: " + text
+            t = time.asctime()
+
+            text = t + " - ERROR: " + text
 
         elif logLevel == c.Logs.TEST:
 
