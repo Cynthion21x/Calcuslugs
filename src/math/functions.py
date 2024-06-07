@@ -86,6 +86,14 @@ class Interpteter:
             self.index += 1
             return Node(token_type, down = self.factor())
         
+        elif token_type == c.tokens.ABS:
+            self.index += 1
+            node = Node(c.tokens.ABSFUNC, down = self.parse())
+
+            if self.index < self.length and self.tokens[self.index][0] == c.tokens.ABS:
+                self.index += 1
+                return node
+        
         elif token_type == c.tokens.LBRACKET:
             self.index += 1
             node = self.parse()
@@ -301,7 +309,7 @@ class Function:
 
 l.Logger.log("Function testing", logLevel=c.Logs.TEST)
 
-func = Function("abs(-7)")
-answer = func.evaluate(7)
+func = Function("|x|")
+answer = func.evaluate(-7)
 
 l.Logger.log(func.name, answer, c.Logs.NORMAL)
