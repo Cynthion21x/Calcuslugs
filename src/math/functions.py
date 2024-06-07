@@ -102,7 +102,6 @@ class Interpteter:
             elif token_type == c.tokens.E:
                 return Node(c.tokens.NUM, value=math.e)
             elif token_type == c.tokens.NUM:
-                l.Logger.log("Number token", token_value)
                 return Node(c.tokens.NUM, value=float(token_value))
             
         elif token_type == c.tokens.VAR:
@@ -304,6 +303,5 @@ l.Logger.log("Function testing", logLevel=c.Logs.TEST)
 
 func = Function("abs(-7)")
 answer = func.evaluate(7)
-#print(answer)
 
 l.Logger.log(func.name, answer, c.Logs.NORMAL)
