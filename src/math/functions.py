@@ -82,7 +82,7 @@ class Interpteter:
             self.index += 1      
             return Node(token_type, down = self.factor())
         
-        elif token_type in [c.tokens.SIN, c.tokens.COS, c.tokens.TAN, c.tokens.LOG, c.tokens.LN, c.tokens.SQRT]:
+        elif token_type in [c.tokens.ABSFUNC, c.tokens.SIN, c.tokens.COS, c.tokens.TAN, c.tokens.LOG, c.tokens.LN, c.tokens.SQRT]:
             self.index += 1
             return Node(token_type, down = self.factor())
         
@@ -102,6 +102,7 @@ class Interpteter:
             elif token_type == c.tokens.E:
                 return Node(c.tokens.NUM, value=math.e)
             elif token_type == c.tokens.NUM:
+                l.Logger.log("Number token", token_value)
                 return Node(c.tokens.NUM, value=float(token_value))
             
         elif token_type == c.tokens.VAR:
@@ -298,3 +299,11 @@ class Function:
         
         elif _node.type == c.tokens.VAR:
             return self.x
+
+l.Logger.log("Function testing", logLevel=c.Logs.TEST)
+
+func = Function("abs(-7)")
+answer = func.evaluate(7)
+#print(answer)
+
+l.Logger.log(func.name, answer, c.Logs.NORMAL)

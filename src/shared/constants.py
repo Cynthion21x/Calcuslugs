@@ -67,7 +67,7 @@ class tokens:
     SQRT = 9       # sqrt()
     LOG = 10       # log()
     ABS = 11       # | |
-    ABSFUNC = 18   # abs()
+    ABSFUNC = 20   # abs()
     SIN = 12       # Sin()
     COS = 13       # Cos()
     TAN = 14       # Tan()
