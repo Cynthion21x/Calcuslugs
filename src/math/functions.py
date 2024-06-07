@@ -128,9 +128,11 @@ class Interpteter:
             "^" : c.tokens.POWER,
             "(" : c.tokens.LBRACKET,
             ")" : c.tokens.RBRACKET,
+            "|" : c.tokens.ABS,
             "e" : c.tokens.E,
             "pi" : c.tokens.PI,
             "ln" : c.tokens.LN,
+            "abs" : c.tokens.ABSFUNC,
             "log" : c.tokens.LOG,
             "sin" : c.tokens.SIN,
             "cos" : c.tokens.COS,
@@ -254,6 +256,12 @@ class Function:
         
         if _node.type == c.tokens.NEG:
             return -1 * self.solve(_node.down)
+        
+        elif _node.type == c.tokens.ABS:
+            return abs(self.solve(_node.down))
+        
+        elif _node.type == c.tokens.ABSFUNC:
+            return abs(self.solve(_node.down))
         
         elif _node.type == c.tokens.SIN:
             return math.sin(self.solve(_node.down))
