@@ -13,8 +13,6 @@ class Game():
 
         self.GameState = c.States.SPLASH
 
-        pygame.init()
-
         self.message = message
 
         self.running = True
