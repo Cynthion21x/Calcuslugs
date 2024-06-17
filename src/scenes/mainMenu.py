@@ -29,19 +29,38 @@ class mainMenu:
 
         hoverScale = 1.2
         startButtonHover = elements.photo(
-            v.Vector(center.x - (buttonSize.x * 1.2 / 2), buttonY - (buttonSize.y * 1.2 - buttonSize.y) / 2),
+
+            v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY - (buttonSize.y * hoverScale - buttonSize.y) / 2),
             v.mult(buttonSize, 1.2), 
             content.Sprite("UI\\button-hover")
+
         )
 
         startButton = elements.button(v.Vector(buttonX, 20), buttonSize, self.startButtonFunc, startButtonNorm, startButtonHover)
 
+        startButtonText = elements.text(
+
+            v.Vector(center.x - (buttonSize.x * 0.8 / 2), buttonY + 5 - (buttonSize.y * 0.8 - buttonSize.y) / 2),
+            v.mult(buttonSize, 0.8),
+            content.Text("menuText")["PlayButton"],
+            content.Font("Sobiscuit")
+
+        )
+
+        self.background = elements.photo(
+            v.Vector(0, 0),
+            v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT),
+            content.Sprite("UI\\mainMenubg")
+        )
+
         self.mainButtons = elements.group([
 
-            startButton
+            startButton,
+            startButtonText
 
         ])
 
     def run(self):
 
+        self.background.render(self.game.display)
         self.mainButtons.run(self.game.display)

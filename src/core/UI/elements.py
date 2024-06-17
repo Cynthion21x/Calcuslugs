@@ -66,7 +66,7 @@ class text(UiElement):
 
         display.blit(self.textImg, self.pos.value())
 
-    def run(self, inputM):
+    def run(self):
         
         pass
 
