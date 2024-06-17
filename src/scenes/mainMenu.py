@@ -4,11 +4,11 @@ import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.shared.logger as l
 
-def startButtonFunc():
-
-    l.Logger.log("Pressed button")
-
 class mainMenu:
+
+    def startButtonFunc(self):
+
+        self.game.GameState = c.States.GAME
 
     def __init__(self, game):
 
@@ -34,7 +34,7 @@ class mainMenu:
             content.Sprite("UI\\button-hover")
         )
 
-        startButton = elements.button(v.Vector(buttonX, 20), buttonSize, startButtonFunc, startButtonNorm, startButtonHover)
+        startButton = elements.button(v.Vector(buttonX, 20), buttonSize, self.startButtonFunc, startButtonNorm, startButtonHover)
 
         self.mainButtons = elements.group([
 

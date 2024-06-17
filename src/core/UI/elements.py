@@ -116,3 +116,7 @@ class group:
             if self.visible:
 
                 i.render(display)
+
+class inputBox(UiElement):
+
+    pass
