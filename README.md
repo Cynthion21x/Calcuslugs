@@ -33,7 +33,9 @@ python main.py
 ```
 The game will create some log folders, save folders and options folders in **Appdata/LocalLow/Cynthion21x/calcuslugs**
 
-## Authors
+## Author
 - [Cynthion](github.com/Cynthion21x)
+
+## Maintainers
 - [Thekayperson](https://github.com/thekayperson)
 - [RA2ZY](https://github.com/RA2ZY)

@@ -67,14 +67,15 @@ class tokens:
     SQRT = 9       # sqrt()
     LOG = 10       # log()
     ABS = 11       # | |
+    ABSFUNC = 20   # abs()
     SIN = 12       # Sin()
     COS = 13       # Cos()
     TAN = 14       # Tan()
 
     LN = 15        # Ln()
 
-    NUM = 18
-    NEG = 19
+    NUM = 18       # Number
+    NEG = 19       # Negative Number
     PI = 16        # pi
     E = 17         # e
 

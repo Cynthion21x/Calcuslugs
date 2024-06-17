@@ -82,9 +82,17 @@ class Interpteter:
             self.index += 1      
             return Node(token_type, down = self.factor())
         
-        elif token_type in [c.tokens.SIN, c.tokens.COS, c.tokens.TAN, c.tokens.LOG, c.tokens.LN, c.tokens.SQRT]:
+        elif token_type in [c.tokens.ABSFUNC, c.tokens.SIN, c.tokens.COS, c.tokens.TAN, c.tokens.LOG, c.tokens.LN, c.tokens.SQRT]:
             self.index += 1
             return Node(token_type, down = self.factor())
+        
+        elif token_type == c.tokens.ABS:
+            self.index += 1
+            node = Node(c.tokens.ABSFUNC, down = self.parse())
+
+            if self.index < self.length and self.tokens[self.index][0] == c.tokens.ABS:
+                self.index += 1
+                return node
         
         elif token_type == c.tokens.LBRACKET:
             self.index += 1
@@ -128,9 +136,11 @@ class Interpteter:
             "^" : c.tokens.POWER,
             "(" : c.tokens.LBRACKET,
             ")" : c.tokens.RBRACKET,
+            "|" : c.tokens.ABS,
             "e" : c.tokens.E,
             "pi" : c.tokens.PI,
             "ln" : c.tokens.LN,
+            "abs" : c.tokens.ABSFUNC,
             "log" : c.tokens.LOG,
             "sin" : c.tokens.SIN,
             "cos" : c.tokens.COS,
@@ -255,6 +265,12 @@ class Function:
         if _node.type == c.tokens.NEG:
             return -1 * self.solve(_node.down)
         
+        elif _node.type == c.tokens.ABS:
+            return abs(self.solve(_node.down))
+        
+        elif _node.type == c.tokens.ABSFUNC:
+            return abs(self.solve(_node.down))
+        
         elif _node.type == c.tokens.SIN:
             return math.sin(self.solve(_node.down))
         
@@ -290,3 +306,10 @@ class Function:
         
         elif _node.type == c.tokens.VAR:
             return self.x
+
+l.Logger.log("Function testing", logLevel=c.Logs.TEST)
+
+func = Function("|x|")
+answer = func.evaluate(-7)
+
+l.Logger.log(func.name, answer, c.Logs.NORMAL)
