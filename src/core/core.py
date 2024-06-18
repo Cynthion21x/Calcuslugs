@@ -11,6 +11,8 @@ class Game():
 
     def __init__(self, message):
 
+        self.closing = False
+
         self.GameState = c.States.SPLASH
 
         self.message = message
@@ -81,6 +83,10 @@ class Game():
 
             # Exit
             if Input.fetch().QUIT:
+                self.exit()
+
+            if self.closing == True:
+
                 self.close()
 
     def close(self):
@@ -89,3 +95,7 @@ class Game():
         l.Logger.close()
         pygame.quit()
         self.running = False
+
+    def exit(self):
+
+        self.closing = True
