@@ -19,7 +19,7 @@ class Options:
 
             self.file = open(self.logFile, 'x')
             
-            with open(c.ASSETS_PATH, "defaultOptions.json") as default:
+            with open(c.ASSETS_PATH + "\\defaultOptions.json") as default:
 
                 self.file.write(default.read())
 

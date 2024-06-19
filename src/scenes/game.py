@@ -20,25 +20,10 @@ class game:
     
     def start(self):
          
-         self.player1Slugs = []
-         self.player2Slugs = []
+        self.player1Slugs = []
+        self.player2Slugs = []
 
     def run(self):
 
-            keys = pygame.key.get_pressed()
+        self.game.display.fill(c.Colours.BLACK)
 
-            if keys[pygame.K_w]:
-                self.circlePos.y -= 300 * self.game.deltaTime
-                
-            if keys[pygame.K_s]:
-                self.circlePos.y += 300 * self.game.deltaTime
-                    
-            if keys[pygame.K_a]:
-                self.circlePos.x -= 300 * self.game.deltaTime
-
-            if keys[pygame.K_d]:
-                self.circlePos.x += 300 * self.game.deltaTime
-
-            self.game.display.fill(c.Colours.BLUE)
-
-            pygame.draw.circle(self.game.display, c.Colours.RED, self.circlePos.value(), 40)
