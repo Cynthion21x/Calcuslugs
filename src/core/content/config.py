@@ -1,6 +1,5 @@
 import os
 import json
-import pygame
 import src.shared.constants as c
 import src.shared.logger as l
 
