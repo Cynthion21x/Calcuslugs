@@ -8,6 +8,7 @@
 ## Setup
 
 ### Dependancies
+
 * the python interpreter
 * pygame is required ```pip install pygame```
 
@@ -34,8 +35,10 @@ python main.py
 The game will create some log folders, save folders and options folders in **Appdata/LocalLow/Cynthion21x/calcuslugs**
 
 ## Author
-- [Cynthion](github.com/Cynthion21x)
+
+* [Cynthion](github.com/Cynthion21x)
 
 ## Maintainers
-- [Thekayperson](https://github.com/thekayperson)
-- [RA2ZY](https://github.com/RA2ZY)
+
+* [Thekayperson](https://github.com/thekayperson)
+* [RA2ZY](https://github.com/RA2ZY)
