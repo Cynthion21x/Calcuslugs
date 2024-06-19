@@ -76,7 +76,7 @@ class photo(UiElement):
 
         super().__init__(pos, size)
 
-        if preserveAspect == False:
+        if preserveAspect is False:
 
             self.image = pygame.transform.smoothscale(image, size.value())
 

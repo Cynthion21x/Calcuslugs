@@ -265,47 +265,48 @@ class Function:
         if _node.type == c.tokens.NEG:
             return -1 * self.solve(_node.down)
         
-        elif _node.type == c.tokens.ABS:
+        if _node.type == c.tokens.ABS:
             return abs(self.solve(_node.down))
         
-        elif _node.type == c.tokens.ABSFUNC:
+        if _node.type == c.tokens.ABSFUNC:
             return abs(self.solve(_node.down))
         
-        elif _node.type == c.tokens.SIN:
+        if _node.type == c.tokens.SIN:
             return math.sin(self.solve(_node.down))
         
-        elif _node.type == c.tokens.COS:
+        if _node.type == c.tokens.COS:
             return math.cos(self.solve(_node.down))
         
-        elif _node.type == c.tokens.TAN:
+        if _node.type == c.tokens.TAN:
             return math.tan(self.solve(_node.down))
         
-        elif _node.type == c.tokens.SQRT:
+        if _node.type == c.tokens.SQRT:
             return math.sqrt(self.solve(_node.down))
         
-        elif _node.type == c.tokens.LN:
+        if _node.type == c.tokens.LN:
             return math.log(self.solve(_node.down), math.e)
         
-        elif _node.type == c.tokens.LOG:
+        if _node.type == c.tokens.LOG:
             return math.log(self.solve(_node.down), 10)
         
-        elif _node.type == c.tokens.POWER:
+        if _node.type == c.tokens.POWER:
             return self.solve(_node.left) ** self.solve(_node.right)
         
-        elif _node.type == c.tokens.MULT:
+        if _node.type == c.tokens.MULT:
             return self.solve(_node.left) * self.solve(_node.right)
         
-        elif _node.type == c.tokens.DIV:
+        if _node.type == c.tokens.DIV:
             return self.solve(_node.left) / self.solve(_node.right)
         
-        elif _node.type == c.tokens.ADD:
+        if _node.type == c.tokens.ADD:
             return self.solve(_node.left) + self.solve(_node.right)
         
-        elif _node.type == c.tokens.SUB:
+        if _node.type == c.tokens.SUB:
             return self.solve(_node.left) - self.solve(_node.right)
         
-        elif _node.type == c.tokens.VAR:
+        if _node.type == c.tokens.VAR:
             return self.x
+
 
 l.Logger.log("Function testing", logLevel=c.Logs.TEST)
 

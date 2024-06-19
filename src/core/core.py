@@ -85,7 +85,7 @@ class Game():
             if Input.fetch().QUIT:
                 self.exit()
 
-            if self.closing == True:
+            if self.closing:
 
                 self.close()
 
