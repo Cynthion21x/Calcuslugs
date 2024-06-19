@@ -58,15 +58,17 @@ class Content:
 
                 identifier = identifier.replace(c.ASSETS_PATH + "\\picture\\", "")
 
-                l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
+                if (os.path.splitext(file)[1] != "png"):
 
-                try:
+                    l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
 
-                    self.spriteBase[identifier] = pygame.image.load(cDir)
+                    try:
 
-                except:
+                        self.spriteBase[identifier] = pygame.image.load(cDir)
 
-                    l.Logger.log("Failed to load", file, c.Logs.WARNING)
+                    except:
+
+                        l.Logger.log("Failed to load", file, c.Logs.WARNING)
 
     def loadFonts(self):
 
@@ -136,7 +138,7 @@ def Text(name):
 
     except:
 
-        l.Logger.log("Text failed to load", name, c.Logs.ERROR)
+        l.Logger.log("Failed to find text", name, c.Logs.ERROR)
 
         return c.Logs.ERROR
 
@@ -148,7 +150,7 @@ def Sprite(name):
 
     except:
 
-        l.Logger.log("Failed to load sprite", name, c.Logs.WARNING)
+        l.Logger.log("Failed to find sprite", name, c.Logs.WARNING)
 
         data = fetch().spriteBase["error"]
 
@@ -162,7 +164,7 @@ def Font(name):
 
     except:
 
-        l.Logger.log("Failed to load font", name, c.Logs.WARNING)
+        l.Logger.log("Failed to find font", name, c.Logs.WARNING)
 
         data = fetch().fontBase["default"]
 

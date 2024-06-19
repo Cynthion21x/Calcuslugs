@@ -1,7 +1,7 @@
 import src.shared.constants as c
 import src.core.content.contentManager as content
 import src.math.vectors as v
-import pygame
+import src.core.UI.elements as elements
 
 class game:
 
@@ -17,7 +17,12 @@ class game:
         self.turn = 1
 
         self.start()
+        self.ui()
     
+    def ui(self):
+
+        self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
+
     def start(self):
          
         self.player1Slugs = []
@@ -25,5 +30,6 @@ class game:
 
     def run(self):
 
-        self.game.display.fill(c.Colours.BLACK)
+        self.game.display.fill(c.Colours.GREY)
+        self.mainBox.render(self.game.display)
 

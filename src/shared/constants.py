@@ -19,6 +19,7 @@ class Colours:
 
     WHITE = pygame.Color(255, 255, 255)
     BLACK = pygame.Color(0, 0 ,0)
+    GREY = pygame.Color(112, 116, 125)
 
     BACKGROUND = pygame.Color(5, 4, 59)
 
