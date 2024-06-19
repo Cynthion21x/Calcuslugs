@@ -5,6 +5,16 @@
 
 ---
 
+<p align="center">
+
+<img src="https://app.codacy.com/project/badge/Grade/22ce27b9b99340e2924706a05f920842">
+<img src="https://img.shields.io/github/commit-activity/m/Cynthion21x/Calcuslugs?link=https%3A%2F%2Fgithub.com%2FNVIDIA%2Fwarp%2Fcommits%2Fmain">
+<img src="https://img.shields.io/github/downloads/Cynthion21x/Calcuslugs/total">
+<img src="https://img.shields.io/github/languages/code-size/Cynthion21x/Calcuslugs">
+
+
+</p>
+
 ## Setup
 
 ### Dependancies
