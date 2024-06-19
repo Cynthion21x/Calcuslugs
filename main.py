@@ -17,8 +17,9 @@ import src.core.core as g
 import src.core.content.contentManager as content
 import src.shared.logger as l
 
-lines = open(content.Text("title")).read().splitlines()
-selection = random.choice(lines)
+with open(content.Text("title")) as file:
+    lines = file.read().splitlines()
+    selection = random.choice(lines)
 
 time.sleep(1)
 

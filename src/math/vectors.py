@@ -68,13 +68,13 @@ def FromTuple(tup):
 
     return Vector(tup[0], tup[1])
 
+
 # Useful constants
 
 Up = Vector(0, 1)
 Down = Vector(0, -1)
 Left = Vector(-1, 0)
 Right = Vector(1, 0)
-
 One = Vector(1, 1)
 Zero = Vector(0, 0)
 
