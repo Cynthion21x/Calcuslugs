@@ -14,6 +14,27 @@ class Options:
 
         self.loadContent()
 
-        if os.path.exists(self.optionFile) == False:
+        if not os.path.exists(self.optionFile):
 
-            self.file = open(self.logFile, 'a')
+            l.logger.Log("Options not found, writing default options", )
+
+            self.file = open(self.logFile, 'x')
+            
+            with open(c.ASSETS_PATH, "defaultOptions.json") as default:
+
+                self.file.write(default.read())
+
+        else:
+
+            self.file = open(self.logFile, 'r')
+
+        self.ops = json.load(self.file)
+
+
+options = Options()
+
+def getOption(name):
+
+    # handling for missing options at some point in the future
+
+    return options.ops[name]
