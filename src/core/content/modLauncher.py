@@ -71,21 +71,20 @@ class modLauncher:
 
                         cF = cdir + "\\" + i
 
-                        f = open(cF)
+                        with open(cF) as f:
 
-                        name = os.path.splitext(i)[0]
+                            name = os.path.splitext(i)[0]
 
-                        l.Logger.log("Loading", i)
+                            l.Logger.log("Loading", i)
 
-                        try:
+                            try:
 
-                            self.content.textBase[name] = json.load(f)
+                                self.content.textBase[name] = json.load(f)
 
-                        except:
+                            except:
 
-                            l.Logger.log("Failed to load " + i + "in", self.mods[pathName]["name"], c.Logs.ERROR)
+                                l.Logger.log("Failed to load " + i + "in", self.mods[pathName]["name"], c.Logs.ERROR)
 
-                        f.close()
 
                 # Sprites
                 

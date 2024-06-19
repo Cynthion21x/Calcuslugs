@@ -9,7 +9,7 @@ class Content:
 
     def __init__(self):
 
-        if os.path.isdir(c.DATA_PATH) == False:
+        if not os.path.isdir(c.DATA_PATH):
 
             os.mkdir(c.DATA_PATH)
             os.mkdir(c.DATA_PATH + "\\Mods")
@@ -27,21 +27,19 @@ class Content:
 
             cDir = c.ASSETS_PATH + "\\language\\" + i
 
-            f = open(cDir)
+            with open(cDir) as f:
 
-            identifier = os.path.splitext(i)[0]
+                identifier = os.path.splitext(i)[0]
 
-            l.Logger.log("Loading", i)
+                l.Logger.log("Loading", i)
 
-            try:
+                try:
 
-                self.textBase[identifier] = json.load(f)
+                    self.textBase[identifier] = json.load(f)
 
-            except:
+                except:
 
-                l.Logger.log("Failed to load", i, c.Logs.ERROR)
-
-            f.close()
+                    l.Logger.log("Failed to load", i, c.Logs.ERROR)
 
     def loadSprites(self):
 
@@ -122,7 +120,7 @@ data = Content()
 
 def fetch():
 
-    if data == None:
+    if data is None:
 
         l.Logger.log("Don't acess data beffore its loaded", c.Logs.WARNING)
 
