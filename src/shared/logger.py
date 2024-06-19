@@ -27,6 +27,9 @@ class _logger:
 
         self.file.write("---- THESE ARE THE LOGS BUCKO ----" + "\n")
 
+        self.file.write("pygame 2.5.2 (SDL 2.28.3, Python 3.12.1)\n")
+        self.file.write("Hello from the pygame community. https://www.pygame.org/contribute.html\n")
+
         self.log("Welcome to calcuslugs :)")
 
     def log(self, message, details = None, logLevel = c.Logs.NORMAL):
