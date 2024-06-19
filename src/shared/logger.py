@@ -6,7 +6,7 @@ class _logger:
 
     def __init__(self, path):
         
-        if os.path.isdir(c.DATA_PATH) == False:
+        if not os.path.isdir(c.DATA_PATH):
 
             os.mkdir(c.DATA_PATH)
             os.mkdir(c.DATA_PATH + "\\Mods")

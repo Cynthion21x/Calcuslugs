@@ -55,12 +55,13 @@ class inputManager:
     def getMousePos(self):
 
         return v.FromTuple(pygame.mouse.get_pos())
+
   
 i = inputManager()
 
 def fetch():
 
-    if i == None:
+    if i is None:
 
         l.Logger.log("Don't acess input beffore its loaded", c.Logs.WARNING)
 
