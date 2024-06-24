@@ -2,6 +2,7 @@ import src.shared.constants as c
 import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.UI.elements as elements
+import src.core.content.config as config
 
 class game:
 
@@ -16,7 +17,8 @@ class game:
 
         self.turn = 1
 
-        self.start()
+        self.started = False
+
         self.ui()
     
     def ui(self):
@@ -25,10 +27,16 @@ class game:
 
     def start(self):
          
+        self.started = True
+        self.turnTimer = config.getOption("turnTime")
+
         self.player1Slugs = []
         self.player2Slugs = []
 
     def run(self):
+
+        if not self.started:
+            self.start()
 
         self.game.display.fill(c.Colours.GREY)
         self.mainBox.render(self.game.display)

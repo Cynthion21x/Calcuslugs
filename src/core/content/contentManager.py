@@ -58,9 +58,11 @@ class Content:
 
                 identifier = identifier.replace(c.ASSETS_PATH + "\\picture\\", "")
 
-                if (os.path.splitext(file)[1] != "png"):
+                ending = os.path.splitext(file)[1]
 
-                    l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
+                if (ending == ".png"):
+
+                    l.Logger.log("Loading", identifier + ending)
 
                     try:
 
