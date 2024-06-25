@@ -54,13 +54,25 @@ class text(UiElement):
 
         super().__init__(pos, size)
 
+        self.font = font
+
         self.textImg = font.render(text, True, colour)
+
+        self.colour = colour
 
         ratio = self.textImg.get_size()[1] / self.textImg.get_size()[0]
 
-        newSize = v.Vector(size.x, size.x * ratio)
+        self.newSize = v.Vector(size.x, size.x * ratio)
 
-        self.textImg = pygame.transform.smoothscale(self.textImg, newSize.value())
+        self.size = size.x
+
+        self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
+
+    def updateText(self, text):
+
+        self.textImg = self.font.render(text, True, self.colour)
+
+        self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
 
     def render(self, display):
 
