@@ -1,0 +1,16 @@
+{
+
+    "damage": 20,
+    "passThrough": true,
+
+    "sprite": "Guns\\zapotron",
+    "projectile": "Guns\\zapotronBullet",
+
+    "aoe": {
+
+        "radius": 0,
+        "damage": 0
+
+    }
+
+}

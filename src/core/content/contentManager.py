@@ -96,6 +96,50 @@ class Content:
 
                     l.Logger.log("Failed to load", file, c.Logs.WARNING)   
 
+    def loadGuns(self):
+
+        l.Logger.log("Loading Guns...")
+
+        for i in os.listdir(c.ASSETS_PATH + "\\guns"):
+
+            cDir = c.ASSETS_PATH + "\\guns\\" + i
+
+            with open(cDir) as f:
+
+                identifier = os.path.splitext(i)[0]
+
+                l.Logger.log("Loading", i)
+
+                try:
+
+                    self.gunBase[identifier] = json.load(f)
+
+                except:
+
+                    l.Logger.log("Failed to load", i, c.Logs.ERROR)  
+
+    def loadSlugs(self):
+
+        l.Logger.log("Loading Slugs...")
+
+        for i in os.listdir(c.ASSETS_PATH + "\\slugs"):
+
+            cDir = c.ASSETS_PATH + "\\slugs\\" + i
+
+            with open(cDir) as f:
+
+                identifier = os.path.splitext(i)[0]
+
+                l.Logger.log("Loading", i)
+
+                try:
+
+                    self.gunBase[identifier] = json.load(f)
+
+                except:
+
+                    l.Logger.log("Failed to load", i, c.Logs.ERROR)     
+
     def loadContent(self):
 
         self.textBase = dict()
@@ -106,13 +150,22 @@ class Content:
 
         self.soundBase = dict()
 
+        self.gunBase = dict()
+
+        self.slugBase = dict()
+
         l.Logger.log("Loading Content...")
 
+        # Assets
         self.loadText()
 
         self.loadSprites()
 
         self.loadFonts()
+
+        # Recourses
+        self.loadGuns()
+        self.loadSlugs()
 
         self.modLauncher.loadMods()
 

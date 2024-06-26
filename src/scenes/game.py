@@ -3,7 +3,9 @@ import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.UI.elements as elements
 import src.core.content.config as config
-import time
+import random
+import pygame
+import math
 
 class game:
 
@@ -38,14 +40,25 @@ class game:
         self.started = True
         self.turnTimer = int(config.getOption("turnTime"))
 
-        self.player1Slugs = []
-        self.player2Slugs = []
+        # Generate map
+        '''
+        params = [
+            random.randrange(1, 10),
+            random.randrange(1, 10),
+            random.randrange(1, 10),
+            random.random(0, math.pi),
+            random.random(0, math.pi),
+            random.random(0, math.pi)
+        ]
+        '''
 
     def run(self):
 
+        # Start func
         if not self.started:
             self.start()
 
+        # Game logic
         self.turnTimer -= self.game.deltaTime
 
         clockText = str(int(self.turnTimer // 60))
@@ -61,11 +74,20 @@ class game:
 
         self.clock.updateText(clockText + ":" + clockSecond)
 
-        if self.turnTimer < 0:
+        if self.turnTimer < 1:
 
-            self.turnTimer = 0
+            # New turn
+            self.turnTimer = int(config.getOption("turnTime"))
+
+
+        # Game Render
 
         self.game.display.fill(c.Colours.GREY)
+
+        # Background
+        pygame.draw.rect(self.game.display, c.Colours.BLUE, pygame.Rect((c.SCREEN_WIDTH-980) / 2, 25, 980, 400))
+
+
+        # UI render
         self.mainBox.render(self.game.display)
         self.clock.render(self.game.display)
-
