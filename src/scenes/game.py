@@ -3,6 +3,7 @@ import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.UI.elements as elements
 import src.core.content.config as config
+import src.core.entities.tilemap as tiles
 import random
 import pygame
 import math
@@ -41,16 +42,17 @@ class game:
         self.turnTimer = int(config.getOption("turnTime"))
 
         # Generate map
-        '''
         params = [
             random.randrange(1, 10),
             random.randrange(1, 10),
             random.randrange(1, 10),
-            random.random(0, math.pi),
-            random.random(0, math.pi),
-            random.random(0, math.pi)
+            random.uniform(0, math.pi),
+            random.uniform(0, math.pi),
+            random.uniform(0, math.pi),
+            random.uniform(0, math.pi)
         ]
-        '''
+
+        self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params)
 
     def run(self):
 
@@ -87,6 +89,9 @@ class game:
         # Background
         pygame.draw.rect(self.game.display, c.Colours.BLUE, pygame.Rect((c.SCREEN_WIDTH-980) / 2, 25, 980, 400))
 
+        # Terrain
+
+        self.grid.render(self.game.display)
 
         # UI render
         self.mainBox.render(self.game.display)

@@ -71,16 +71,18 @@ def FromTuple(tup):
 
 #GameCoords
 
-def normalToMap(self, vector):
+def normalToMap(vector):
 
     return add(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
     
-def gameToNormalCoord(self, vector):
+def gameToNormalCoord(vector):
 
     vec = mult(vector, 20)
     vec = add(vec, Vector((c.SCREEN_WIDTH-980) / 2, 25))
 
-def normalToGameCoord(self, vector):
+    return vec
+
+def normalToGameCoord(vector):
 
     vec = sub(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
     vec = mult(vec, 1/20)
