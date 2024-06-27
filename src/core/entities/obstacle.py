@@ -15,14 +15,14 @@ class obstacle:
 
         self.none = none
 
-        r = self.color.r
-        g = self.color.g
-        b = self.color.b
+        r = self.color.r / 2
+        g = self.color.g / 2
+        b = self.color.b / 2
 
         self.color = pygame.Color(
-            int(r + (255 - r) * (self.hp/10)),
-            int(b + (255 - b) * (self.hp/10)),
-            int(g + (255 - g) * (self.hp/10))
+            int(r + ((255 - r) * (self.hp/10))/3),
+            int(b + ((255 - b) * (self.hp/10))/3),
+            int(g + ((255 - g) * (self.hp/10))/3)
         )
 
     def render(self, display):

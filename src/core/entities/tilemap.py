@@ -16,7 +16,7 @@ class Tilemap:
 
             for y in range(height):
 
-                index = 10 - math.sin((x+params[4]) / params[0]) + math.sin((x+params[5]) / params[1]) + math.sin((x+params[6]) / params[3])
+                index = 15 - math.sin((x+params[3]) / params[0]) + math.sin((x+params[4]) / params[1]) + math.sin((x+params[5]) / params[2])
 
                 if (y > index):
 

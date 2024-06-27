@@ -43,10 +43,9 @@ class game:
 
         # Generate map
         params = [
-            random.randrange(1, 10),
-            random.randrange(1, 10),
-            random.randrange(1, 10),
-            random.uniform(0, math.pi),
+            random.randrange(0, c.GAME_WIDTH),
+            random.randrange(0, c.GAME_WIDTH),
+            random.randrange(0, c.GAME_WIDTH),
             random.uniform(0, math.pi),
             random.uniform(0, math.pi),
             random.uniform(0, math.pi)
