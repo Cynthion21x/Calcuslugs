@@ -43,12 +43,12 @@ class game:
 
         # Generate map
         params = [
-            random.randrange(0, c.GAME_WIDTH),
-            random.randrange(0, c.GAME_WIDTH),
-            random.randrange(0, c.GAME_WIDTH),
-            random.uniform(0, math.pi),
-            random.uniform(0, math.pi),
-            random.uniform(0, math.pi)
+            random.randrange(1, int( c.GAME_WIDTH /2 )),
+            random.randrange(1, int( c.GAME_WIDTH /2 )),
+            random.randrange(1, int( c.GAME_WIDTH /2 )),
+            random.uniform(0, 2 * math.pi),
+            random.uniform(0, 2 * math.pi),
+            random.uniform(0, 2 * math.pi)
         ]
 
         self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params)
