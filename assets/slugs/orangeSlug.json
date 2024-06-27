@@ -1,0 +1,21 @@
+{
+
+    "pointer": "Slugs\\orangePointer",
+
+    "idleAnimation": [
+
+        "Slugs\\orangeSlug"
+
+    ],
+
+    "walkAnimation": [
+
+        "Slugs\\orangeSlug"
+
+    ],
+
+    "hp": 100,
+    "speed": 10,
+    "team": true
+
+}

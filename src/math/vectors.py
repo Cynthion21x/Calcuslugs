@@ -1,4 +1,5 @@
 import math
+import src.shared.constants as c
 import src.shared.logger as l
 
 # Vector value with helper functions
@@ -68,6 +69,25 @@ def FromTuple(tup):
 
     return Vector(tup[0], tup[1])
 
+#GameCoords
+
+def normalToMap(vector):
+
+    return add(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
+    
+def gameToNormalCoord(vector):
+
+    vec = mult(vector, 20)
+    vec = add(vec, Vector((c.SCREEN_WIDTH-980) / 2, 25))
+
+    return vec
+
+def normalToGameCoord(vector):
+
+    vec = sub(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
+    vec = mult(vec, 1/20)
+
+    return vec
 
 # Useful constants
 

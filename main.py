@@ -15,6 +15,7 @@ pygame.display.flip()
 
 import src.core.core as g
 import src.core.content.contentManager as content
+import src.core.content.config as conf
 import src.shared.logger as l
 
 with open(content.Text("title")) as file:

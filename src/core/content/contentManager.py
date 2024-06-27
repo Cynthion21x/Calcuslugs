@@ -58,15 +58,19 @@ class Content:
 
                 identifier = identifier.replace(c.ASSETS_PATH + "\\picture\\", "")
 
-                l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
+                ending = os.path.splitext(file)[1]
 
-                try:
+                if (ending == ".png"):
 
-                    self.spriteBase[identifier] = pygame.image.load(cDir)
+                    l.Logger.log("Loading", identifier + ending)
 
-                except:
+                    try:
 
-                    l.Logger.log("Failed to load", file, c.Logs.WARNING)
+                        self.spriteBase[identifier] = pygame.image.load(cDir)
+
+                    except:
+
+                        l.Logger.log("Failed to load", file, c.Logs.WARNING)
 
     def loadFonts(self):
 
@@ -92,6 +96,50 @@ class Content:
 
                     l.Logger.log("Failed to load", file, c.Logs.WARNING)   
 
+    def loadGuns(self):
+
+        l.Logger.log("Loading Guns...")
+
+        for i in os.listdir(c.ASSETS_PATH + "\\guns"):
+
+            cDir = c.ASSETS_PATH + "\\guns\\" + i
+
+            with open(cDir) as f:
+
+                identifier = os.path.splitext(i)[0]
+
+                l.Logger.log("Loading", i)
+
+                try:
+
+                    self.gunBase[identifier] = json.load(f)
+
+                except:
+
+                    l.Logger.log("Failed to load", i, c.Logs.ERROR)  
+
+    def loadSlugs(self):
+
+        l.Logger.log("Loading Slugs...")
+
+        for i in os.listdir(c.ASSETS_PATH + "\\slugs"):
+
+            cDir = c.ASSETS_PATH + "\\slugs\\" + i
+
+            with open(cDir) as f:
+
+                identifier = os.path.splitext(i)[0]
+
+                l.Logger.log("Loading", i)
+
+                try:
+
+                    self.gunBase[identifier] = json.load(f)
+
+                except:
+
+                    l.Logger.log("Failed to load", i, c.Logs.ERROR)     
+
     def loadContent(self):
 
         self.textBase = dict()
@@ -102,13 +150,22 @@ class Content:
 
         self.soundBase = dict()
 
+        self.gunBase = dict()
+
+        self.slugBase = dict()
+
         l.Logger.log("Loading Content...")
 
+        # Assets
         self.loadText()
 
         self.loadSprites()
 
         self.loadFonts()
+
+        # Recourses
+        self.loadGuns()
+        self.loadSlugs()
 
         self.modLauncher.loadMods()
 
@@ -136,7 +193,7 @@ def Text(name):
 
     except:
 
-        l.Logger.log("Text failed to load", name, c.Logs.ERROR)
+        l.Logger.log("Failed to find text", name, c.Logs.ERROR)
 
         return c.Logs.ERROR
 
@@ -148,7 +205,7 @@ def Sprite(name):
 
     except:
 
-        l.Logger.log("Failed to load sprite", name, c.Logs.WARNING)
+        l.Logger.log("Failed to find sprite", name, c.Logs.WARNING)
 
         data = fetch().spriteBase["error"]
 
@@ -162,7 +219,7 @@ def Font(name):
 
     except:
 
-        l.Logger.log("Failed to load font", name, c.Logs.WARNING)
+        l.Logger.log("Failed to find font", name, c.Logs.WARNING)
 
         data = fetch().fontBase["default"]
 

@@ -19,6 +19,7 @@ class Colours:
 
     WHITE = pygame.Color(255, 255, 255)
     BLACK = pygame.Color(0, 0 ,0)
+    GREY = pygame.Color(112, 116, 125)
 
     BACKGROUND = pygame.Color(5, 4, 59)
 
@@ -36,6 +37,9 @@ class Logs:
 SCREEN_NAME = "calcuslugs"
 SCREEN_WIDTH = 1040
 SCREEN_HEIGHT = 585
+
+GAME_WIDTH = 49
+GAME_HEIGHT = 20
 
 FRAME_RATE = 60
 CLICK_DELAY = 5
