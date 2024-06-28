@@ -1,6 +1,7 @@
 import src.core.entities.obstacle as obstacle
 import src.math.vectors as v
 import src.shared.constants as c
+import src.shared.logger as l
 import math
 
 class Tilemap:
@@ -10,6 +11,8 @@ class Tilemap:
         self.grid = []
 
         # Generator function
+
+        l.Logger.log("Generating Terrain...")
 
         for x in range(width):
 
@@ -37,7 +40,9 @@ class Tilemap:
                         v.gameToNormalCoord(v.Vector(x, y)),
                         True
 
-                    ))   
+                    ))
+
+        l.Logger.log("Generation Complete")
 
     def render(self, game):
 

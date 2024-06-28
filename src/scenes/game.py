@@ -50,9 +50,9 @@ class game:
             random.uniform(0, 3 * math.pi),
             random.uniform(0, 3 * math.pi),
             random.uniform(0, 3 * math.pi),
-            random.randrange(int( c.GAME_HEIGHT /9 ), int( c.GAME_HEIGHT /5 )) / 2,
-            random.randrange(int( c.GAME_HEIGHT /9 ), int( c.GAME_HEIGHT /5 )) / 2,
-            random.randrange(int( c.GAME_HEIGHT /9 ), int( c.GAME_HEIGHT /5 )) / 2
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2
         ]
 
         self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params)
