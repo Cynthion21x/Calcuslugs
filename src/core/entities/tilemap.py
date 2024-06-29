@@ -1,5 +1,7 @@
 import src.core.entities.obstacle as obstacle
 import src.math.vectors as v
+import src.shared.constants as c
+import src.shared.logger as l
 import math
 
 class Tilemap:
@@ -10,13 +12,17 @@ class Tilemap:
 
         # Generator function
 
+        l.Logger.log("Generating Terrain...")
+
         for x in range(width):
 
             self.grid.append([])
 
             for y in range(height):
 
-                index = 15 - math.sin((x+params[3]) / params[0]) + math.sin((x+params[4]) / params[1]) + math.sin((x+params[5]) / params[2])
+                xS = x + c.GAME_WIDTH / 2
+
+                index = (c.GAME_HEIGHT * 0.75) - (params[6] *math.sin((xS+params[3]) / params[0]) + params[7] * math.sin((xS+params[4]) / params[1]) + params[8] * math.sin((xS+params[5]) / params[2]))
 
                 if (y > index):
 
@@ -34,7 +40,9 @@ class Tilemap:
                         v.gameToNormalCoord(v.Vector(x, y)),
                         True
 
-                    ))   
+                    ))
+
+        l.Logger.log("Generation Complete")
 
     def render(self, game):
 
