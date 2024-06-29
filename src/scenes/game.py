@@ -29,7 +29,7 @@ class game:
     def ui(self):
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
-        self.background = elements.photo(v.Vector(0 , 25), v.Vector(c.GAME_WIDTH, c.GAME_HEIGHT), content.Sprite("background\\BubbleSeaFloorBG"))
+        self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), content.Sprite("background\\BubbleSeaFloorBG"))
         self.clock = elements.text(
 
             v.Vector((c.SCREEN_WIDTH - 200) / 2, 10),
