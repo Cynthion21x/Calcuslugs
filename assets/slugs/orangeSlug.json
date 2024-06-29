@@ -4,13 +4,13 @@
 
     "idleAnimation": [
 
-        "Slugs\\orangeSlug"
+        "Slugs\\orange"
 
     ],
 
     "walkAnimation": [
 
-        "Slugs\\orangeSlug"
+        "Slugs\\orange"
 
     ],
 
