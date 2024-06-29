@@ -45,6 +45,11 @@ python main.py
 ```
 The game will create some log folders, save folders and options folders in **Appdata/LocalLow/Cynthion21x/calcuslugs**
 
+compile the game using
+```
+python setup.py build
+```
+
 ## Author
 
 * [Cynthion](github.com/Cynthion21x)
