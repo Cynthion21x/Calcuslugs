@@ -28,6 +28,7 @@ class game:
     def ui(self):
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
+        self.background = elements.photo(v.Vector(0 , 25), v.Vector(c.GAME_WIDTH, c.GAME_HEIGHT), content.Sprite("background\\BubbleSeaFloorBG"))
         self.clock = elements.text(
 
             v.Vector((c.SCREEN_WIDTH - 200) / 2, 10),
@@ -87,6 +88,7 @@ class game:
 
         # Background
         pygame.draw.rect(self.game.display, c.Colours.BLUE, pygame.Rect((c.SCREEN_WIDTH-980) / 2, 25, 980, 400))
+        self.background.render(self.game.display)
 
         # Terrain
 
