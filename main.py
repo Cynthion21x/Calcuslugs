@@ -22,8 +22,6 @@ with open(content.Text("title")) as file:
     lines = file.read().splitlines()
     selection = random.choice(lines)
 
-time.sleep(1)
-
 # Main Loop
 
 main = g.Game(selection)
