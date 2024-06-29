@@ -31,7 +31,7 @@ class game:
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
 
         # Generator function here
-        self.selectedBackground = content.Sprite("background\\CoralReefBackground")
+        self.selectedBackground = content.Sprite("background\\BubbleSea")
         self.selectedBackground = elements.blur(self.selectedBackground, 5)
 
         self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
