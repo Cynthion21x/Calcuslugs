@@ -20,7 +20,8 @@
 ### Dependancies
 
 * the python interpreter
-* pygame is required ```pip install pygame```
+* pygame ```pip install pygame```
+* cx_freeze ```pip install cx_freeze```
 
 <br>
 
@@ -43,6 +44,11 @@ to run the game go to the root folder and open main.py
 python main.py
 ```
 The game will create some log folders, save folders and options folders in **Appdata/LocalLow/Cynthion21x/calcuslugs**
+
+compile the game using
+```
+python setup.py build
+```
 
 ## Author
 
