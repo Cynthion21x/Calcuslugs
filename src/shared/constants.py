@@ -22,6 +22,7 @@ class Colours:
     GREY = pygame.Color(112, 116, 125)
 
     BACKGROUND = pygame.Color(5, 4, 59)
+    FLOOR = pygame.Color(76, 107, 102)
 
 # Log Levels
 
@@ -38,9 +39,13 @@ SCREEN_NAME = "calcuslugs"
 SCREEN_WIDTH = 1040
 SCREEN_HEIGHT = 585
 
+GAME_WIDTH_REAL = 980
+GAME_HEIGHT_REAL = 400
+
 TILE_SIZE = 2
-GAME_WIDTH = int(980 / TILE_SIZE)
-GAME_HEIGHT = int(400 / TILE_SIZE)
+GAME_WIDTH = int(GAME_WIDTH_REAL / TILE_SIZE)
+GAME_HEIGHT = int(GAME_HEIGHT_REAL / TILE_SIZE)
+
 
 FRAME_RATE = 60
 CLICK_DELAY = 5

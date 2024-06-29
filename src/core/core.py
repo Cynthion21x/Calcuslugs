@@ -21,11 +21,6 @@ class Game():
 
         self.display = pygame.Surface((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
 
-        self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
-
-        pygame.display.set_caption(c.SCREEN_NAME + ": " + message)
-        pygame.display.set_icon(content.Sprite("icon"))
-
         self.clock = pygame.time.Clock()
 
         # my stuff
@@ -40,6 +35,13 @@ class Game():
         self.menu = menu.mainMenu(self)
 
         self.prevState = self.GameState
+
+        # Window
+
+        self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
+
+        pygame.display.set_caption(c.SCREEN_NAME + ": " + message)
+        pygame.display.set_icon(content.Sprite("icon"))
 
     def coreLoop(self):
 

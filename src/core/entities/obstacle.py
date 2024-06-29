@@ -5,27 +5,33 @@ import random
 
 class obstacle:
 
-    def __init__(self, vector, none = False):
+    def __init__(self, vector, none = False, colour = c.Colours.FLOOR):
 
         self.pos = vector
 
         self.hp = random.randint(0, 10)
 
-        self.color = c.Colours.GREY
+        self.color = colour
 
         self.none = none
 
-        r = self.color.r / 2
-        g = self.color.g / 2
-        b = self.color.b / 2
+        r = self.color[0]
+        g = self.color[1]
+        b = self.color[2]
 
-        '''
+        r *= c.Colours.FLOOR.r
+        g *= c.Colours.FLOOR.g
+        b *= c.Colours.FLOOR.b
+
+        r /= 255
+        g /= 255
+        b /= 255
+
         self.color = pygame.Color(
-            int(r + ((255 - r) * (self.hp/10))/3),
-            int(b + ((255 - b) * (self.hp/10))/3),
-            int(g + ((255 - g) * (self.hp/10))/3)
+            int(r),
+            int(g),
+            int(b)
         )
-        '''
 
     def render(self, display):
 
