@@ -77,7 +77,7 @@ def normalToMap(vector):
     
 def gameToNormalCoord(vector):
 
-    vec = mult(vector, 20)
+    vec = mult(vector, c.TILE_SIZE)
     vec = add(vec, Vector((c.SCREEN_WIDTH-980) / 2, 25))
 
     return vec
@@ -85,7 +85,7 @@ def gameToNormalCoord(vector):
 def normalToGameCoord(vector):
 
     vec = sub(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
-    vec = mult(vec, 1/20)
+    vec = mult(vec, 1/c.TILE_SIZE)
 
     return vec
 

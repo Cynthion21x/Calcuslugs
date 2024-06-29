@@ -4,6 +4,7 @@ import src.math.vectors as v
 import src.core.UI.elements as elements
 import src.core.content.config as config
 import src.core.entities.tilemap as tiles
+import src.core.Input.inputManager as Input
 import random
 import pygame
 import math
@@ -43,12 +44,15 @@ class game:
 
         # Generate map
         params = [
-            random.randrange(1, int( c.GAME_WIDTH /2 )),
-            random.randrange(1, int( c.GAME_WIDTH /2 )),
-            random.randrange(1, int( c.GAME_WIDTH /2 )),
-            random.uniform(0, 2 * math.pi),
-            random.uniform(0, 2 * math.pi),
-            random.uniform(0, 2 * math.pi)
+            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
+            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
+            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
+            random.uniform(0, 3 * math.pi),
+            random.uniform(0, 3 * math.pi),
+            random.uniform(0, 3 * math.pi),
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
+            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2
         ]
 
         self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params)
@@ -79,6 +83,9 @@ class game:
 
             # New turn
             self.turnTimer = int(config.getOption("turnTime"))
+
+        if Input.fetch().KEY_DOWN == pygame.K_ESCAPE:
+            self.start()
 
 
         # Game Render
