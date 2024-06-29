@@ -1,9 +1,5 @@
 __pycache__/
-<<<<<<< Updated upstream
-*~
-*.kra
-=======
 .png~
 .kra
 /.idea
->>>>>>> Stashed changes
+/build
