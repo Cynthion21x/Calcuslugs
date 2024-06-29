@@ -2,6 +2,62 @@ import pygame
 import src.math.vectors as v
 import src.shared.constants as c
 import src.core.Input.inputManager as Input
+import src.shared.logger as l
+import math
+
+def create_gaussian_kernel(radius, sigma):
+    kernel = [0] * (2 * radius + 1)
+    sum_val = 0.0
+
+    for i in range(-radius, radius + 1):
+        kernel[i + radius] = (1 / (math.sqrt(2 * math.pi) * sigma)) * math.exp(- (i ** 2) / (2 * sigma ** 2))
+        sum_val += kernel[i + radius]
+
+    # Normalize the kernel
+    for i in range(len(kernel)):
+        kernel[i] /= sum_val
+
+    return kernel
+
+def blur(surface, radius):
+
+    l.Logger.log("Starting Blur algorithm")
+
+    width, height = surface.get_size()
+    pixels = pygame.PixelArray(surface)
+    blurred_surface = pygame.Surface((width, height))
+    kernel = create_gaussian_kernel(radius, radius / 3)
+
+    # Horizontal pass
+    for y in range(height):
+        for x in range(width):
+            r, g, b = 0, 0, 0
+            for k in range(-radius, radius + 1):
+                px = min(width - 1, max(0, x + k))
+                color = surface.get_at((px, y))
+                kernel_val = kernel[k + radius]
+                r += color.r * kernel_val
+                g += color.g * kernel_val
+                b += color.b * kernel_val
+            blurred_surface.set_at((x, y), (int(r), int(g), int(b)))
+
+    # Vertical pass
+    final_surface = pygame.Surface((width, height))
+    for x in range(width):
+        for y in range(height):
+            r, g, b = 0, 0, 0
+            for k in range(-radius, radius + 1):
+                py = min(height - 1, max(0, y + k))
+                color = blurred_surface.get_at((x, py))
+                kernel_val = kernel[k + radius]
+                r += color.r * kernel_val
+                g += color.g * kernel_val
+                b += color.b * kernel_val
+            final_surface.set_at((x, y), (int(r), int(g), int(b)))
+
+    l.Logger.log("Image blurred")
+
+    return final_surface
 
 class UiElement:
 

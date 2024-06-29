@@ -29,7 +29,12 @@ class game:
     def ui(self):
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
-        self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), content.Sprite("background\\BubbleSeaFloorBG"))
+
+        # Generator function here
+        self.selectedBackground = content.Sprite("background\\CoralReefBackground")
+        self.selectedBackground = elements.blur(self.selectedBackground, 5)
+
+        self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
         self.clock = elements.text(
 
             v.Vector((c.SCREEN_WIDTH - 200) / 2, 10),
@@ -56,7 +61,9 @@ class game:
             random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2
         ]
 
-        self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params)
+        colour = pygame.transform.average_color(self.selectedBackground)
+
+        self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params, colour)
 
     def run(self):
 

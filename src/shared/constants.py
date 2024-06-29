@@ -22,6 +22,7 @@ class Colours:
     GREY = pygame.Color(112, 116, 125)
 
     BACKGROUND = pygame.Color(5, 4, 59)
+    FLOOR = pygame.Color(76, 107, 102)
 
 # Log Levels
 

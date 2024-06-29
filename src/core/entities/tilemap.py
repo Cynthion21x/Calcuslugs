@@ -6,7 +6,7 @@ import math
 
 class Tilemap:
 
-    def __init__(self, width, height, params):
+    def __init__(self, width, height, params, colour):
 
         self.grid = []
 
@@ -29,7 +29,8 @@ class Tilemap:
                     self.grid[x].append(obstacle.obstacle(
 
                         v.gameToNormalCoord(v.Vector(x, y)),
-                        False
+                        False,
+                        colour
 
                     ))
 
@@ -38,7 +39,8 @@ class Tilemap:
                     self.grid[x].append(obstacle.obstacle(
 
                         v.gameToNormalCoord(v.Vector(x, y)),
-                        True
+                        True,
+                        colour
 
                     ))
 
