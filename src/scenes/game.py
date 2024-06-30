@@ -25,16 +25,29 @@ class game:
         self.started = False
 
         self.ui()
+
+    def generateBackground(self):
+
+        backgrounds = []
+        keys = content.fetch().spriteBase.keys()
+
+        for key in keys:
+
+            if key.startswith('background\\'):
+
+                backgrounds.append(content.Sprite(key))
+
+        self.selectedBackground = backgrounds[random.randrange(0, len(backgrounds))]
+        # Blur takes long time so need to store them and call them back
+        # self.selectedBackground = elements.blur(self.selectedBackground, 5)
+        self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
     
     def ui(self):
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
 
         # Generator function here
-        self.selectedBackground = content.Sprite("background\\BubbleSea")
-        self.selectedBackground = elements.blur(self.selectedBackground, 5)
 
-        self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
         self.clock = elements.text(
 
             v.Vector((c.SCREEN_WIDTH - 200) / 2, 10),
@@ -47,6 +60,9 @@ class game:
          
         self.started = True
         self.turnTimer = int(config.getOption("turnTime"))
+
+        # Pick background
+        self.generateBackground()
 
         # Generate map
         params = [
