@@ -3,7 +3,7 @@ import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.UI.elements as elements
 import src.core.content.config as config
-import src.core.entities.tilemap as tiles
+from src.core.entities import tilemap, slug
 import src.core.Input.inputManager as Input
 import random
 import pygame
@@ -17,10 +17,8 @@ class game:
 
         self.circlePos = v.mult(v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), 0.5)
 
-        # TURN 1 -> PLAYER 1
-        # TURN 2 -> PLAYER 2
-
-        self.turn = 1
+        # TURN TRUE -> PLAYER 1
+        # TURN FALSE -> PLAYER 2
 
         self.started = False
 
@@ -38,6 +36,7 @@ class game:
                 backgrounds.append(content.Sprite(key))
 
         self.selectedBackground = backgrounds[random.randrange(0, len(backgrounds))]
+
         # Blur takes long time so need to store them and call them back
         # self.selectedBackground = elements.blur(self.selectedBackground, 5)
         self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
@@ -56,10 +55,31 @@ class game:
 
         )
 
+    def generateSafeCoord(self, team):
+
+        if team:
+            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+        else:
+            xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+
+        while self.grid.mapFunc(xPos + c.GAME_WIDTH / 2) > (c.GAME_HEIGHT / 1.1):
+
+            if team:
+                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+            else:
+                xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+
+        return int(xPos)
+
+
     def start(self):
          
         self.started = True
         self.turnTimer = int(config.getOption("turnTime"))
+
+        self.turn = True
+
+        self.player1Index = self.player2Index = 0
 
         # Pick background
         self.generateBackground()
@@ -79,7 +99,32 @@ class game:
 
         colour = pygame.transform.average_color(self.selectedBackground)
 
-        self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params, colour)
+        self.grid = tilemap.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params, colour)
+
+        # Spawn in players
+        keys = content.fetch().slugBase.keys()
+
+        self.teamTrue = []
+        self.teamFalse = []
+
+        for key in keys:
+
+            if content.Slug(key)["team"] == True:
+
+                xPos = self.generateSafeCoord(True)
+                self.teamTrue.append(slug.slug(key, self.grid, xPos))
+
+            else:
+
+                xPos = self.generateSafeCoord(False)
+                self.teamFalse.append(slug.slug(key, self.grid, xPos))                
+
+        self.activeSlug = self.teamTrue[self.player1Index]
+        self.player1Index += 1
+        self.activeSlug.activePointer = True
+
+        if self.player1Index >= len(self.teamTrue)-1:
+            self.player1Index = 0
 
     def run(self):
 
@@ -107,12 +152,45 @@ class game:
 
             # New turn
             self.turnTimer = int(config.getOption("turnTime"))
+            self.turn = not self.turn
+            self.activeSlug.activePointer = False
+
+            if self.turn == True:
+
+                self.activeSlug = self.teamTrue[self.player1Index]
+                self.activeSlug.activePointer = True
+                self.player1Index += 1
+
+                if self.player1Index >= len(self.teamTrue)-1:
+                    self.player1Index = 0
+
+            else:
+
+                self.activeSlug = self.teamFalse[self.player2Index]
+                self.activeSlug.activePointer = True
+                self.player2Index += 1
+
+                if self.player2Index >= len(self.teamFalse)-1:
+                    self.player2Index = 0
 
         if Input.fetch().KEY_DOWN == pygame.K_ESCAPE:
             self.start()
 
+        if Input.fetch().KEY_HOLD == pygame.K_LEFT:
+            self.activeSlug.move(self.game.deltaTime, v.Vector(-1, 0))
 
-        # Game Render
+        if Input.fetch().KEY_HOLD == pygame.K_RIGHT:
+            self.activeSlug.move(self.game.deltaTime, v.Vector(1, 0))
+
+        for s1 in self.teamTrue:
+
+            s1.run(self.game.deltaTime)
+
+        for s2 in self.teamFalse:
+
+            s2.run(self.game.deltaTime)
+
+        # ----- Game Render ----- 
 
         self.game.display.fill(c.Colours.GREY)
 
@@ -123,6 +201,16 @@ class game:
         # Terrain
 
         self.grid.render(self.game.display)
+
+        # Slugs
+    
+        for s1 in self.teamTrue:
+
+            s1.render(self.game.display)
+
+        for s2 in self.teamFalse:
+
+            s2.render(self.game.display)
 
         # UI render
         self.mainBox.render(self.game.display)

@@ -23,6 +23,7 @@ class Colours:
 
     BACKGROUND = pygame.Color(5, 4, 59)
     FLOOR = pygame.Color(76, 107, 102)
+    LAVA = pygame.Color(219, 85, 13)
 
 # Log Levels
 
@@ -46,9 +47,13 @@ TILE_SIZE = 2
 GAME_WIDTH = int(GAME_WIDTH_REAL / TILE_SIZE)
 GAME_HEIGHT = int(GAME_HEIGHT_REAL / TILE_SIZE)
 
+SLUG_SIZE = 40
+
+# Game constants
 
 FRAME_RATE = 60
 CLICK_DELAY = 5
+GRAVITY = 150
 
 # States
 

@@ -1,21 +1,11 @@
 {
 
-    "pointer": "Slugs\\bluePointer",
+    "pointer": "Slugs\\bluePoint",
 
-    "idleAnimation": [
-
-        "Slugs\\blue"
-
-    ],
-
-    "walkAnimation": [
-
-        "Slugs\\blue"
-
-    ],
+    "sprite": "Slugs\\blue",
 
     "hp": 100,
-    "speed": 10,
+    "speed": 50,
     "team": true
 
 }
