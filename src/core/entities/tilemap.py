@@ -35,19 +35,34 @@ class Tilemap:
 
                         v.gameToNormalCoord(v.Vector(x, y)),
                         False,
+                        False,
                         colour
 
                     ))
 
                 else:
 
-                    self.grid[x].append(obstacle.obstacle(
+                    if y < (c.GAME_HEIGHT / 1.1):
 
-                        v.gameToNormalCoord(v.Vector(x, y)),
-                        True,
-                        colour
+                        self.grid[x].append(obstacle.obstacle(
 
-                    ))
+                            v.gameToNormalCoord(v.Vector(x, y)),
+                            True,
+                            False,
+                            colour
+
+                        ))
+
+                    else:
+                    
+                        self.grid[x].append(obstacle.obstacle(
+
+                            v.gameToNormalCoord(v.Vector(x, y)),
+                            False,
+                            True,
+                            colour
+
+                        ))
 
         l.Logger.log("Generation Complete", str(math.floor((time.process_time() - start) * 100) / 100) + "s")
 

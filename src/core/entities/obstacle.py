@@ -5,9 +5,11 @@ import random
 
 class obstacle:
 
-    def __init__(self, vector, none = False, colour = c.Colours.FLOOR):
+    def __init__(self, vector, none = False, lava = False, colour = c.Colours.FLOOR):
 
         self.pos = vector
+
+        self.lava = lava
 
         self.hp = random.randint(0, 10)
 
@@ -32,6 +34,9 @@ class obstacle:
             int(g),
             int(b)
         )
+
+        if self.lava:
+            self.color = c.Colours.LAVA
 
     def render(self, display):
 

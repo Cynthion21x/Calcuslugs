@@ -23,6 +23,7 @@ class Colours:
 
     BACKGROUND = pygame.Color(5, 4, 59)
     FLOOR = pygame.Color(76, 107, 102)
+    LAVA = pygame.Color(219, 85, 13)
 
 # Log Levels
 
@@ -52,7 +53,7 @@ SLUG_SIZE = 40
 
 FRAME_RATE = 60
 CLICK_DELAY = 5
-GRAVITY = 98
+GRAVITY = 150
 
 # States
 

@@ -55,6 +55,23 @@ class game:
 
         )
 
+    def generateSafeCoord(self, team):
+
+        if team:
+            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+        else:
+            xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+
+        while self.grid.mapFunc(xPos + c.GAME_WIDTH / 2) > (c.GAME_HEIGHT / 1.1):
+
+            if team:
+                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+            else:
+                xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+
+        return int(xPos)
+
+
     def start(self):
          
         self.started = True
@@ -94,13 +111,13 @@ class game:
 
             if content.Slug(key)["team"] == True:
 
-                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
+                xPos = self.generateSafeCoord(True)
                 self.teamTrue.append(slug.slug(key, self.grid, xPos))
 
             else:
 
-                xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
-                self.teamFalse.append(slug.slug(key, self.grid, xPos))
+                xPos = self.generateSafeCoord(False)
+                self.teamFalse.append(slug.slug(key, self.grid, xPos))                
 
         self.activeSlug = self.teamTrue[self.player1Index]
         self.player1Index += 1

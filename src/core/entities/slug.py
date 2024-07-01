@@ -12,6 +12,8 @@ class slug:
 
         self.gameCoord = v.Vector(index, int(c.GAME_HEIGHT / 3))
 
+        self.boundsCheck()
+
         self.position = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
 
         data = content.Slug(name)
@@ -30,6 +32,24 @@ class slug:
         self.sprite = pygame.transform.scale(self.sprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.pointerSprite = pygame.transform.scale(self.pointerSprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.flippedSprtie = pygame.transform.flip(self.sprite, True, False)
+
+    def boundsCheck(self):
+
+        if self.gameCoord.x < 0:
+            self.gameCoord.x = 0
+            self.normalizePos()
+
+        if self.gameCoord.y < 0:
+            self.gameCoord.y = 0
+            self.normalizePos()
+
+        if self.gameCoord.x > c.GAME_WIDTH-1:
+            self.gameCoord.x = c.GAME_WIDTH-1
+            self.normalizePos()
+
+        if self.gameCoord.y > c.GAME_HEIGHT-1:
+            self.gameCoord.y = c.GAME_HEIGHT-1
+            self.normalizePos()
 
     def renderCheckBox(self, display):
 
@@ -65,21 +85,7 @@ class slug:
 
         self.gameCoord = v.normalToGameCoord(self.position)
 
-        if self.gameCoord.x < 0:
-            self.gameCoord.x = 0
-            self.normalizePos()
-
-        if self.gameCoord.y < 0:
-            self.gameCoord.y = 0
-            self.normalizePos()
-
-        if self.gameCoord.x > c.GAME_WIDTH-1:
-            self.gameCoord.x = c.GAME_WIDTH-1
-            self.normalizePos()
-
-        if self.gameCoord.y > c.GAME_HEIGHT-1:
-            self.gameCoord.y = c.GAME_HEIGHT-1
-            self.normalizePos()
+        self.boundsCheck()
 
         if self.map.grid[self.gameCoord.x][self.gameCoord.y+1].none:
 
@@ -87,7 +93,10 @@ class slug:
 
         if not (self.map.grid[self.gameCoord.x][self.gameCoord.y].none):
 
-            self.position = v.sub(self.position, v.Vector(0, c.TILE_SIZE * 10 * deltatime))
+            while not (self.map.grid[self.gameCoord.x][self.gameCoord.y].none):
+
+                self.position = v.sub(self.position, v.Vector(0, c.TILE_SIZE * 10 * deltatime))
+                self.gameCoord = v.normalToGameCoord(self.position)
 
     def move(self, deltatime, vector):
 
