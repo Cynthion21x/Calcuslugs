@@ -1,8 +1,9 @@
-import pygame
 import src.math.vectors as v
 import src.shared.constants as c
 import src.core.Input.inputManager as Input
 import src.shared.logger as l
+import pygame
+import time
 import math
 
 def create_gaussian_kernel(radius, sigma):
@@ -22,6 +23,8 @@ def create_gaussian_kernel(radius, sigma):
 def blur(surface, radius):
 
     l.Logger.log("Starting Blur algorithm")
+
+    start = time.process_time()
 
     width, height = surface.get_size()
     pixels = pygame.PixelArray(surface)
@@ -55,7 +58,7 @@ def blur(surface, radius):
                 b += color.b * kernel_val
             final_surface.set_at((x, y), (int(r), int(g), int(b)))
 
-    l.Logger.log("Image blurred")
+    l.Logger.log("Image blurred", str(math.floor((time.process_time() - start) * 100) / 100) + "s")
 
     return final_surface
 

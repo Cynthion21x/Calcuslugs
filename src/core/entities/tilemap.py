@@ -2,6 +2,7 @@ import src.core.entities.obstacle as obstacle
 import src.math.vectors as v
 import src.shared.constants as c
 import src.shared.logger as l
+import time
 import math
 
 class Tilemap:
@@ -13,6 +14,8 @@ class Tilemap:
         # Generator function
 
         l.Logger.log("Generating Terrain...")
+
+        start = time.process_time()
 
         for x in range(width):
 
@@ -44,7 +47,7 @@ class Tilemap:
 
                     ))
 
-        l.Logger.log("Generation Complete")
+        l.Logger.log("Generation Complete", str(math.floor((time.process_time() - start) * 100) / 100) + "s")
 
     def render(self, game):
 
