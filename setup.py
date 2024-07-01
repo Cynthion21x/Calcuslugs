@@ -10,7 +10,7 @@ build_exe_options = {
 setup(
     name="Calcuslugs",
     version="1",
-    description="Math based artillery shooter",
+    description="Calcuslugs Game",
     options={"build_exe": build_exe_options},
     executables=[Executable("main.py", base=base, target_name="Calcuslugs.exe")],
 )
