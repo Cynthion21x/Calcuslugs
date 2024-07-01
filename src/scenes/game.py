@@ -89,7 +89,6 @@ class game:
         self.teamTrue = []
         self.teamFalse = []
 
-
         for key in keys:
 
             xPos = random.randint(0, c.GAME_WIDTH-1)
@@ -104,6 +103,10 @@ class game:
 
         self.activeSlug = self.teamTrue[self.player1Index]
         self.player1Index += 1
+        self.activeSlug.activePointer = True
+
+        if self.player1Index >= len(self.teamTrue)-1:
+            self.player1Index = 0
 
     def run(self):
 
@@ -132,16 +135,25 @@ class game:
             # New turn
             self.turnTimer = int(config.getOption("turnTime"))
             self.turn = not self.turn
+            self.activeSlug.activePointer = False
 
             if self.turn == True:
 
                 self.activeSlug = self.teamTrue[self.player1Index]
+                self.activeSlug.activePointer = True
                 self.player1Index += 1
+
+                if self.player1Index >= len(self.teamTrue)-1:
+                    self.player1Index = 0
 
             else:
 
                 self.activeSlug = self.teamFalse[self.player2Index]
+                self.activeSlug.activePointer = True
                 self.player2Index += 1
+
+                if self.player2Index >= len(self.teamFalse)-1:
+                    self.player2Index = 0
 
         if Input.fetch().KEY_DOWN == pygame.K_ESCAPE:
             self.start()
