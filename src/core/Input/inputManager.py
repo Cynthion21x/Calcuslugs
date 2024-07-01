@@ -11,6 +11,7 @@ class inputManager:
         self.MOUSE_DOWN = False
 
         self.KEY_DOWN = c.NO_KEY
+        self.KEY_HOLD = c.NO_KEY
 
         self.MOUSE_UP = False
         self.MOUSE_CLICK = False
@@ -49,7 +50,11 @@ class inputManager:
 
             if event.type == 768:
 
-                self.KEY_DOWN = event.key
+                self.KEY_DOWN = self.KEY_HOLD = event.key
+
+            else:
+
+                self.KEY_HOLD = c.NO_KEY
 
 
     def getMousePos(self):

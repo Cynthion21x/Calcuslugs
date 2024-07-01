@@ -3,7 +3,7 @@ import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.UI.elements as elements
 import src.core.content.config as config
-import src.core.entities.tilemap as tiles
+from src.core.entities import tilemap, slug
 import src.core.Input.inputManager as Input
 import random
 import pygame
@@ -17,10 +17,8 @@ class game:
 
         self.circlePos = v.mult(v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), 0.5)
 
-        # TURN 1 -> PLAYER 1
-        # TURN 2 -> PLAYER 2
-
-        self.turn = 1
+        # TURN TRUE -> PLAYER 1
+        # TURN FALSE -> PLAYER 2
 
         self.started = False
 
@@ -61,6 +59,10 @@ class game:
         self.started = True
         self.turnTimer = int(config.getOption("turnTime"))
 
+        self.turn = True
+
+        self.player1Index = self.player2Index = 0
+
         # Pick background
         self.generateBackground()
 
@@ -79,7 +81,29 @@ class game:
 
         colour = pygame.transform.average_color(self.selectedBackground)
 
-        self.grid = tiles.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params, colour)
+        self.grid = tilemap.Tilemap(c.GAME_WIDTH, c.GAME_HEIGHT, params, colour)
+
+        # Spawn in players
+        keys = content.fetch().slugBase.keys()
+
+        self.teamTrue = []
+        self.teamFalse = []
+
+
+        for key in keys:
+
+            xPos = random.randint(0, c.GAME_WIDTH-1)
+
+            if content.Slug(key)["team"] == True:
+
+                self.teamTrue.append(slug.slug(key, self.grid, xPos))
+
+            else:
+
+                self.teamFalse.append(slug.slug(key, self.grid, xPos))
+
+        self.activeSlug = self.teamTrue[self.player1Index]
+        self.player1Index += 1
 
     def run(self):
 
@@ -107,12 +131,37 @@ class game:
 
             # New turn
             self.turnTimer = int(config.getOption("turnTime"))
+            self.turn = not self.turn
+
+            if self.turn == True:
+
+                self.activeSlug = self.teamTrue[self.player1Index]
+                self.player1Index += 1
+
+            else:
+
+                self.activeSlug = self.teamFalse[self.player2Index]
+                self.player2Index += 1
 
         if Input.fetch().KEY_DOWN == pygame.K_ESCAPE:
             self.start()
 
+        if Input.fetch().KEY_HOLD == pygame.K_LEFT:
+            self.activeSlug.move(self.game.deltaTime, v.Vector(-1, 0))
 
-        # Game Render
+        if Input.fetch().KEY_HOLD == pygame.K_RIGHT:
+            self.activeSlug.move(self.game.deltaTime, v.Vector(1, 0))
+
+        for s1 in self.teamTrue:
+
+            s1.run()
+
+        for s2 in self.teamFalse:
+
+            s2.run()
+
+
+        # ----- Game Render ----- 
 
         self.game.display.fill(c.Colours.GREY)
 
@@ -123,6 +172,16 @@ class game:
         # Terrain
 
         self.grid.render(self.game.display)
+
+        # Slugs
+    
+        for s1 in self.teamTrue:
+
+            s1.render(self.game.display)
+
+        for s2 in self.teamFalse:
+
+            s2.render(self.game.display)
 
         # UI render
         self.mainBox.render(self.game.display)

@@ -11,6 +11,8 @@ class Tilemap:
 
         self.grid = []
 
+        self.params = params
+
         # Generator function
 
         l.Logger.log("Generating Terrain...")
@@ -25,7 +27,7 @@ class Tilemap:
 
                 xS = x + c.GAME_WIDTH / 2
 
-                index = (c.GAME_HEIGHT * 0.75) - (params[6] *math.sin((xS+params[3]) / params[0]) + params[7] * math.sin((xS+params[4]) / params[1]) + params[8] * math.sin((xS+params[5]) / params[2]))
+                index = self.mapFunc(xS)
 
                 if (y > index):
 
@@ -48,6 +50,10 @@ class Tilemap:
                     ))
 
         l.Logger.log("Generation Complete", str(math.floor((time.process_time() - start) * 100) / 100) + "s")
+
+    def mapFunc(self, xS):
+
+        return (c.GAME_HEIGHT * 0.75) - (self.params[6] *math.sin((xS+self.params[3]) / self.params[0]) + self.params[7] * math.sin((xS+self.params[4]) / self.params[1]) + self.params[8] * math.sin((xS+self.params[5]) / self.params[2]))
 
     def render(self, game):
 

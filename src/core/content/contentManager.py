@@ -134,7 +134,7 @@ class Content:
 
                 try:
 
-                    self.gunBase[identifier] = json.load(f)
+                    self.slugBase[identifier] = json.load(f)
 
                 except:
 
@@ -223,7 +223,19 @@ def Font(name):
 
         data = fetch().fontBase["default"]
 
-    return data  
+    return data
+
+def Slug(name):
+
+    try:
+
+        data = fetch().slugBase[name]
+        return data
+
+    except:
+
+        l.Logger.log("Failed to find slug", name, c.Logs.ERROR)
+ 
 
 def Sound(name):
 
