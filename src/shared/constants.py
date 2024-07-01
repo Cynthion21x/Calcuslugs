@@ -48,9 +48,11 @@ GAME_HEIGHT = int(GAME_HEIGHT_REAL / TILE_SIZE)
 
 SLUG_SIZE = 40
 
+# Game constants
 
 FRAME_RATE = 60
 CLICK_DELAY = 5
+GRAVITY = 98
 
 # States
 

@@ -36,6 +36,7 @@ class game:
                 backgrounds.append(content.Sprite(key))
 
         self.selectedBackground = backgrounds[random.randrange(0, len(backgrounds))]
+
         # Blur takes long time so need to store them and call them back
         # self.selectedBackground = elements.blur(self.selectedBackground, 5)
         self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
@@ -91,14 +92,14 @@ class game:
 
         for key in keys:
 
-            xPos = random.randint(0, c.GAME_WIDTH-1)
-
             if content.Slug(key)["team"] == True:
 
+                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
                 self.teamTrue.append(slug.slug(key, self.grid, xPos))
 
             else:
 
+                xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
                 self.teamFalse.append(slug.slug(key, self.grid, xPos))
 
         self.activeSlug = self.teamTrue[self.player1Index]
@@ -166,12 +167,11 @@ class game:
 
         for s1 in self.teamTrue:
 
-            s1.run()
+            s1.run(self.game.deltaTime)
 
         for s2 in self.teamFalse:
 
-            s2.run()
-
+            s2.run(self.game.deltaTime)
 
         # ----- Game Render ----- 
 

@@ -85,7 +85,8 @@ def gameToNormalCoord(vector):
 def normalToGameCoord(vector):
 
     vec = sub(vector, Vector((c.SCREEN_WIDTH-980) / 2, 25))
-    vec = mult(vec, 1/c.TILE_SIZE)
+    vec.x = int(vec.x / c.TILE_SIZE)
+    vec.y = int(vec.y / c.TILE_SIZE)
 
     return vec
 

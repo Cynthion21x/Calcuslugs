@@ -31,10 +31,17 @@ class slug:
         self.pointerSprite = pygame.transform.scale(self.pointerSprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.flippedSprtie = pygame.transform.flip(self.sprite, True, False)
 
+    def renderCheckBox(self, display):
+
+        # show slugs tile representation
+        tilePos = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
+        pygame.draw.rect(display, c.Colours.RED, pygame.Rect(tilePos.x, tilePos.y, c.TILE_SIZE, c.TILE_SIZE))
+        pygame.draw.rect(display, c.Colours.BLUE, pygame.Rect(self.position.x, self.position.y, c.TILE_SIZE, c.TILE_SIZE))
 
     def render(self, display):
 
-        pos = v.sub(self.position, v.Vector(c.SLUG_SIZE/2, c.SLUG_SIZE))
+        pos = self.map.grid[self.gameCoord.x][self.gameCoord.y+1].pos
+        pos = v.sub(pos, v.Vector((c.SLUG_SIZE-c.TILE_SIZE)/2, c.SLUG_SIZE))
 
         if self.direction == 1:
 
@@ -48,11 +55,39 @@ class slug:
 
             display.blit(self.pointerSprite, v.sub(pos, v.Vector(0, c.SLUG_SIZE)).value())
 
-        pygame.draw.rect(display, c.Colours.RED, pygame.Rect(self.position.x, self.position.y, c.TILE_SIZE, c.TILE_SIZE))
+        self.renderCheckBox(display)
 
-    def run(self):
+    def normalizePos(self):
 
-        pass
+        self.position = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
+
+    def run(self, deltatime):
+
+        self.gameCoord = v.normalToGameCoord(self.position)
+
+        if self.gameCoord.x < 0:
+            self.gameCoord.x = 0
+            self.normalizePos()
+
+        if self.gameCoord.y < 0:
+            self.gameCoord.y = 0
+            self.normalizePos()
+
+        if self.gameCoord.x > c.GAME_WIDTH-1:
+            self.gameCoord.x = c.GAME_WIDTH-1
+            self.normalizePos()
+
+        if self.gameCoord.y > c.GAME_HEIGHT-1:
+            self.gameCoord.y = c.GAME_HEIGHT-1
+            self.normalizePos()
+
+        if self.map.grid[self.gameCoord.x][self.gameCoord.y+1].none:
+
+            self.position = v.add(self.position, v.Vector(0, c.GRAVITY * deltatime))
+
+        if not (self.map.grid[self.gameCoord.x][self.gameCoord.y].none):
+
+            self.position = v.sub(self.position, v.Vector(0, c.TILE_SIZE * 10 * deltatime))
 
     def move(self, deltatime, vector):
 
