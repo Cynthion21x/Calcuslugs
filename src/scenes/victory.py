@@ -11,13 +11,35 @@ class victory:
         self.game = game
         self.team = True
 
+        self.background = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\looseScreen"))
+
+        self.WinText = elements.text(
+
+            v.mult(v.Vector(c.SCREEN_WIDTH-500, c.SCREEN_HEIGHT-250), 0.5),
+            v.Vector(500, 500),
+            content.Text("Text")["player1Win"],
+            content.Font("Sobiscuit")
+
+        )
+
+        self.LooseText = elements.text(
+
+            v.mult(v.Vector(c.SCREEN_WIDTH-500, c.SCREEN_HEIGHT-250), 0.5),
+            v.Vector(500, 500),
+            content.Text("Text")["player2Win"],
+            content.Font("Sobiscuit")
+
+        )
+
     def run(self):
+
+        self.background.render(self.game.display)
 
         if self.team:
 
-            self.game.display.fill(c.Colours.BACKGROUND)
+            self.WinText.render(self.game.display)
 
         else:
 
-            self.game.display.fill(c.Colours.BACKGROUND)
+            self.LooseText.render(self.game.display)
 

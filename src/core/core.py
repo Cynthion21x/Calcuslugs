@@ -62,8 +62,6 @@ class Game():
                 self.prevState = self.GameState
                 l.Logger.log("Changed game state")
 
-                # subscribable event here or something
-
             # Run appropriate section of code
 
             if self.GameState == c.States.SPLASH:
