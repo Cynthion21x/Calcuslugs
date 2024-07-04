@@ -100,6 +100,10 @@ class slug:
 
             self.position = v.add(self.position, v.Vector(0, c.GRAVITY * deltatime))
 
+        elif self.getCoord(self.gameCoord.x, self.gameCoord.y+1).lava:
+
+            self.hp -= 70 * deltatime
+
         if not (self.getCoord(self.gameCoord.x, self.gameCoord.y).none):
 
             while not (self.getCoord(self.gameCoord.x, self.gameCoord.y).none):
