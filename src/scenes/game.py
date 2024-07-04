@@ -138,11 +138,13 @@ class game:
 
             #loose screen
             self.game.GameState = c.States.VICTORY
+            self.game.victory.team = False
 
         elif len(self.teamFalse) == 0:
 
             #loose screen
             self.game.GameState = c.States.VICTORY
+            self.game.victory.team = True
 
         self.turnTimer -= self.game.deltaTime
 
