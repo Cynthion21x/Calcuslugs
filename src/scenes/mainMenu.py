@@ -78,7 +78,7 @@ class mainMenu:
 
             v.Vector(center.x - (buttonSize.x * 0.8 / 2), buttonY + 5 - (buttonSize.y * 0.8 - buttonSize.y) / 2),
             v.mult(buttonSize, 0.8),
-            content.Text("menuText")["PlayButton"],
+            content.Text("Text")["PlayButton"],
             content.Font("Sobiscuit")
 
         )
@@ -87,7 +87,7 @@ class mainMenu:
 
             v.Vector(center.x - (buttonSize.x * 0.8 / 2), buttonY + 195 - ((buttonSize.y + 190) * 0.8 - (buttonSize.y + 190)) / 2),
             v.mult(buttonSize, 0.8),
-            content.Text("menuText")["OptionsButton"],
+            content.Text("Text")["OptionsButton"],
             content.Font("Sobiscuit")
 
         )
@@ -96,7 +96,7 @@ class mainMenu:
 
             v.Vector(center.x - (buttonSize.x * 0.8 / 2), buttonY + 385 + (buttonSize.y * 0.8) / 4),
             v.mult(buttonSize, 0.8),
-            content.Text("menuText")["QuitButton"],
+            content.Text("Text")["QuitButton"],
             content.Font("Sobiscuit")
 
         )

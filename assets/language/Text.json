@@ -3,5 +3,7 @@
     "SplashText": "Press Any Key To Start",
     "PlayButton": "Play",
     "QuitButton": "Quit",
-    "OptionsButton": "Settings"
+    "OptionsButton": "Settings",
+    "player1Win": "< Player 1 Wins! >",
+    "player2Win": "< player 2 Wins! >"
 }

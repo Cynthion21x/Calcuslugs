@@ -25,7 +25,7 @@ class splashScreen:
         self.prompts = elements.text(
 
             v.sub(center, v.Vector(150, -150)), v.Vector(300, 100),
-            content.Text("menuText")["SplashText"],
+            content.Text("Text")["SplashText"],
             content.Font("Sobiscuit")
 
             )

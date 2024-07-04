@@ -133,6 +133,17 @@ class game:
             self.start()
 
         # Game logic
+
+        if len(self.teamTrue) == 0:
+
+            #loose screen
+            self.game.GameState = c.States.VICTORY
+
+        elif len(self.teamFalse) == 0:
+
+            #loose screen
+            self.game.GameState = c.States.VICTORY
+
         self.turnTimer -= self.game.deltaTime
 
         clockText = str(int(self.turnTimer // 60))
@@ -185,10 +196,14 @@ class game:
         for s1 in self.teamTrue:
 
             s1.run(self.game.deltaTime)
+            if s1.hp <= 0:
+                self.teamTrue.remove(s1)
 
         for s2 in self.teamFalse:
 
             s2.run(self.game.deltaTime)
+            if s2.hp <= 0:
+                self.teamTrue.remove(s2)
 
         # ----- Game Render ----- 
 
