@@ -1,8 +1,6 @@
 import pygame
 import src.core.content.contentManager as content
-import src.scenes.splashScreen as splash
-import src.scenes.game as game
-import src.scenes.mainMenu as menu
+from src.scenes import splashScreen, mainMenu, options, game, victory
 import src.shared.constants as c
 import src.shared.logger as l
 import src.core.Input.inputManager as Input
@@ -30,9 +28,13 @@ class Game():
         self.deltaTime = 0
 
         # scenes
-        self.splashScreen = splash.splashScreen(self)
+        self.splashScreen = splashScreen.splashScreen(self)
         self.game = game.game(self)
-        self.menu = menu.mainMenu(self)
+        self.menu = mainMenu.mainMenu(self)
+        self.victory = victory.victory(self)
+
+        self.optionsMenu = options.options(self)
+        self.showOptions = False
 
         self.prevState = self.GameState
 
@@ -75,6 +77,14 @@ class Game():
             elif self.GameState == c.States.GAME:
 
                 self.game.run()
+
+            elif self.GameState == c.States.VICTORY:
+
+                self.victory.run()
+
+            if self.showOptions:
+
+                self.optionsMenu.run()
 
             # Update Display
 

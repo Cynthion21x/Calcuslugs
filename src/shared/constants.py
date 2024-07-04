@@ -62,6 +62,7 @@ class States:
     SPLASH = 2
     MENU = 0
     GAME = 1
+    VICTORY = 3
 
 # Tokens for maths interpreter
     

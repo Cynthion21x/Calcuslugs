@@ -1,6 +1,7 @@
 import src.math.vectors as v
 import src.core.content.contentManager as content
 import src.shared.constants as c
+import src.shared.logger as l
 import pygame
 
 class slug:
@@ -33,6 +34,14 @@ class slug:
         self.pointerSprite = pygame.transform.scale(self.pointerSprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.flippedSprtie = pygame.transform.flip(self.sprite, True, False)
 
+    def getCoord(self, x, y):
+
+        try:
+            return self.map.grid[x][y]
+        except:
+            l.Logger.log("slug out of bounds", c.Logs.ERROR)
+            return self.map.grid[0][0]
+
     def boundsCheck(self):
 
         if self.gameCoord.x < 0:
@@ -54,13 +63,13 @@ class slug:
     def renderCheckBox(self, display):
 
         # show slugs tile representation
-        tilePos = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
+        tilePos = self.getCoord(self.gameCoord.x, self.gameCoord.y).pos
         pygame.draw.rect(display, c.Colours.RED, pygame.Rect(tilePos.x, tilePos.y, c.TILE_SIZE, c.TILE_SIZE))
         pygame.draw.rect(display, c.Colours.BLUE, pygame.Rect(self.position.x, self.position.y, c.TILE_SIZE, c.TILE_SIZE))
 
     def render(self, display):
 
-        pos = self.map.grid[self.gameCoord.x][self.gameCoord.y+1].pos
+        pos = self.getCoord(self.gameCoord.x, self.gameCoord.y+1).pos
         pos = v.sub(pos, v.Vector((c.SLUG_SIZE-c.TILE_SIZE)/2, c.SLUG_SIZE))
 
         if self.direction == 1:
@@ -79,7 +88,7 @@ class slug:
 
     def normalizePos(self):
 
-        self.position = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
+        self.position = self.getCoord(self.gameCoord.x, self.gameCoord.y).pos
 
     def run(self, deltatime):
 
@@ -87,13 +96,13 @@ class slug:
 
         self.boundsCheck()
 
-        if self.map.grid[self.gameCoord.x][self.gameCoord.y+1].none:
+        if self.getCoord(self.gameCoord.x, self.gameCoord.y+1).none:
 
             self.position = v.add(self.position, v.Vector(0, c.GRAVITY * deltatime))
 
-        if not (self.map.grid[self.gameCoord.x][self.gameCoord.y].none):
+        if not (self.getCoord(self.gameCoord.x, self.gameCoord.y).none):
 
-            while not (self.map.grid[self.gameCoord.x][self.gameCoord.y].none):
+            while not (self.getCoord(self.gameCoord.x, self.gameCoord.y).none):
 
                 self.position = v.sub(self.position, v.Vector(0, c.TILE_SIZE * 10 * deltatime))
                 self.gameCoord = v.normalToGameCoord(self.position)
