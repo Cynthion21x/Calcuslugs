@@ -69,7 +69,7 @@ def getOption(name):
 
             with open(options.optionFile, 'w') as file:
 
-                file.write(json.dumps(options.ops))
+                file.write(json.dumps(options.ops, indent=4))
 
                 l.Logger.log("Added Option to file!")
 

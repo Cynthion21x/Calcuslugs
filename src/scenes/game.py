@@ -57,17 +57,20 @@ class game:
 
     def generateSafeCoord(self, team):
 
+        # Need to generate some smarter bounds for niche scenearios
+        # Eg: half the map is submerged in lava
+
         if team:
-            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
         else:
-            xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+            xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
 
         while self.grid.mapFunc(xPos + c.GAME_WIDTH / 2) > (c.GAME_HEIGHT / 1.1):
 
             if team:
-                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
             else:
-                xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+                xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
 
         return int(xPos)
 

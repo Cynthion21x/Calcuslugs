@@ -28,6 +28,8 @@ class inputManager:
 
         self.KEY_DOWN = c.NO_KEY
 
+        keyHold = True
+
         for event in ev:
 
             if event.type == pygame.QUIT:
@@ -48,13 +50,17 @@ class inputManager:
                 self.MOUSE_DOWN = False
                 self.MOUSE_UP = True
 
-            if event.type == 768:
+            if event.type == pygame.KEYDOWN:
 
                 self.KEY_DOWN = self.KEY_HOLD = event.key
 
-            else:
+            elif event.type == pygame.KEYUP:
 
-                self.KEY_HOLD = c.NO_KEY
+                keyHold = False
+
+        if keyHold == False:
+
+            self.KEY_HOLD = c.NO_KEY
 
 
     def getMousePos(self):

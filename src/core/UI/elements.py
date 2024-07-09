@@ -119,17 +119,21 @@ class text(UiElement):
 
         self.colour = colour
 
+        self.sizeIntented = size
+
         ratio = self.textImg.get_size()[1] / self.textImg.get_size()[0]
 
         self.newSize = v.Vector(size.x, size.x * ratio)
-
-        self.size = size.x
 
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
 
     def updateText(self, text):
 
         self.textImg = self.font.render(text, True, self.colour)
+
+        ratio = self.textImg.get_size()[1] / self.textImg.get_size()[0]
+
+        self.newSize = v.Vector(self.sizeIntented.x, self.sizeIntented.x * ratio)
 
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
 
@@ -140,6 +144,14 @@ class text(UiElement):
     def run(self):
         
         pass
+
+class inputBox(text):
+
+    def __init__(self, pos, size, text, font=None, colour=c.Colours.BLACK, bgColour=c.Colours.WHITE):
+
+        super.__init__(pos, size, text, font=None, colour=c.Colours.WHITE)
+        self.bgColour = bgColour
+
 
 class photo(UiElement):
 
@@ -167,6 +179,7 @@ class photo(UiElement):
         
         pass
 
+
 class group:
 
     def __init__(self, elements):
@@ -187,7 +200,3 @@ class group:
             if self.visible:
 
                 i.render(display)
-
-class inputBox(UiElement):
-
-    pass
