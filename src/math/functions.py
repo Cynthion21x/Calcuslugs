@@ -310,7 +310,7 @@ class Function:
 
 l.Logger.log("Function testing", logLevel=c.Logs.TEST)
 
-func = Function("|x|")
+func = Function("|x| + 3 + x^2")
 answer = func.evaluate(-7)
 
 l.Logger.log(func.name, answer, c.Logs.NORMAL)

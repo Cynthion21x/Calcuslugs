@@ -2,6 +2,7 @@ import src.math.vectors as v
 import src.core.content.contentManager as content
 import src.shared.constants as c
 import src.shared.logger as l
+import src.core.content.config as config
 import pygame
 
 class slug:
@@ -84,7 +85,8 @@ class slug:
 
             display.blit(self.pointerSprite, v.sub(pos, v.Vector(0, c.SLUG_SIZE)).value())
 
-        self.renderCheckBox(display)
+        if config.getOption("showSlugCollider"):
+            self.renderCheckBox(display)
 
     def normalizePos(self):
 

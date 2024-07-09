@@ -3,3 +3,4 @@ __pycache__/
 *.kra
 /.idea
 /build
+settings.json

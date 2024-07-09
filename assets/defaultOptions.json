@@ -2,7 +2,13 @@
 
     "_comment" : "restart application for changes to take effect",
 
-    "slugCount": "4",
-    "turnTime" : "80"
+    "slugCount": 4,
+    "turnTime" : 80,
 
+    "pixelSize" : 2,
+    "targetFPS": 60,
+
+    "showFPS": false,
+    "fpsUpdateTime": 30,
+    "showSlugCollider": false
 }

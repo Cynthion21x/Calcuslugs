@@ -4,6 +4,9 @@ from src.scenes import splashScreen, mainMenu, options, game, victory
 import src.shared.constants as c
 import src.shared.logger as l
 import src.core.Input.inputManager as Input
+import src.core.UI.elements as elements
+import src.math.vectors as v
+import src.core.content.config as config
 
 class Game():
 
@@ -40,14 +43,32 @@ class Game():
 
         # Window
 
-        self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
+        self.window = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.DOUBLEBUF)
 
         pygame.display.set_caption(c.SCREEN_NAME + ": " + message)
         pygame.display.set_icon(content.Sprite("icon"))
 
+        self.fpsCounter = elements.text(
+
+            v.Vector(10, 10),
+            v.Vector(20, 10), "60",
+            content.Font("default")
+
+        )
+
+        c.FRAME_RATE = config.getOption("targetFPS")
+        c.TILE_SIZE = config.getOption("pixelSize")
+        c.GAME_WIDTH = int(c.GAME_WIDTH_REAL / c.TILE_SIZE)
+        c.GAME_HEIGHT = int(c.GAME_HEIGHT_REAL / c.TILE_SIZE)
+
     def coreLoop(self):
 
+        counter = 0
+        total = 0
+
         while self.running:
+
+            counter += 1
 
             # clear prev frame
             self.display.fill(c.Colours.BLACK)
@@ -84,12 +105,23 @@ class Game():
 
                 self.optionsMenu.run()
 
+            if config.getOption("showFPS"):
+                self.fpsCounter.render(self.display)
+
             # Update Display
 
             self.window.blit(self.display, (0, 0))
+            
             pygame.display.flip()
 
             self.deltaTime = self.clock.tick(c.FRAME_RATE) / 1000
+
+            total += self.clock.get_fps()
+
+            if counter > config.getOption("fpsUpdateTime")-1:
+                self.fpsCounter.updateText(str(int(total / counter)))
+                counter = 0
+                total = 0
 
             # Exit
             if Input.fetch().QUIT:

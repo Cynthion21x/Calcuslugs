@@ -2,6 +2,7 @@ import src.shared.constants as c
 import pygame
 import time
 import random
+import src.math.functions
 
 # SPLASH SCREEN
 
