@@ -18,6 +18,8 @@ class slug:
 
         self.position = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
 
+        self.originCord = self.position
+
         data = content.Slug(name)
 
         self.hp = data["hp"]
@@ -40,7 +42,8 @@ class slug:
         try:
             return self.map.grid[x][y]
         except:
-            l.Logger.log("slug out of bounds", c.Logs.ERROR)
+            l.Logger.log("slug out of bounds", logLevel=c.Logs.ERROR)
+            self.position = self.originCord
             return self.map.grid[0][0]
 
     def boundsCheck(self):
