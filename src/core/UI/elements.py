@@ -113,6 +113,9 @@ class text(UiElement):
 
         super().__init__(pos, size)
 
+        self.updateCount = 0
+        self.renderCount = 0
+
         self.font = font
 
         self.textImg = font.render(text, True, colour)
@@ -126,6 +129,7 @@ class text(UiElement):
         self.newSize = v.Vector(size.x, size.x * ratio)
 
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
+        self.textImg.convert_alpha()
 
     def updateText(self, text):
 
@@ -137,21 +141,42 @@ class text(UiElement):
 
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
 
+        if self.updateCount < self.renderCount:
+            self.textImg.convert_alpha()
+
+        self.updateCount += 1
+
+
     def render(self, display):
 
         display.blit(self.textImg, self.pos.value())
+
+        self.renderCount += 1
 
     def run(self):
         
         pass
 
-class inputBox(text):
+class textBox(UiElement):
 
-    def __init__(self, pos, size, text, font=None, colour=c.Colours.BLACK, bgColour=c.Colours.WHITE):
+    def __init__(self, pos, size, text, font=None, colour=c.Colours.BLACK, backgroundColor=c.Colours.WHITE):
 
-        super.__init__(pos, size, text, font=None, colour=c.Colours.WHITE)
-        self.bgColour = bgColour
+        super().__init__(pos, size)
 
+        self.font = font
+
+        self.textImg = font.render(text, True, colour)
+
+        self.colour = colour
+        self.backgroundColour = backgroundColor
+
+    def render(self, display):
+
+        pygame.draw.rect(display, self.pos.value(), self.size.value())
+
+    def run(self):
+        
+        pass
 
 class photo(UiElement):
 
