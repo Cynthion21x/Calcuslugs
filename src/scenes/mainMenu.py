@@ -45,7 +45,7 @@ class mainMenu:
         )
 
         optionButtonHover = elements.photo(
-            v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 195 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
+            v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 190 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
             v.mult(buttonSize, 1.2), 
             content.Sprite("UI\\button-hover")
         )
@@ -63,7 +63,7 @@ class mainMenu:
         )
 
         exitButtonHover = elements.photo(
-            v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 385 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
+            v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 390 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
             v.mult(buttonSize, 1.2), 
             content.Sprite("UI\\button-hover")
         )
