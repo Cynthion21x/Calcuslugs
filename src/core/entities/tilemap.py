@@ -81,7 +81,6 @@ class Tilemap:
 
         self.image = pygame.Surface((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.SRCALPHA, 32)
         
-
         for x in range(0, len(self.grid)):
 
             for y in range(0, len(self.grid[x])):

@@ -16,6 +16,8 @@ class inputManager:
         self.MOUSE_UP = False
         self.MOUSE_CLICK = False
 
+        self.LETTER_DOWN = ""
+
         self.QUIT = False
 
     def gatherInput(self):
@@ -27,6 +29,8 @@ class inputManager:
         self.MOUSE_UP = False
 
         self.KEY_DOWN = c.NO_KEY
+
+        self.LETTER_DOWN = ""
 
         keyHold = True
 
@@ -53,6 +57,8 @@ class inputManager:
             if event.type == pygame.KEYDOWN:
 
                 self.KEY_DOWN = self.KEY_HOLD = event.key
+
+                self.LETTER_DOWN = event.unicode
 
             elif event.type == pygame.KEYUP:
 
