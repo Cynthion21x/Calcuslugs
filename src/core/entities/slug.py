@@ -2,6 +2,7 @@ import src.math.vectors as v
 import src.core.content.contentManager as content
 import src.shared.constants as c
 import src.shared.logger as l
+import src.core.content.config as config
 import pygame
 
 class slug:
@@ -16,6 +17,8 @@ class slug:
         self.boundsCheck()
 
         self.position = self.map.grid[self.gameCoord.x][self.gameCoord.y].pos
+
+        self.originCord = self.position
 
         data = content.Slug(name)
 
@@ -39,7 +42,8 @@ class slug:
         try:
             return self.map.grid[x][y]
         except:
-            l.Logger.log("slug out of bounds", c.Logs.ERROR)
+            l.Logger.log("slug out of bounds", logLevel=c.Logs.ERROR)
+            self.position = self.originCord
             return self.map.grid[0][0]
 
     def boundsCheck(self):
@@ -84,7 +88,8 @@ class slug:
 
             display.blit(self.pointerSprite, v.sub(pos, v.Vector(0, c.SLUG_SIZE)).value())
 
-        self.renderCheckBox(display)
+        if config.getOption("showSlugCollider"):
+            self.renderCheckBox(display)
 
     def normalizePos(self):
 

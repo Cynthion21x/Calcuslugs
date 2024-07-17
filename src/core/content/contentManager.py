@@ -44,7 +44,7 @@ class Content:
     def loadSprites(self):
 
         try:
-            self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png")
+            self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png").convert_alpha()
         except:
             l.Logger.log("Failed to load icon")
 

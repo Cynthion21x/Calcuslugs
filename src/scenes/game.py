@@ -8,6 +8,8 @@ import src.core.Input.inputManager as Input
 import random
 import pygame
 import math
+import src.math.functions as func
+import src.shared.logger as l
 
 class game:
 
@@ -21,6 +23,8 @@ class game:
         # TURN FALSE -> PLAYER 2
 
         self.started = False
+        self.evalueated = False
+        self.func = None
 
         self.ui()
 
@@ -45,7 +49,7 @@ class game:
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
 
-        # Generator function here
+        self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(300, 40), "7x + sin(x)", content.Font("default"))
 
         self.clock = elements.text(
 
@@ -57,17 +61,20 @@ class game:
 
     def generateSafeCoord(self, team):
 
+        # Need to generate some smarter bounds for niche scenearios
+        # Eg: half the map is submerged in lava
+
         if team:
-            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+            xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
         else:
-            xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+            xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
 
         while self.grid.mapFunc(xPos + c.GAME_WIDTH / 2) > (c.GAME_HEIGHT / 1.1):
 
             if team:
-                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1)) + (c.SCREEN_WIDTH-980) / 2
+                xPos = random.randint(int(c.GAME_WIDTH/2-1), int(c.GAME_WIDTH-1))
             else:
-                xPos = random.randint(0, int(c.GAME_WIDTH/2-1)) + (c.SCREEN_WIDTH-980) / 2
+                xPos = random.randint(0, int(c.GAME_WIDTH/2-1))
 
         return int(xPos)
 
@@ -207,6 +214,24 @@ class game:
             if s2.hp <= 0:
                 self.teamTrue.remove(s2)
 
+        self.formulaBox.run()
+
+        formula = self.formulaBox.input
+
+        if not self.formulaBox.typing:
+
+            if not self.evalueated:
+
+                try:
+                    self.func = func.Function(formula)
+                except:
+                    l.Logger.log("Malformed Function", formula, c.Logs.WARNING)
+                self.evalueated = True
+
+        else:
+
+            self.evalueated = False
+
         # ----- Game Render ----- 
 
         self.game.display.fill(c.Colours.GREY)
@@ -232,3 +257,4 @@ class game:
         # UI render
         self.mainBox.render(self.game.display)
         self.clock.render(self.game.display)
+        self.formulaBox.render(self.game.display)

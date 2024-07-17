@@ -113,33 +113,109 @@ class text(UiElement):
 
         super().__init__(pos, size)
 
+        self.updateCount = 0
+        self.renderCount = 0
+
         self.font = font
 
         self.textImg = font.render(text, True, colour)
 
         self.colour = colour
 
+        self.sizeIntented = size
+
         ratio = self.textImg.get_size()[1] / self.textImg.get_size()[0]
 
         self.newSize = v.Vector(size.x, size.x * ratio)
 
-        self.size = size.x
-
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
+        self.textImg.convert_alpha()
 
     def updateText(self, text):
 
         self.textImg = self.font.render(text, True, self.colour)
 
+        ratio = self.textImg.get_size()[1] / self.textImg.get_size()[0]
+
+        self.newSize = v.Vector(self.sizeIntented.x, self.sizeIntented.x * ratio)
+
         self.textImg = pygame.transform.smoothscale(self.textImg, self.newSize.value())
+
+        if self.updateCount < self.renderCount:
+            self.textImg.convert_alpha()
+
+        self.updateCount += 1
+
 
     def render(self, display):
 
         display.blit(self.textImg, self.pos.value())
 
+        self.renderCount += 1
+
     def run(self):
         
         pass
+
+class textBox(UiElement):
+
+    def __init__(self, pos, size, text, font=None, colour=c.Colours.BLACK, backgroundColor=c.Colours.WHITE):
+
+        super().__init__(pos, size)
+
+        self.font = font
+
+        self.colour = colour
+        self.backgroundColour = backgroundColor
+
+        self.typing = False
+        self.input = text
+
+    def render(self, display):
+
+        pygame.draw.rect(display, self.backgroundColour, pygame.Rect(self.pos.x, self.pos.y, self.size.x, self.size.y))
+
+        if self.typing:
+
+            pygame.draw.rect(display, c.Colours.GREY, pygame.Rect(self.pos.x-2, self.pos.y-2, self.size.x+4, self.size.y+4), 5, 5, 5, 5)
+
+        text = self.font.render(self.input, True, self.colour)
+
+        newSize = v.Vector(
+            text.get_size()[0] * ((self.size.y-8) / text.get_size()[1]),
+            self.size.y-8
+        )
+
+        text = pygame.transform.scale(text, newSize.value())
+        display.blit(text, v.add(self.pos, v.Vector(6, 4)).value())
+
+    def run(self):
+        
+        boundL = self.pos
+        boundU = v.add(self.pos, self.size)
+
+        mouse = Input.fetch().getMousePos()
+
+        if (boundL.x < mouse.x < boundU.x) and ((boundL.y < mouse.y < boundU.y)):
+
+            if (Input.fetch().MOUSE_UP):
+
+                self.typing = True
+
+        elif (Input.fetch().MOUSE_UP):
+
+            self.typing = False
+
+
+        if (self.typing):
+
+            if Input.fetch().KEY_HOLD == pygame.K_BACKSPACE:
+
+                self.input = self.input[:-1]
+
+            elif Input.fetch().KEY_DOWN != c.NO_KEY:
+
+                self.input += Input.fetch().LETTER_DOWN
 
 class photo(UiElement):
 
@@ -167,6 +243,7 @@ class photo(UiElement):
         
         pass
 
+
 class group:
 
     def __init__(self, elements):
@@ -187,7 +264,3 @@ class group:
             if self.visible:
 
                 i.render(display)
-
-class inputBox(UiElement):
-
-    pass
