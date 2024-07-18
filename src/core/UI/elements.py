@@ -171,6 +171,8 @@ class textBox(UiElement):
         self.typing = False
         self.input = text
 
+        self.counter = 0
+
     def render(self, display):
 
         pygame.draw.rect(display, self.backgroundColour, pygame.Rect(self.pos.x, self.pos.y, self.size.x, self.size.y))
@@ -189,7 +191,9 @@ class textBox(UiElement):
         text = pygame.transform.scale(text, newSize.value())
         display.blit(text, v.add(self.pos, v.Vector(6, 4)).value())
 
-    def run(self):
+    def run(self, deltaTime):
+
+        self.counter += deltaTime
         
         boundL = self.pos
         boundU = v.add(self.pos, self.size)
@@ -209,13 +213,19 @@ class textBox(UiElement):
 
         if (self.typing):
 
-            if Input.fetch().KEY_HOLD == pygame.K_BACKSPACE:
+            if Input.fetch().KEY_DOWN == pygame.K_BACKSPACE:
 
                 self.input = self.input[:-1]
+                self.counter = 0
 
             elif Input.fetch().KEY_DOWN != c.NO_KEY:
 
                 self.input += Input.fetch().LETTER_DOWN
+
+            elif Input.fetch().KEY_HOLD == pygame.K_BACKSPACE and self.counter > 0.2:
+
+                self.counter = 0
+                self.input = self.input[:-1]
 
 class photo(UiElement):
 

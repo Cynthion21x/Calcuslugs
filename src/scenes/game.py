@@ -95,15 +95,15 @@ class game:
 
         # Generate map
         params = [
-            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
-            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
-            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )),
-            random.uniform(0, 3 * math.pi),
-            random.uniform(0, 3 * math.pi),
-            random.uniform(0, 3 * math.pi),
-            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
-            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2,
-            random.randrange(int( c.GAME_HEIGHT /7 ), int( c.GAME_HEIGHT /3 )) / 2
+            random.randrange(int( c.GAME_WIDTH /10 ), int( c.GAME_WIDTH /3 )), # Frequency
+            random.randrange(int( c.GAME_WIDTH /4 ), int( c.GAME_WIDTH /2 )),
+            random.randrange(int( c.GAME_WIDTH /17 ), int( c.GAME_WIDTH /12 )),
+            random.uniform(0, 2 * math.pi),
+            random.uniform(0, 2 * math.pi),
+            random.uniform(0, 2 * math.pi),
+            random.randrange(int( c.GAME_HEIGHT /4 ), int( c.GAME_HEIGHT /2 )) / 2, # Height
+            random.randrange(int( c.GAME_HEIGHT /6 ), int( c.GAME_HEIGHT /3 )) / 2,
+            random.randrange(int( c.GAME_HEIGHT /10 ), int( c.GAME_HEIGHT /5 )) / 2
         ]
 
         colour = pygame.transform.average_color(self.selectedBackground)
@@ -216,7 +216,7 @@ class game:
             if s2.hp <= 0:
                 self.teamTrue.remove(s2)
 
-        self.formulaBox.run()
+        self.formulaBox.run(self.game.deltaTime)
 
         formula = self.formulaBox.input
 
@@ -244,12 +244,29 @@ class game:
 
             slugPos = self.activeSlug.getCoord(self.activeSlug.gameCoord.x, self.activeSlug.gameCoord.y).pos
 
-            self.const = slugPos.y - (self.func.evaluate(slugPos.x))
             self.linePoints = []
-        
-            for i in range(0, c.GAME_WIDTH_REAL):
-                self.linePoints.append(v.Vector(i, (self.func.evaluate(i)+self.const)).value())
-                self.renderLine = True
+
+            if (slugPos.x) < (c.GAME_WIDTH_REAL/2):
+
+                const = slugPos.y - (c.SLUG_SIZE/2) - (self.func.evaluate(slugPos.x))
+
+                for i in range(int(slugPos.x), c.GAME_WIDTH_REAL):
+
+                    coord = v.Vector(i, (self.func.evaluate(i)+const))
+
+                    self.linePoints.append(coord.value())
+                    self.renderLine = True
+
+            else:
+
+                const = slugPos.y - (c.SLUG_SIZE/2) - (self.func.evaluate(slugPos.x))
+
+                for i in range(0, int(slugPos.x)):
+
+                    coord = v.Vector(i, (self.func.evaluate(i)+const))
+
+                    self.linePoints.append(coord.value())
+                    self.renderLine = True       
 
 
         # ----- Game Render ----- 
