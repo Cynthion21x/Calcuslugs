@@ -172,22 +172,6 @@ class Interpteter:
             if i < length - 1:
                 two = string[i: i + 2].lower()
 
-            if i + 1 < length:
-
-                if curr in ["x", ")"]:
-
-                    if string[i + 1] in digits:
-
-                        tokens.append((c.tokens.MULT, "*"))
-
-            if prev != "#":
-
-                if curr in ["x", "("]:
-
-                    if prev in digits or prev == ")":
-
-                        tokens.append((c.tokens.MULT, "*"))
-
             if curr in operators:
 
                 if (prev in operators or i == 0) and curr == '-':
@@ -219,10 +203,25 @@ class Interpteter:
 
                 tokens.append((c.tokens.NUM, curr))
 
+                if i + 1 < length:
+
+                    if string[i + 1] in ["x", "("]:
+
+                        tokens.append((c.tokens.MULT, "*"))
+
+            if i + 1 < length:
+
+                if curr in ["x", ")"]:
+
+                    if string[i + 1] in digits:
+
+                        tokens.append((c.tokens.MULT, "*"))
+
             i += 1
 
             prev = curr
 
+        l.Logger.log(tokens)
         return tokens
     
 # Store AST and run it
@@ -237,21 +236,21 @@ class Function:
     # Start recursion
     def evaluate(self, x):
 
-        self.x = x     
+        self.x = x / 10
 
         try:
             ans = self.solve(self.root)
-            return ans
+            return ans * 10
         
         except ArithmeticError:
             
             l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
-            return None
+            return 0
         
         except ValueError:
             
             l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
-            return None
+            return 0
    
     # Read nodes and carry out required tasks
     def solve(self, _node):
@@ -306,11 +305,3 @@ class Function:
         
         if _node.type == c.tokens.VAR:
             return self.x
-
-
-l.Logger.log("Function testing", logLevel=c.Logs.TEST)
-
-func = Function("|x| + 3 + x^2")
-answer = func.evaluate(-7)
-
-l.Logger.log(func.name, answer, c.Logs.NORMAL)

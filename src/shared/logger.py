@@ -34,6 +34,8 @@ class _logger:
 
     def log(self, message, details = None, logLevel = c.Logs.NORMAL):
 
+        message = str(message)
+
         if details:
 
             text = message + ": " + str(details)

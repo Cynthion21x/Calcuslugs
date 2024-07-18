@@ -25,6 +25,8 @@ class game:
         self.started = False
         self.evalueated = False
         self.func = None
+        self.renderLine = False
+        self.const = 0
 
         self.ui()
 
@@ -224,13 +226,31 @@ class game:
 
                 try:
                     self.func = func.Function(formula)
+                    self.renderLine = True
+
                 except:
                     l.Logger.log("Malformed Function", formula, c.Logs.WARNING)
+                    self.renderLine = False
+
                 self.evalueated = True
 
         else:
 
             self.evalueated = False
+
+        # Generate line
+
+        if self.renderLine:
+
+            slugPos = self.activeSlug.getCoord(self.activeSlug.gameCoord.x, self.activeSlug.gameCoord.y).pos
+
+            self.const = slugPos.y - (self.func.evaluate(slugPos.x))
+            self.linePoints = []
+        
+            for i in range(0, c.GAME_WIDTH_REAL):
+                self.linePoints.append(v.Vector(i, (self.func.evaluate(i)+self.const)).value())
+                self.renderLine = True
+
 
         # ----- Game Render ----- 
 
@@ -239,6 +259,9 @@ class game:
         # Background
         pygame.draw.rect(self.game.display, c.Colours.BLUE, pygame.Rect((c.SCREEN_WIDTH-980) / 2, 25, 980, 400))
         self.background.render(self.game.display)
+
+        if self.renderLine:
+            pygame.draw.lines(self.game.display, c.Colours.BLUE, False, self.linePoints, 5)
 
         # Terrain
 
@@ -253,6 +276,7 @@ class game:
         for s2 in self.teamFalse:
 
             s2.render(self.game.display)
+
 
         # UI render
         self.mainBox.render(self.game.display)

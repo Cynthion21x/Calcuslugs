@@ -1,14 +1,8 @@
 {
-
-    "_comment" : "restart application for changes to take effect",
-
-    "slugCount": 4,
-    "turnTime" : 80,
-
-    "pixelSize" : 2,
+    "turnTime": "80",
     "targetFPS": 60,
-
-    "showFPS": false,
-    "fpsUpdateTime": 30,
-    "showSlugCollider": false
+    "pixelSize": 1,
+    "showFPS": true,
+    "showSlugCollider": false,
+    "fpsUpdateTime": 30
 }
