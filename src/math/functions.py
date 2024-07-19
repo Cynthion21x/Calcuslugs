@@ -150,6 +150,19 @@ class Interpteter:
 
         }
 
+        funcs = {
+            "e" : c.tokens.E,
+            "pi" : c.tokens.PI,
+            "ln" : c.tokens.LN,
+            "abs" : c.tokens.ABSFUNC,
+            "log" : c.tokens.LOG,
+            "sin" : c.tokens.SIN,
+            "cos" : c.tokens.COS,
+            "tan" : c.tokens.TAN,
+            "sqrt" : c.tokens.SQRT,
+            "x" : c.tokens.VAR
+        }
+
         i = 0
         length = len(string)
         prev = '#'
@@ -157,7 +170,7 @@ class Interpteter:
         # Main Loop
         while i < length:
 
-            curr = string[i]
+            curr = string[i].lower()
 
             two = ''
             three = ''
@@ -171,6 +184,17 @@ class Interpteter:
 
             if i < length - 1:
                 two = string[i: i + 2].lower()
+
+            addMult = curr in funcs or two in funcs or three in funcs or four in funcs
+
+            if addMult or curr in ["("]:
+
+                if prev in digits:
+                    tokens.append((c.tokens.MULT, "*"))
+
+                if prev in [")"]:
+                    tokens.append((c.tokens.MULT, "*"))
+
 
             if curr in operators:
 
@@ -203,17 +227,19 @@ class Interpteter:
 
                 tokens.append((c.tokens.NUM, curr))
 
-                if i + 1 < length:
+            if i < length - 1:
 
-                    if string[i + 1] in ["x", "("]:
+                if curr in ["e", "x", ")"]:
+
+                    if string[i+1] in digits:
 
                         tokens.append((c.tokens.MULT, "*"))
 
-            if i + 1 < length:
+            if i < length - 2:
 
-                if curr in ["x", ")"]:
+                if two in ["pi"]:
 
-                    if string[i + 1] in digits:
+                    if string[i+2] in digits:
 
                         tokens.append((c.tokens.MULT, "*"))
 

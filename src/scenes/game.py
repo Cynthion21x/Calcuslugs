@@ -51,7 +51,7 @@ class game:
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
 
-        self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(300, 40), "7x + sin(x)", content.Font("default"))
+        self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(300, 40), "", content.Font("default"))
 
         self.clock = elements.text(
 
@@ -177,6 +177,8 @@ class game:
             self.turn = not self.turn
             self.activeSlug.activePointer = False
 
+            self.formulaBox.input = ""
+
             if self.turn == True:
 
                 self.activeSlug = self.teamTrue[self.player1Index]
@@ -229,8 +231,13 @@ class game:
                     self.renderLine = True
 
                 except:
-                    l.Logger.log("Malformed Function", formula, c.Logs.WARNING)
-                    self.renderLine = False
+
+                    formula = formula.strip()
+
+                    if formula != "":
+
+                        l.Logger.log("Malformed Function", formula, c.Logs.WARNING)
+                        self.renderLine = False
 
                 self.evalueated = True
 
@@ -248,22 +255,26 @@ class game:
 
             if (slugPos.x) < (c.GAME_WIDTH_REAL/2):
 
-                const = slugPos.y - (c.SLUG_SIZE/2) - (self.func.evaluate(slugPos.x))
+                const = slugPos.y - (c.SLUG_SIZE/3) - (self.func.evaluate(slugPos.x))
 
                 for i in range(int(slugPos.x), c.GAME_WIDTH_REAL):
 
-                    coord = v.Vector(i, (self.func.evaluate(i)+const))
+                    x = i
+
+                    coord = v.Vector(i, (self.func.evaluate(x)+const))
 
                     self.linePoints.append(coord.value())
                     self.renderLine = True
 
             else:
 
-                const = slugPos.y - (c.SLUG_SIZE/2) - (self.func.evaluate(slugPos.x))
+                const = slugPos.y - (c.SLUG_SIZE/3) - (self.func.evaluate(slugPos.x))
 
-                for i in range(0, int(slugPos.x)):
+                for i in range(int(slugPos.x), 0, -1):
 
-                    coord = v.Vector(i, (self.func.evaluate(i)+const))
+                    x = i
+
+                    coord = v.Vector(i, (self.func.evaluate(x)+const))
 
                     self.linePoints.append(coord.value())
                     self.renderLine = True       
