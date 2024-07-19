@@ -1,5 +1,5 @@
 {
-    "turnTime": "80",
+    "turnTime": 80,
     "targetFPS": 60,
     "pixelSize": 1,
     "showFPS": true,
