@@ -25,6 +25,8 @@ class Colours:
     FLOOR = pygame.Color(76, 107, 102)
     LAVA = pygame.Color(219, 85, 13)
 
+    LASER_PREVIEW = pygame.Color(144, 232, 226, 125)
+
 # Log Levels
 
 class Logs:

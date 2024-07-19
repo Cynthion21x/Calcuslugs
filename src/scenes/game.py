@@ -84,7 +84,7 @@ class game:
     def start(self):
          
         self.started = True
-        self.turnTimer = int(config.getOption("turnTime"))
+        self.turnTimer = config.getOption("turnTime")
 
         self.turn = True
 
@@ -178,6 +178,8 @@ class game:
             self.activeSlug.activePointer = False
 
             self.formulaBox.input = ""
+            self.evalueated = False
+            self.formulaBox.typing = False
 
             if self.turn == True:
 
@@ -229,6 +231,7 @@ class game:
                 try:
                     self.func = func.Function(formula)
                     self.renderLine = True
+                    self.func.evaluate(random.randint(0, 10))
 
                 except:
 
@@ -237,7 +240,8 @@ class game:
                     if formula != "":
 
                         l.Logger.log("Malformed Function", formula, c.Logs.WARNING)
-                        self.renderLine = False
+
+                    self.renderLine = False
 
                 self.evalueated = True
 
@@ -249,32 +253,36 @@ class game:
 
         if self.renderLine:
 
+            gameOffset = v.Vector(int((c.SCREEN_WIDTH-980) / 2), 25)
+
             slugPos = self.activeSlug.getCoord(self.activeSlug.gameCoord.x, self.activeSlug.gameCoord.y).pos
 
             self.linePoints = []
 
             if (slugPos.x) < (c.GAME_WIDTH_REAL/2):
 
-                const = slugPos.y - (c.SLUG_SIZE/3) - (self.func.evaluate(slugPos.x))
+                const = c.GAME_HEIGHT_REAL - slugPos.y + (c.SLUG_SIZE/4) - self.func.evaluate(0)
 
-                for i in range(int(slugPos.x), c.GAME_WIDTH_REAL):
+                for i in range(int(slugPos.x), c.GAME_WIDTH_REAL+c.SLUG_SIZE):
 
-                    x = i
+                    x =  i - int(slugPos.x)
+                    y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
 
-                    coord = v.Vector(i, (self.func.evaluate(x)+const))
+                    coord = v.Vector(i, y)
 
                     self.linePoints.append(coord.value())
                     self.renderLine = True
 
             else:
 
-                const = slugPos.y - (c.SLUG_SIZE/3) - (self.func.evaluate(slugPos.x))
+                const = c.GAME_HEIGHT_REAL - slugPos.y + (c.SLUG_SIZE/4) - self.func.evaluate(0)
 
-                for i in range(int(slugPos.x), 0, -1):
+                for i in range(int(slugPos.x), gameOffset.x, -1):
 
-                    x = i
+                    x = int(slugPos.x) - i
+                    y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
 
-                    coord = v.Vector(i, (self.func.evaluate(x)+const))
+                    coord = v.Vector(i, y)
 
                     self.linePoints.append(coord.value())
                     self.renderLine = True       
@@ -288,12 +296,13 @@ class game:
         pygame.draw.rect(self.game.display, c.Colours.BLUE, pygame.Rect((c.SCREEN_WIDTH-980) / 2, 25, 980, 400))
         self.background.render(self.game.display)
 
-        if self.renderLine:
-            pygame.draw.lines(self.game.display, c.Colours.BLUE, False, self.linePoints, 5)
-
         # Terrain
 
         self.grid.render(self.game.display)
+
+        if self.renderLine:
+            pygame.draw.lines(self.game.display, c.Colours.LASER_PREVIEW, False, self.linePoints, 5)
+
 
         # Slugs
     
@@ -304,7 +313,6 @@ class game:
         for s2 in self.teamFalse:
 
             s2.render(self.game.display)
-
 
         # UI render
         self.mainBox.render(self.game.display)

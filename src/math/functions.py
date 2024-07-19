@@ -189,8 +189,9 @@ class Interpteter:
 
             if addMult or curr in ["("]:
 
-                if prev in digits:
-                    tokens.append((c.tokens.MULT, "*"))
+                if i > 1:
+                    if string[i-1] in digits:
+                        tokens.append((c.tokens.MULT, "*"))
 
                 if prev in [")"]:
                     tokens.append((c.tokens.MULT, "*"))
@@ -270,12 +271,12 @@ class Function:
         
         except ArithmeticError:
             
-            l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
+            #l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
             return 0
         
         except ValueError:
             
-            l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
+            #l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
             return 0
    
     # Read nodes and carry out required tasks
