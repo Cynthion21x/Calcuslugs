@@ -27,7 +27,11 @@ with open(content.Text("title")) as file:
 
 main = g.Game(selection)
 
-main.coreLoop()
+try:
+    main.coreLoop()
+except Exception as Error:
+    l.Logger.log("Fatal Error", Error, logLevel=c.Logs.ERROR)
+    main.close()
 
 # Logger should be cleaned up
 

@@ -101,22 +101,18 @@ class Interpteter:
                 self.index += 1
                 return node
             
-        elif token_type in [c.tokens.NUM, c.tokens.E, c.tokens.PI]:
+        elif token_type in [c.tokens.NUM, c.tokens.E, c.tokens.PI, c.tokens.VAR]:
 
             self.index += 1
 
             if token_type == c.tokens.PI:
                 return Node(c.tokens.NUM, value=math.pi)
-            elif token_type == c.tokens.E:
+            if token_type == c.tokens.E:
                 return Node(c.tokens.NUM, value=math.e)
-            elif token_type == c.tokens.NUM:
+            if token_type == c.tokens.NUM:
                 return Node(c.tokens.NUM, value=float(token_value))
-            
-        elif token_type == c.tokens.VAR:
-
-            self.index += 1
-
-            return Node(c.tokens.VAR)
+            if token_type == c.tokens.VAR:
+                return Node(c.tokens.VAR)
             
     # Loop over input and generate tokens to be parsed
     def tokenize(self, string):
@@ -199,7 +195,7 @@ class Interpteter:
 
             if curr in operators:
 
-                if (prev in operators or i == 0) and curr == '-':
+                if ((prev in operators or i == 0) and curr == '-') and (not prev in ["e", "pi", "x", ")"]):
                     tokens.append((c.tokens.NEG, curr))
                 else:
                     tokens.append((operators[curr], curr))
@@ -240,7 +236,7 @@ class Interpteter:
 
                 if two in ["pi"]:
 
-                    if string[i+2] in digits:
+                    if string[i+1] in digits:
 
                         tokens.append((c.tokens.MULT, "*"))
 
