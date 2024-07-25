@@ -3,14 +3,8 @@
     "damage": 20,
     "passThrough": true,
 
-    "sprite": "Guns\\zapotron",
-    "projectile": "Guns\\zapotronBullet",
+    "type": "laser",
 
-    "aoe": {
-
-        "radius": 0,
-        "damage": 0
-
-    }
+    "sprite": "Guns\\zapotron"
 
 }

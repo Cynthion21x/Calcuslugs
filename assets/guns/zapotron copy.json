@@ -1,0 +1,10 @@
+{
+
+    "damage": 20,
+    "passThrough": false,
+
+    "type": "laser",
+
+    "sprite": "Guns\\shotgun"
+
+}

@@ -235,6 +235,17 @@ def Slug(name):
     except:
 
         l.Logger.log("Failed to find slug", name, c.Logs.ERROR)
+
+def Gun(name):
+
+    try:
+
+        data = fetch().gunBase[name]
+        return data
+
+    except:
+
+        l.Logger.log("Failed to find gun", name, c.Logs.ERROR)
  
 
 def Sound(name):

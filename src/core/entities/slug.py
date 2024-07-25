@@ -23,6 +23,7 @@ class slug:
         data = content.Slug(name)
 
         self.hp = data["hp"]
+        self.maxHp = self.hp
         self.speed = data["speed"]
 
         self.pointerSprite = content.Sprite(data["pointer"])
@@ -90,6 +91,26 @@ class slug:
 
         if config.getOption("showSlugCollider"):
             self.renderCheckBox(display)
+
+        # HP Bar
+
+        hpRect = pygame.Rect(
+            pos.x, #- (c.SLUG_SIZE/2),
+            pos.y + c.SLUG_SIZE + 10,
+            c.SLUG_SIZE,
+            10
+        )
+
+        pygame.draw.rect(display, c.Colours.RED, hpRect)
+
+        hpRemainingRect = pygame.Rect(
+            pos.x,
+            pos.y + c.SLUG_SIZE + 10,
+            c.SLUG_SIZE * self.hp / self.maxHp,
+            10  
+        )
+
+        pygame.draw.rect(display, c.Colours.GREEN, hpRemainingRect)
 
     def normalizePos(self):
 

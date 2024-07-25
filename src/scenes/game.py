@@ -61,6 +61,38 @@ class game:
 
         )
 
+        gunboxPos = v.Vector(590, 450)
+        gunboxSize = v.Vector(400, 100)
+
+        gunElements = []
+
+        guns = list(content.fetch().gunBase.keys())
+        gunCount = len(guns)
+
+        for i in range(0, gunCount):
+
+            wepon = content.Gun(guns[i])
+
+            gunVectorSize = v.Vector(gunboxSize.x / gunCount, gunboxSize.x / gunCount)
+            gunVectorPos = v.add(gunboxPos, v.Vector(i * gunboxSize.x / gunCount , -gunVectorSize.y/2 + gunboxSize.y/2))
+
+            image = elements.photo(gunVectorPos, gunVectorSize, content.Sprite(wepon["sprite"]), True)
+            hover = elements.photo(gunVectorPos, gunVectorSize, pygame.transform.rotate(content.Sprite(wepon["sprite"]), 10), True)
+
+            gunElements.append(elements.button(
+                gunVectorPos,
+                gunVectorSize,
+                self.shootGun,
+                image,
+                hover
+            ))
+
+        self.guns = elements.group(gunElements)
+
+    def shootGun(self, id):
+
+        pass
+
     def generateSafeCoord(self, team):
 
         # Need to generate some smarter bounds for niche scenearios
@@ -318,3 +350,4 @@ class game:
         self.mainBox.render(self.game.display)
         self.clock.render(self.game.display)
         self.formulaBox.render(self.game.display)
+        self.guns.run(self.game.display)
