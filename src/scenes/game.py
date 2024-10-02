@@ -46,7 +46,7 @@ class game:
         # Blur takes long time so need to store them and call them back
         # self.selectedBackground = elements.blur(self.selectedBackground, 5)
         self.background = elements.photo(v.Vector(((c.SCREEN_WIDTH - c.GAME_WIDTH_REAL) / 2) , 25), v.Vector(c.GAME_WIDTH_REAL, c.GAME_HEIGHT_REAL), self.selectedBackground)
-    
+
     def ui(self):
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
@@ -82,7 +82,7 @@ class game:
             gunElements.append(elements.button(
                 gunVectorPos,
                 gunVectorSize,
-                self.shootGun,
+                (lambda i=i: self.shootGun(i)),
                 image,
                 hover
             ))
@@ -91,7 +91,7 @@ class game:
 
     def shootGun(self, id):
 
-        pass
+        l.Logger.log(id)
 
     def generateSafeCoord(self, team):
 
