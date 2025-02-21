@@ -28,6 +28,8 @@ class game:
         self.renderLine = False
         self.const = 0
 
+        self.activeGun = c.tokens.NA
+
         self.ui()
 
     def generateBackground(self):
@@ -51,7 +53,11 @@ class game:
 
         self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
 
-        self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(300, 40), "", content.Font("default"))
+        self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(260, 40), "", content.Font("default"))
+        shootButtonImg = elements.photo(v.Vector(480, 475), v.Vector(20, 20), content.Sprite("UI\\shootIcon"), True)
+        shootButtonImgHov = elements.photo(v.Vector(480, 475), v.Vector(20, 30), content.Sprite("UI\\shootIcon"), True)
+
+        self.shootButton = elements.button(v.Vector(480, 475), v.Vector(20, 20), self.shootGun, shootButtonImg, shootButtonImgHov)
 
         self.clock = elements.text(
 
@@ -82,16 +88,20 @@ class game:
             gunElements.append(elements.button(
                 gunVectorPos,
                 gunVectorSize,
-                (lambda i=i: self.shootGun(i)),
+                (lambda i=guns[i]: self.selectGun(i)),
                 image,
                 hover
             ))
 
         self.guns = elements.group(gunElements)
 
-    def shootGun(self, id):
+    def shootGun(self):
 
-        l.Logger.log(id)
+        l.Logger.log(self.activeSlug.)
+
+    def selectGun(self, id):
+
+        self.activeSlug.setGun(id)
 
     def generateSafeCoord(self, team):
 
@@ -265,6 +275,8 @@ class game:
                     self.renderLine = True
                     self.func.evaluate(random.randint(0, 10))
 
+                    self.func.evaluate(0) + 1
+
                 except:
 
                     formula = formula.strip()
@@ -298,7 +310,14 @@ class game:
                 for i in range(int(slugPos.x), c.GAME_WIDTH_REAL+c.SLUG_SIZE):
 
                     x =  i - int(slugPos.x)
-                    y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
+
+                    if (self.func.evaluate(x) == c.tokens.NA):
+                        break
+                
+                    try:
+                        y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
+                    except:
+                        break
 
                     coord = v.Vector(i, y)
 
@@ -312,7 +331,14 @@ class game:
                 for i in range(int(slugPos.x), gameOffset.x, -1):
 
                     x = int(slugPos.x) - i
-                    y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
+
+                    if (self.func.evaluate(x) == c.tokens.NA):
+                        break
+
+                    try:
+                        y = (c.GAME_HEIGHT_REAL-(self.func.evaluate(x)))-const
+                    except:
+                        break
 
                     coord = v.Vector(i, y)
 
@@ -350,4 +376,6 @@ class game:
         self.mainBox.render(self.game.display)
         self.clock.render(self.game.display)
         self.formulaBox.render(self.game.display)
+        self.shootButton.render(self.game.display)
+        self.shootButton.run()
         self.guns.run(self.game.display)

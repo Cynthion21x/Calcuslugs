@@ -37,6 +37,15 @@ class slug:
         self.sprite = pygame.transform.scale(self.sprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.pointerSprite = pygame.transform.scale(self.pointerSprite, (c.SLUG_SIZE, c.SLUG_SIZE))
         self.flippedSprtie = pygame.transform.flip(self.sprite, True, False)
+        self.hasGun = False
+
+    def setGun(self, id):
+
+        self.hasGun = True
+        self.gunSprite = content.Sprite(content.Gun(id)["sprite"])
+        self.gunSprite = pygame.transform.scale(self.gunSprite, (c.SLUG_SIZE//1.5, c.SLUG_SIZE//1.5))
+        self.flippedGunSprite = pygame.transform.flip(self.gunSprite, True, False)
+        self.gunId = id
 
     def getCoord(self, x, y):
 
@@ -81,9 +90,17 @@ class slug:
 
             display.blit(self.sprite, pos.value())
 
+            # Gun
+            if self.hasGun:
+                display.blit(self.gunSprite, v.add(pos, v.Vector(c.SLUG_SIZE, c.SLUG_SIZE//2)).value())
+
         else:
 
             display.blit(self.flippedSprtie, pos.value())
+
+            # Gun
+            if self.hasGun:
+                display.blit(self.flippedGunSprite, v.add(pos, v.Vector(-(c.SLUG_SIZE//2 + 3), c.SLUG_SIZE//2)).value())
 
         if (self.activePointer):
 

@@ -5,6 +5,8 @@
 
     "type": "laser",
 
+    "radius": 4,
+
     "sprite": "Guns\\shotgun"
 
 }

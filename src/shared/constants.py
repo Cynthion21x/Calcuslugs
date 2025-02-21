@@ -96,6 +96,7 @@ class tokens:
     NEG = 19       # Negative Number
     PI = 16        # pi
     E = 17         # e
+    NA = "no"      # math errors
 
 
 # Keys

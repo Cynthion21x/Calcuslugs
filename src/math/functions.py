@@ -268,12 +268,12 @@ class Function:
         except ArithmeticError:
             
             #l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
-            return 0
+            return c.tokens.NA
         
         except ValueError:
             
             #l.Logger.log("Math Error in function", self.name, c.Logs.ERROR)
-            return 0
+            return c.tokens.NA
    
     # Read nodes and carry out required tasks
     def solve(self, _node):

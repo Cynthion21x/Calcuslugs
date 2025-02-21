@@ -83,6 +83,9 @@ class Game():
                 self.prevState = self.GameState
                 l.Logger.log("Changed game state")
 
+                if self.GameState == c.States.GAME:
+                    self.game.started = False
+
             # Run appropriate section of code
 
             if self.GameState == c.States.SPLASH:

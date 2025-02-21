@@ -5,5 +5,7 @@
     "QuitButton": "Quit",
     "OptionsButton": "Settings",
     "player1Win": "< Player 1 Wins! >",
-    "player2Win": "< player 2 Wins! >"
+    "player2Win": "< player 2 Wins! >",
+    "BackButton": "Back To Menu",
+    "PlayAgainButton": "Play Again"
 }

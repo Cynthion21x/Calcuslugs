@@ -114,9 +114,10 @@ class Content:
 
                     self.gunBase[identifier] = json.load(f)
 
-                except:
+                except Exception as e:
 
                     l.Logger.log("Failed to load", i, c.Logs.ERROR)  
+                    l.Logger.log(e, logLevel=c.Logs.ERROR)
 
     def loadSlugs(self):
 
