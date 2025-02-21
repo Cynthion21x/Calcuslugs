@@ -5,6 +5,6 @@
 
     "type": "laser",
 
-    "sprite": "Guns\\zapotron"
+    "sprite": "Guns/zapotron"
 
 }

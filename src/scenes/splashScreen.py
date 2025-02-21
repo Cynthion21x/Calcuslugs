@@ -18,7 +18,7 @@ class splashScreen:
         self.title = elements.photo(
 
             v.add(v.sub(center, v.mult(TitleSize, 0.5)), v.Vector(0, -97)), TitleSize,
-            content.Sprite(os.path.join("Titles", "gameTitle-alt")),
+            content.Sprite("Titles/gameTitle-alt"),
             True
 
             )

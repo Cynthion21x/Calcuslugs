@@ -7,6 +7,6 @@
 
     "radius": 4,
 
-    "sprite": "Guns\\shotgun"
+    "sprite": "Guns/shotgun"
 
 }

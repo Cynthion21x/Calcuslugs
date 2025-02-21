@@ -8,7 +8,7 @@ class modLauncher:
 
     def __init__(self, content):
 
-        self.modPath = c.DATA_PATH + "\\Mods"
+        self.modPath = os.path.join(c.DATA_PATH, "Mods")
 
         self.mods = dict()
         self.modPaths = []
@@ -102,7 +102,7 @@ class modLauncher:
 
                             cF = os.path.join(root, file)
 
-                            identifier = os.path.join(root, os.path.splitext(file)[0])
+                            identifier = root + "/" + os.path.splitext(file)[0]
 
                             identifier = identifier.replace(os.path.join(cdir, ""), "")
 

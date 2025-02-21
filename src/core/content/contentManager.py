@@ -54,7 +54,7 @@ class Content:
 
                 cDir = os.path.join(root, file)
 
-                identifier = os.path.join(root, os.path.splitext(file)[0])
+                identifier = root + "/" +  os.path.splitext(file)[0]
 
                 identifier = identifier.replace(os.path.join(c.ASSETS_PATH, "picture", ""), "")
 
@@ -82,7 +82,7 @@ class Content:
 
                 cDir = os.path.join(root, file)
 
-                identifier = os.path.join(root, os.path.splitext(file)[0])
+                identifier = root + "/" +  os.path.splitext(file)[0]
 
                 identifier = identifier.replace(os.path.join(c.ASSETS_PATH, "fonts", ""), "")
 

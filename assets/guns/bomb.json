@@ -7,6 +7,6 @@
 
     "radius": 10,
 
-    "sprite": "Guns\\bomb"
+    "sprite": "Guns/bomb"
 
 }

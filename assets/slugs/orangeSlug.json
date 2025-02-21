@@ -1,8 +1,8 @@
 {
 
-    "pointer": "Slugs\\orangePoint",
+    "pointer": "Slugs/orangePoint",
 
-    "sprite": "Slugs\\orange",
+    "sprite": "Slugs/orange",
 
     "hp": 100,
     "speed": 50,
