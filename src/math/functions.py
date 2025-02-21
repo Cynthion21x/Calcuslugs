@@ -185,11 +185,7 @@ class Interpteter:
 
             if addMult or curr in ["("]:
 
-                if i > 1:
-                    if string[i-1] in digits:
-                        tokens.append((c.tokens.MULT, "*"))
-
-                if prev in [")"]:
+                if i > 0 and (string[i-1] in digits or string[i-1] in [")", "x"]):
                     tokens.append((c.tokens.MULT, "*"))
 
 
