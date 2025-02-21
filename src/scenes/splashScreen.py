@@ -3,6 +3,7 @@ import src.core.UI.elements as elements
 import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.Input.inputManager as Input
+import os
 
 class splashScreen:
 
@@ -17,7 +18,7 @@ class splashScreen:
         self.title = elements.photo(
 
             v.add(v.sub(center, v.mult(TitleSize, 0.5)), v.Vector(0, -97)), TitleSize,
-            content.Sprite("Titles\\gameTitle-alt"),
+            content.Sprite(os.path.join("Titles", "gameTitle-alt")),
             True
 
             )

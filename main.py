@@ -2,14 +2,14 @@ import src.shared.constants as c
 import pygame
 import time
 import random
-import src.math.functions
+import os
 
 # SPLASH SCREEN
 
 pygame.init()
 
 splash = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT), pygame.NOFRAME)
-splash.blit(pygame.image.load(c.ASSETS_PATH + "\\splash.png"), (0, 0))
+splash.blit(pygame.image.load(os.path.join(c.ASSETS_PATH, "splash.png")), (0, 0))
 pygame.display.flip()
 
 # LOAD GAME

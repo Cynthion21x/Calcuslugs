@@ -9,9 +9,9 @@ class Options:
 
     def __init__(self):
 
-        self.optionFile = c.DATA_PATH + "\\Settings\\options.json"
+        self.optionFile = os.path.join(c.DATA_PATH, "Settings", "options.json")
 
-        defaultOptions = c.ASSETS_PATH + "\\defaultOptions.json"
+        defaultOptions = os.path.join(c.ASSETS_PATH, "defaultOptions.json")
 
         l.Logger.log("Loading Default Options")
         

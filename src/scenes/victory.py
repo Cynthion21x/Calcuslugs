@@ -3,6 +3,7 @@ import src.core.UI.elements as elements
 import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.core.Input.inputManager as Input
+import os
 
 class victory:
 
@@ -19,7 +20,7 @@ class victory:
         self.game = game
         self.team = True
 
-        self.background = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\looseScreen"))
+        self.background = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite(os.path.join("UI", "looseScreen")))
 
         self.WinText = elements.text(
 
@@ -49,7 +50,7 @@ class victory:
         backButtonNorm = elements.photo(
             v.Vector(buttonX, buttonY),
             buttonSize,
-            content.Sprite("UI\\button")
+            content.Sprite(os.path.join("UI", "button"))
         )
 
         hoverScale = 1.2
@@ -57,7 +58,7 @@ class victory:
 
             v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY - (buttonSize.y * hoverScale - buttonSize.y) / 2),
             v.mult(buttonSize, 1.2), 
-            content.Sprite("UI\\button-hover")
+            content.Sprite(os.path.join("UI", "button-hover"))
 
         )
 
@@ -77,14 +78,14 @@ class victory:
         againButtonNorm = elements.photo(
             v.Vector(buttonX, buttonY),
             buttonSize,
-            content.Sprite("UI\\button")
+            content.Sprite(os.path.join("UI", "button"))
         )
 
         againButtonHover = elements.photo(
 
             v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY - (buttonSize.y * hoverScale - buttonSize.y) / 2),
             v.mult(buttonSize, 1.2), 
-            content.Sprite("UI\\button-hover")
+            content.Sprite(os.path.join("UI", "button-hover"))
 
         )
 

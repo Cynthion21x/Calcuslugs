@@ -80,6 +80,6 @@ def fetch():
 
     if i is None:
 
-        l.Logger.log("Don't acess input beffore its loaded", c.Logs.WARNING)
+        l.Logger.log("Don't access input before it's loaded", c.Logs.WARNING)
 
     return i

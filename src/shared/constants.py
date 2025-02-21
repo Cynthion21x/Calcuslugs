@@ -7,7 +7,13 @@ ASSETS_PATH = os.path.join(os.path.dirname(__file__), '..', '..', "assets")
 
 # Program Data
 
-DATA_PATH = os.path.join(os.getenv('APPDATA'), '..', 'LocalLow', 'Cynthion21x', 'calcuslugs')
+if (os.name == 'nt'):
+
+    DATA_PATH = os.path.join(os.getenv('APPDATA'), '..', 'LocalLow', 'Cynthion21x', 'calcuslugs')
+
+else:
+
+    DATA_PATH = os.path.join(os.getenv('HOME'), '.config', 'Cynthion21x', 'calcuslugs')
 
 # Colours
 

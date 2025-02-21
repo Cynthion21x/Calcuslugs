@@ -8,20 +8,21 @@ class _logger:
         
         if not os.path.isdir(c.DATA_PATH):
 
-            os.mkdir(c.DATA_PATH)
-            os.mkdir(c.DATA_PATH + "\\Mods")
-            os.mkdir(c.DATA_PATH + "\\Settings")
+            os.makedirs(c.DATA_PATH)
+            os.mkdir(os.path.join(c.DATA_PATH, "Mods"))
+            os.mkdir(os.path.join(c.DATA_PATH, "Settings"))
         
         self.path = path
-        self.logFile = path + "\\logs.txt"
+        self.logFile = os.path.join(path, "logs.txt")
 
         if os.path.exists(self.logFile):
 
-            if os.path.exists(path + "\\logs-old.txt"):
+            old_log = os.path.join(path, "logs-old.txt")
+            if os.path.exists(old_log):
 
-                os.remove(path + "\\logs-old.txt")
+                os.remove(old_log)
             
-            os.rename(self.logFile, path + "\\logs-old.txt")
+            os.rename(self.logFile, old_log)
 
         self.file = open(self.logFile, 'a')
 

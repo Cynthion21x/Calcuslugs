@@ -10,6 +10,7 @@ import pygame
 import math
 import src.math.functions as func
 import src.shared.logger as l
+import os
 
 class game:
 
@@ -39,7 +40,7 @@ class game:
 
         for key in keys:
 
-            if key.startswith('background\\'):
+            if key.startswith(os.path.join('background', '')):
 
                 backgrounds.append(content.Sprite(key))
 
@@ -51,11 +52,11 @@ class game:
 
     def ui(self):
 
-        self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite("UI\\gameBox"))
+        self.mainBox = elements.photo(v.Zero, v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT), content.Sprite(os.path.join("UI", "gameBox")))
 
         self.formulaBox = elements.textBox(v.Vector(200, 475), v.Vector(260, 40), "", content.Font("default"))
-        shootButtonImg = elements.photo(v.Vector(480, 475), v.Vector(20, 20), content.Sprite("UI\\shootIcon"), True)
-        shootButtonImgHov = elements.photo(v.Vector(480, 475), v.Vector(20, 30), content.Sprite("UI\\shootIcon"), True)
+        shootButtonImg = elements.photo(v.Vector(480, 475), v.Vector(20, 20), content.Sprite(os.path.join("UI", "shootIcon")), True)
+        shootButtonImgHov = elements.photo(v.Vector(480, 475), v.Vector(20, 30), content.Sprite(os.path.join("UI", "shootIcon")), True)
 
         self.shootButton = elements.button(v.Vector(480, 475), v.Vector(20, 20), self.shootGun, shootButtonImg, shootButtonImgHov)
 

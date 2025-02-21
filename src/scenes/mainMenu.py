@@ -3,6 +3,7 @@ import src.core.UI.elements as elements
 import src.core.content.contentManager as content
 import src.math.vectors as v
 import src.shared.logger as l
+import os
 
 class mainMenu:
 
@@ -32,7 +33,7 @@ class mainMenu:
         startButtonNorm = elements.photo(
             v.Vector(buttonX, buttonY),
             buttonSize,
-            content.Sprite("UI\\button")
+            content.Sprite(os.path.join("UI", "button"))
         )
 
         hoverScale = 1.2
@@ -40,32 +41,32 @@ class mainMenu:
 
             v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY - (buttonSize.y * hoverScale - buttonSize.y) / 2),
             v.mult(buttonSize, 1.2), 
-            content.Sprite("UI\\button-hover")
+            content.Sprite(os.path.join("UI", "button-hover"))
 
         )
 
         optionButtonHover = elements.photo(
             v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 190 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
             v.mult(buttonSize, 1.2), 
-            content.Sprite("UI\\button-hover")
+            content.Sprite(os.path.join("UI", "button-hover"))
         )
 
         optionButton = elements.photo(
             v.Vector(buttonX, buttonY + 190),
             buttonSize,
-            content.Sprite("UI\\button")
+            content.Sprite(os.path.join("UI", "button"))
         )
 
         exitButtonNorm = elements.photo(
             v.Vector(buttonX, buttonY + 390),
             buttonSize,
-            content.Sprite("UI\\button")
+            content.Sprite(os.path.join("UI", "button"))
         )
 
         exitButtonHover = elements.photo(
             v.Vector(center.x - (buttonSize.x * hoverScale / 2), buttonY + 390 - ((buttonSize.y * hoverScale - buttonSize.y) / 2)),
             v.mult(buttonSize, 1.2), 
-            content.Sprite("UI\\button-hover")
+            content.Sprite(os.path.join("UI", "button-hover"))
         )
 
         startButton = elements.button(v.Vector(buttonX, buttonY), buttonSize, self.startButtonFunc, startButtonNorm, startButtonHover)
@@ -104,7 +105,7 @@ class mainMenu:
         self.background = elements.photo(
             v.Vector(0, 0),
             v.Vector(c.SCREEN_WIDTH, c.SCREEN_HEIGHT),
-            content.Sprite("UI\\mainMenubg")
+            content.Sprite(os.path.join("UI", "mainMenubg"))
         )
 
         self.mainButtons = elements.group([

@@ -32,7 +32,7 @@ class modLauncher:
 
                 try:
 
-                    f = open(cDir + "\\mod.json")
+                    f = open(os.path.join(cDir, "mod.json"))
                     self.modPaths.append(cDir)
 
                 except:
@@ -57,19 +57,19 @@ class modLauncher:
 
             pathName = os.path.basename(x)
 
-            if os.path.exists(x + "\\override"):
+            if os.path.exists(os.path.join(x, "override")):
 
                 # Text
-                if os.path.exists(x + "\\override\\titleText.txt"):
-                    self.content.textBase["title"] = x + "\\override\\titleText.txt"
+                if os.path.exists(os.path.join(x, "override", "titleText.txt")):
+                    self.content.textBase["title"] = os.path.join(x, "override", "titleText.txt")
 
-                if (os.path.exists(x + "\\override\\language")):
+                if (os.path.exists(os.path.join(x, "override", "language"))):
 
-                    cdir = x + "\\override\\language"
+                    cdir = os.path.join(x, "override", "language")
 
                     for i in os.listdir(cdir):
 
-                        cF = cdir + "\\" + i
+                        cF = os.path.join(cdir, i)
 
                         with open(cF) as f:
 
@@ -88,23 +88,23 @@ class modLauncher:
 
                 # Sprites
                 
-                if os.path.exists(x + "\\override\\icon.png"):
+                if os.path.exists(os.path.join(x, "override", "icon.png")):
                     
-                    self.content.spriteBase["icon"] = pygame.image.load(x + "\\override\\icon.png")
+                    self.content.spriteBase["icon"] = pygame.image.load(os.path.join(x, "override", "icon.png"))
 
-                if (os.path.exists(x + "\\override\\picture")):
+                if (os.path.exists(os.path.join(x, "override", "picture"))):
 
-                    cdir = x + "\\override\\picture"
+                    cdir = os.path.join(x, "override", "picture")
 
                     for root, dirs, files in os.walk(cdir):
 
                         for file in files:
 
-                            cF = root + "\\" + file
+                            cF = os.path.join(root, file)
 
-                            identifier = root + "\\" + os.path.splitext(file)[0]
+                            identifier = os.path.join(root, os.path.splitext(file)[0])
 
-                            identifier = identifier.replace(cdir + "\\", "")
+                            identifier = identifier.replace(os.path.join(cdir, ""), "")
 
                             l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
 

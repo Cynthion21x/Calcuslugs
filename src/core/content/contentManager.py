@@ -21,11 +21,11 @@ class Content:
 
     def loadText(self):
 
-        self.textBase["title"] = c.ASSETS_PATH + "\\titleText.txt"
+        self.textBase["title"] = os.path.join(c.ASSETS_PATH, "titleText.txt")
 
-        for i in os.listdir(c.ASSETS_PATH + "\\language"):
+        for i in os.listdir(os.path.join(c.ASSETS_PATH, "language")):
 
-            cDir = c.ASSETS_PATH + "\\language\\" + i
+            cDir = os.path.join(c.ASSETS_PATH, "language", i)
 
             with open(cDir) as f:
 
@@ -44,19 +44,19 @@ class Content:
     def loadSprites(self):
 
         try:
-            self.spriteBase["icon"] = pygame.image.load(c.ASSETS_PATH + "\\icon.png").convert_alpha()
+            self.spriteBase["icon"] = pygame.image.load(os.path.join(c.ASSETS_PATH, "icon.png")).convert_alpha()
         except:
             l.Logger.log("Failed to load icon")
 
-        for root, dirs, files in os.walk(c.ASSETS_PATH + "\\picture"):
+        for root, dirs, files in os.walk(os.path.join(c.ASSETS_PATH, "picture")):
             
             for file in files:
 
-                cDir = root + "\\" + file
+                cDir = os.path.join(root, file)
 
-                identifier = root + "\\" + os.path.splitext(file)[0]
+                identifier = os.path.join(root, os.path.splitext(file)[0])
 
-                identifier = identifier.replace(c.ASSETS_PATH + "\\picture\\", "")
+                identifier = identifier.replace(os.path.join(c.ASSETS_PATH, "picture", ""), "")
 
                 ending = os.path.splitext(file)[1]
 
@@ -76,15 +76,15 @@ class Content:
 
         pygame.font.init()
 
-        for root, dirs, files in os.walk(c.ASSETS_PATH + "\\fonts"):
+        for root, dirs, files in os.walk(os.path.join(c.ASSETS_PATH, "fonts")):
                     
             for file in files:
 
-                cDir = root + "\\" + file
+                cDir = os.path.join(root, file)
 
-                identifier = root + "\\" + os.path.splitext(file)[0]
+                identifier = os.path.join(root, os.path.splitext(file)[0])
 
-                identifier = identifier.replace(c.ASSETS_PATH + "\\fonts\\", "")
+                identifier = identifier.replace(os.path.join(c.ASSETS_PATH, "fonts", ""), "")
 
                 l.Logger.log("Loading", identifier + os.path.splitext(file)[1])
 
@@ -100,9 +100,9 @@ class Content:
 
         l.Logger.log("Loading Guns...")
 
-        for i in os.listdir(c.ASSETS_PATH + "\\guns"):
+        for i in os.listdir(os.path.join(c.ASSETS_PATH, "guns")):
 
-            cDir = c.ASSETS_PATH + "\\guns\\" + i
+            cDir = os.path.join(c.ASSETS_PATH, "guns", i)
 
             with open(cDir) as f:
 
@@ -123,9 +123,9 @@ class Content:
 
         l.Logger.log("Loading Slugs...")
 
-        for i in os.listdir(c.ASSETS_PATH + "\\slugs"):
+        for i in os.listdir(os.path.join(c.ASSETS_PATH, "slugs")):
 
-            cDir = c.ASSETS_PATH + "\\slugs\\" + i
+            cDir = os.path.join(c.ASSETS_PATH, "slugs", i)
 
             with open(cDir) as f:
 
