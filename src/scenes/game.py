@@ -97,7 +97,7 @@ class game:
 
     def shootGun(self):
 
-        l.Logger.log(self.activeSlug.)
+        l.Logger.log(self.activeSlug)
 
     def selectGun(self, id):
 
